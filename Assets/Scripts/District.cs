@@ -7,14 +7,17 @@ using UnityEngine;
 public class District : MonoBehaviour
 {
     [SerializeField]
-    private int number = 0;
+    private int _number = 0;
+    
     [SerializeReference]
-    private List<Building> buildings = null;
-    private Player owner = null;
+    private List<Building> _buildings = null;
+    
+    private Player _owner = null;
+    
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("District " + number);
+        Debug.Log("District " + _number);
     }
 
     // Update is called once per frame
@@ -25,13 +28,13 @@ public class District : MonoBehaviour
 
     private void OnMouseOver()
     {
-        Debug.Log("Mouse over District " + number);
+        Debug.Log("Mouse over District " + _number);
     }
 
     public String getBuildings()
     {
         String res = "";
-        foreach(Building building in buildings)
+        foreach(Building building in _buildings)
         {
             res += building.getName() + '\n';
         }
@@ -40,11 +43,27 @@ public class District : MonoBehaviour
 
     private void setOwner(Player newOwner)
     {
-        owner = newOwner;
+        _owner = newOwner;
     }
 
     public Player getOwner()
     {
-        return owner;
+        return _owner;
+    }
+
+    public void UpdateControlPoints(int amount, bool adding)
+    {
+        
+    }
+
+    public void UpdateInertiaPoints(int amount, bool adding)
+    {
+        
+    }
+
+    public void FireBuilding(String buildingName)
+    {
+        // update control points of the district
+        _buildings.RemoveAll(building => building.getName() == buildingName);
     }
 }

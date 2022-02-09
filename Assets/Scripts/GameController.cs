@@ -15,6 +15,9 @@ public class GameController : MonoBehaviour
     
     [SerializeField]
     private TextMeshProUGUI TurnNumber = null;
+
+    [SerializeReference] private EventController _eventController = null;
+    
     private District[] districts;
     private Player versaillais = null;
     private Player communard = null;
@@ -56,12 +59,13 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("Turn " + turn + "ended.");
         turn++;
-        if (turn == 72)
+        if (turn == 73)
             endGame();
         else
         {
             TurnNumber.text = "Turn " + turn;
             UpdateTextPlayerTurn();
+            _eventController.HandleEvents(turn);
         }
     }
 
