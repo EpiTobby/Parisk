@@ -1,4 +1,5 @@
 using System;
+using Parisk;
 using UnityEngine;
 
 
@@ -47,7 +48,7 @@ public class EventController : MonoBehaviour
 
     public void EventCouncilCityHall()
     {
-        _districts[3].UpdateControlPoints(5, true);
+        _districts[3].UpdateControlPointsOnEvent(Convert.ToInt32(EventCost.InstallCouncilCityHall), true);
     }
 
     public void EventRestrainPressFreedom()
@@ -55,31 +56,31 @@ public class EventController : MonoBehaviour
         foreach (District district in _districts)
         {
             if (district.getOwner() == null)
-                district.UpdateInertiaPoints(3, false);
+                district.UpdateInertiaPointsOnEvent(Convert.ToInt32(EventCost.RestrainPressFreedom), false);
         }
     }
 
     public void EventTakeDownStatue()
     {
-        _districts[0].FireBuilding("Vendome");
+        _districts[0].DestroyBuildingOnEvent("Vendome");
     }
 
     public void EventFirstFires()
     {
-        _districts[0].FireBuilding("Tuilerie");
-        _districts[0].FireBuilding("Louvre");
+        _districts[0].DestroyBuildingOnEvent("Tuilerie");
+        _districts[0].DestroyBuildingOnEvent("Louvre");
         
         int[] numberDistricts = new int[3]{3, 10, 11};
         foreach(var n in numberDistricts)
         {
-            _districts[n].FireBuilding("Bastille");
+            _districts[n].DestroyBuildingOnEvent("Bastille");
         }
     }
 
     public void EventSecondFires()
     {
-        _districts[7].FireBuilding("Rue Royale");
-        _districts[4].FireBuilding("Hotel de Ville"); 
+        _districts[7].DestroyBuildingOnEvent("Rue Royale");
+        _districts[3].DestroyBuildingOnEvent("Hotel de Ville"); 
     }
     
     
