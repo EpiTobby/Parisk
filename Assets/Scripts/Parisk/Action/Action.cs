@@ -1,3 +1,5 @@
+using DefaultNamespace;
+
 namespace Parisk.Action
 {
     public interface IAction
@@ -6,8 +8,8 @@ namespace Parisk.Action
 
         public string Description();
 
-        public bool CanExecute(Side side, District district);
+        public bool CanExecute(Player side, District district);
         
-        public void Execute(Side side, District district);
+        public void Execute(Player side, District district);
     }
 }
