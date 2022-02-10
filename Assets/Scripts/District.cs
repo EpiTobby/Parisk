@@ -92,17 +92,23 @@ public class District : MonoBehaviour
 
     public void UpdateControlPointsOnEvent(int amount, bool adding)
     {
+        if (_owner == null)
+            return;
+        
         _pointContainer.AddPointsTo(adding ? _owner.Side : _owner.Side.GetOpposite(), amount);
     }
 
     public void UpdateInertiaPointsOnEvent(int amount, bool adding)
     {
+        if (_owner == null)
+            return;
+
         _inertiaPoints = adding ? _inertiaPoints + amount : Math.Max(_inertiaPoints - amount, 0);
     }
 
     public void DestroyBuildingOnEvent(String buildingName)
     {
-        if (_owner.Side != Side.Communards)
+        if (_owner == null || _owner.Side != Side.Communards)
             return;
         
         _pointContainer.UpdatePointsOnDestroyBuildingEvent();

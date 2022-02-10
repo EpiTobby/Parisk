@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("Turn " + _turn + "ended.");
         _turn++;
-        if (_turn == 73)
+        if (_turn >= 73)
             endGame();
         else
         {
