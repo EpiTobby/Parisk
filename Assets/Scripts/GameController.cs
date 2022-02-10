@@ -24,10 +24,33 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject resultPanel = null;
     
-    private District[] districts;
+    private List<District> districts;
+    private List<List<int>> districtAdjLists = new List<List<int>>()
+    {
+        new List<int>{2,3,4,6,7,8},
+        new List<int>{1,3,8,9,10},
+        new List<int>{1,2,4,10,11,12},
+        new List<int>{1,3,5,6,11,12},
+        new List<int>{4,6,12,13,14},
+        new List<int>{1,4,5,7,14,15},
+        new List<int>{1,6,8,14,15,16},
+        new List<int>{1,2,6,7,8,9,16,17},
+        new List<int>{2,8,10,17,18},
+        new List<int>{2,3,9,11,18,19,20},
+        new List<int>{3,4,10,12,20},
+        new List<int>{4,5,11,13,20},
+        new List<int>{5,13,14},
+        new List<int>{5,6,13,15},
+        new List<int>{6,7,14,16},
+        new List<int>{7,8,15,17},
+        new List<int>{8,16,18},
+        new List<int>{9,10,17,19},
+        new List<int>{10,18,20},
+        new List<int>{11,12,19},
+    };
+
     private Player versaillais = null;
     private Player communard = null;
-    private ControlPointContainer _controlPointContainer;
 
     // Start is called before the first frame update
     void Start()
@@ -35,12 +58,24 @@ public class GameController : MonoBehaviour
         Debug.Log("Hello world!");
         versaillais = new Player(Side.Versaillais);
         communard = new Player(Side.Communards);
-        _controlPointContainer = ControlPointContainer.InitializeRandom();
-        GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
-        districts = objects.Select(obj => obj.GetComponent<District>()).ToArray();
+        initDistrict();
         UpdateTextPlayerTurn();
     }
 
+    void initDistrict()
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
+        districts = objects.Select(obj => obj.GetComponent<District>()).ToList();
+        districts = districts.OrderBy(district => district.getNumber()).ToList();
+        foreach (District district in districts)
+        {
+            foreach (int number in districtAdjLists[district.getNumber() - 1])
+            {
+                district.Adj.Add(districts[number]);
+            }
+        }
+    }
+    
     void UpdateTextPlayerTurn()
     {
         if (turn % 2 == 1)
@@ -62,6 +97,18 @@ public class GameController : MonoBehaviour
     {
         return districts.Where(district => player.Equals(district.getOwner())).ToArray();
     }
+    
+    void applyInfluence()
+    {
+        foreach (District district in districts){
+            foreach (District adj in district.Adj)
+            {
+                Debug.Log(district.getNumber().ToString() + " influences " + adj.getNumber());
+                adj.getPointController().AddPointsTo(district.getOwner().Side,2);
+            }
+        }
+    }
+
     void nextTurn()
     {
         Debug.Log("Turn " + turn + "ended.");
@@ -70,6 +117,7 @@ public class GameController : MonoBehaviour
             endGame();
         else
         {
+            applyInfluence();
             TurnNumber.text = "Turn " + turn;
             UpdateTextPlayerTurn();
         }

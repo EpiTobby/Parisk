@@ -13,6 +13,7 @@ public class District : MonoBehaviour
     private List<Building> buildings = null;
     private Player owner = null;
     private ControlPointContainer pointContainer = ControlPointContainer.InitializeRandom();
+    public List<District> Adj = new List<District>();
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +83,11 @@ public class District : MonoBehaviour
     public Player getOwner()
     {
         return owner;
+    }
+    
+    public int getNumber()
+    {
+        return number;
     }
 
     public ControlPointContainer getPointController()
