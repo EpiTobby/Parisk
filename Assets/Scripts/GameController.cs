@@ -23,7 +23,6 @@ public class GameController : MonoBehaviour
     private District[] districts;
     private Player versaillais = null;
     private Player communard = null;
-    private ControlPointContainer _controlPointContainer;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +30,6 @@ public class GameController : MonoBehaviour
         Debug.Log("Hello world!");
         versaillais = new Player(Side.Versaillais);
         communard = new Player(Side.Communards);
-        _controlPointContainer = ControlPointContainer.InitializeRandom();
         //
         /*GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         districts = objects.Select(obj => obj.GetComponent<District>()).ToArray();*/
