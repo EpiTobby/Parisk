@@ -7,6 +7,7 @@ using Parisk;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textResult = null;
     
+    [SerializeField]
+    private GameObject resultPanel = null;
+    
     private District[] districts;
     private Player versaillais = null;
     private Player communard = null;
@@ -32,9 +36,8 @@ public class GameController : MonoBehaviour
         versaillais = new Player(Side.Versaillais);
         communard = new Player(Side.Communards);
         _controlPointContainer = ControlPointContainer.InitializeRandom();
-        //
-        /*GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
-        districts = objects.Select(obj => obj.GetComponent<District>()).ToArray();*/
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
+        districts = objects.Select(obj => obj.GetComponent<District>()).ToArray();
         UpdateTextPlayerTurn();
     }
 
@@ -51,7 +54,6 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            Debug.Log("N key pressed");
             nextTurn();
         }
     }
@@ -91,7 +93,6 @@ public class GameController : MonoBehaviour
 
     void endGame()
     {
-        GameObject resultPanel = GameObject.Find("ResultPanel");
         resultPanel.SetActive(true);
         textResult.text = getResult();
     }
