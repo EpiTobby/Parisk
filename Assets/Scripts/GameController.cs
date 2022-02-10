@@ -7,6 +7,7 @@ using Parisk;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
@@ -26,6 +27,13 @@ public class GameController : MonoBehaviour
     private District[] _districts;
     private Player _versaillais = null;
     private Player _communard = null;
+    
+    [SerializeField]
+    private GameObject resultPanel = null;
+    
+    private District[] districts;
+    private Player versaillais = null;
+    private Player communard = null;
     private ControlPointContainer _controlPointContainer;
 
     // Start is called before the first frame update
@@ -35,9 +43,8 @@ public class GameController : MonoBehaviour
         _versaillais = new Player(Side.Versaillais);
         _communard = new Player(Side.Communards);
         _controlPointContainer = ControlPointContainer.InitializeRandom();
-        //
-        /*GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
-        districts = objects.Select(obj => obj.GetComponent<District>()).ToArray();*/
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
+        districts = objects.Select(obj => obj.GetComponent<District>()).ToArray();
         UpdateTextPlayerTurn();
     }
 
@@ -54,7 +61,6 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            Debug.Log("N key pressed");
             nextTurn();
         }
     }
@@ -95,7 +101,6 @@ public class GameController : MonoBehaviour
 
     void endGame()
     {
-        GameObject resultPanel = GameObject.Find("ResultPanel");
         resultPanel.SetActive(true);
         textResult.text = getResult();
     }
