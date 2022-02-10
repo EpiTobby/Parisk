@@ -71,4 +71,19 @@ public class GameController : MonoBehaviour
         GameObject resultPanel = GameObject.Find("ResultPanel");
         resultPanel.SetActive(true);
     }
+
+    public Player GetPlayer(Side side)
+    {
+        return side switch
+        {
+            Side.Communards => communard,
+            Side.Versaillais => versaillais,
+            _ => throw new ArgumentOutOfRangeException(nameof(side), side, null)
+        };
+    }
+
+    public static GameController Get()
+    {
+        return GameObject.FindWithTag("GameController").GetComponent<GameController>();
+    }
 }
