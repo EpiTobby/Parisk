@@ -7,9 +7,9 @@ using UnityEngine;
 public class District : MonoBehaviour
 {
     [SerializeField]
-    private int number;
+    private int number = 0;
     [SerializeReference]
-    private List<Building> buildings;
+    private List<Building> buildings = null;
     private Player owner = null;
     private ControlPointContainer pointContainer = ControlPointContainer.InitializeRandom();
 
