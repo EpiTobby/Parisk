@@ -67,19 +67,11 @@ public class EventController : MonoBehaviour
 
     public void EventFirstFires()
     {
-        _districts[0].DestroyBuildingOnEvent("Tuilerie");
-        _districts[0].DestroyBuildingOnEvent("Louvre");
-        
-        int[] numberDistricts = new int[3]{3, 10, 11};
-        foreach(var n in numberDistricts)
-        {
-            _districts[n].DestroyBuildingOnEvent("Bastille");
-        }
+        _districts[7].DestroyBuildingOnEvent("Rue Royale");
     }
 
     public void EventSecondFires()
     {
-        _districts[7].DestroyBuildingOnEvent("Rue Royale");
         _districts[3].DestroyBuildingOnEvent("Hotel de Ville"); 
     }
     
