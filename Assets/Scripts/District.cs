@@ -11,6 +11,8 @@ public class District : MonoBehaviour
     [SerializeReference]
     private List<Building> buildings = null;
     private Player owner = null;
+    private ControlPointContainer pointContainer = ControlPointContainer.InitializeRandom();
+
     // Start is called before the first frame update
     void Start()
     {

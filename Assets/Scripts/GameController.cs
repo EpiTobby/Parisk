@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
+using Parisk;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,8 +24,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Debug.Log("Hello world!");
-        versaillais = new Player(0, "Versaillais");
-        communard = new Player(0, "Communard");
+        versaillais = new Player(Side.Versaillais);
+        communard = new Player(Side.Communards);
         /*GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         districts = objects.Select(obj => obj.GetComponent<District>()).ToArray();*/
         UpdateTextPlayerTurn();
