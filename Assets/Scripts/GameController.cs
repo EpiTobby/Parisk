@@ -16,9 +16,14 @@ public class GameController : MonoBehaviour
     
     [SerializeField]
     private TextMeshProUGUI TurnNumber = null;
+    
+    [SerializeField]
+    private TextMeshProUGUI textResult = null;
+    
     private District[] districts;
     private Player versaillais = null;
     private Player communard = null;
+    private ControlPointContainer _controlPointContainer;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +31,8 @@ public class GameController : MonoBehaviour
         Debug.Log("Hello world!");
         versaillais = new Player(Side.Versaillais);
         communard = new Player(Side.Communards);
+        _controlPointContainer = ControlPointContainer.InitializeRandom();
+        //
         /*GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         districts = objects.Select(obj => obj.GetComponent<District>()).ToArray();*/
         UpdateTextPlayerTurn();
@@ -66,9 +73,26 @@ public class GameController : MonoBehaviour
         }
     }
 
+    String getResult()
+    {
+        int scoreVersaillais = 0;
+        int scoreCommunard = 0;
+        foreach (District district in districts)
+        {
+            scoreVersaillais += district.getPointController().GetPointsFor(versaillais.Side);
+            scoreCommunard += district.getPointController().GetPointsFor(communard.Side);
+        }
+        if (scoreCommunard != scoreVersaillais)
+        {
+            return scoreVersaillais > scoreCommunard ? "VERSAILLAIS WINS" : "COMMUNARD WINS";
+        }
+        return "IT'S A DRAW!";
+    }
+
     void endGame()
     {
         GameObject resultPanel = GameObject.Find("ResultPanel");
         resultPanel.SetActive(true);
+        textResult.text = getResult();
     }
 }

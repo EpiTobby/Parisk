@@ -6,7 +6,7 @@ namespace DefaultNamespace
 {
     public class Player
     {
-        private Side Side { get; }
+        public Side Side { get; }
 
         public Player(Side side)
         {

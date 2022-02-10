@@ -49,4 +49,9 @@ public class District : MonoBehaviour
     {
         return owner;
     }
+
+    public ControlPointContainer getPointController()
+    {
+        return pointContainer;
+    }
 }
