@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
+using Parisk;
 
 namespace DefaultNamespace
 {
     public class Player
     {
-        public int score;
-        private String name;
+        private Side Side { get; }
 
-        public Player(int score, String name)
+        public Player(Side side)
         {
-            this.score = score;
-            this.name = name;
+            Side = side;
         }
     }
 }

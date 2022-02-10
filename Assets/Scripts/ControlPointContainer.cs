@@ -34,7 +34,7 @@ public class ControlPointContainer
         amount = Math.Min(amount, 100 - _points[side]);
         _points[side] += amount;
 
-        Side adversary = side == Side.Communards ? Side.Versaillais : Side.Communards;
+        Side adversary = side.GetOpposite();
         switch (source)
         {
             case PointSource.Adversary:
