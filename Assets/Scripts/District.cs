@@ -5,7 +5,7 @@ using DefaultNamespace;
 using Parisk;
 using UnityEngine;
 
-public class District : MonoBehaviour
+public class District : MonoBehaviour, ColliderListener
 {
     [SerializeField]
     private int number = 0;
@@ -13,6 +13,13 @@ public class District : MonoBehaviour
     private List<Building> buildings = null;
     private Player owner = null;
     private ControlPointContainer pointContainer = ControlPointContainer.InitializeRandom();
+    [SerializeField] private Collider _collider;
+
+    private void Awake()
+    {
+        MeshCollider collider = GetComponentInChildren<MeshCollider>();
+        collider.gameObject.AddComponent<ColliderBridge>().Initialize(this);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -88,4 +95,63 @@ public class District : MonoBehaviour
     {
         return pointContainer;
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        
+    }
+
+    public void OnMouseEnter()
+    {
+        gameObject.transform.Translate(0, 0.3f, 0);
+    }
+
+    public void OnMouseExit()
+    {
+        gameObject.transform.Translate(0, -0.3f, 0);
+    }
+}
+
+class ColliderBridge : MonoBehaviour
+{
+    ColliderListener _listener;
+    public void Initialize(ColliderListener l)
+    {
+        _listener = l;
+    }
+
+    private void OnMouseEnter()
+    {
+        _listener.OnMouseEnter();
+    }
+
+    private void OnMouseExit()
+    {
+        _listener.OnMouseExit();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        _listener.OnCollisionEnter(collision);
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        _listener.OnCollisionExit(other);
+    }
+}
+
+interface ColliderListener
+{
+    public void OnCollisionEnter(Collision collision);
+    public void OnCollisionExit(Collision collision);
+
+    public void OnMouseEnter();
+
+    public void OnMouseExit();
 }

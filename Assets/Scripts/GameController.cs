@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
+using JetBrains.Annotations;
 using Parisk;
 using TMPro;
 using UnityEngine;
@@ -28,6 +29,7 @@ public class GameController : MonoBehaviour
     private Player versaillais = null;
     private Player communard = null;
     private ControlPointContainer _controlPointContainer;
+    [CanBeNull] public District SelectedDistrict { get; set; }
 
     // Start is called before the first frame update
     void Start()
