@@ -27,7 +27,7 @@ namespace Parisk.Action
         {
             int amountControl = Convert.ToInt32(ActionCost.CreateNewsPaperControl) * district.adj.Count;
             
-            district.getPointController().AddPointsTo(side.Side, amountControl);
+            district.GetPointController().AddPointsTo(side.Side, amountControl);
             district.UpdateInertiaPoints(Convert.ToInt32(ActionCost.CreateNewsPaperInertia), true);
         }
     }

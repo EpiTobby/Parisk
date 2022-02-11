@@ -9,17 +9,17 @@ namespace Parisk.Action
 
         public string Name()
         {
-            return "Envoyer un éclaireur";
+            return "Envoyer un ï¿½claireur";
         }
 
         public string Description()
         {
-            return "Permet de connaitre le nombre de points de contrôle d'un arrondissement. Envoyer un éclaireur donne " + Convert.ToInt32(ActionCost.SendScout) + " points de contrôle à l'adversaire.";
+            return "Permet de connaitre le nombre de points de contrï¿½le d'un arrondissement. Envoyer un ï¿½claireur donne " + Convert.ToInt32(ActionCost.SendScout) + " points de contrï¿½le ï¿½ l'adversaire.";
         }
 
         public bool CanExecute(Player side, District district)
         {
-            var currentPoints = district.getPointController().GetPointsFor(side.Side);
+            var currentPoints = district.GetPointController().GetPointsFor(side.Side);
             var requiredPoints = Convert.ToInt32(ActionCost.SendScout);
             return currentPoints >= requiredPoints;
         }
@@ -27,8 +27,8 @@ namespace Parisk.Action
         public void Execute(Player side, District district)
         {
             var amount = Convert.ToInt32(ActionCost.SendScout);
-            district.getPointController().RemovePointsTo(side.Side, amount);
-            _targetDistrict.getPointController().AddPointsTo(side.Side.GetOpposite(), amount, PointSource.Absenteeism);
+            district.GetPointController().RemovePointsTo(side.Side, amount);
+            _targetDistrict.GetPointController().AddPointsTo(side.Side.GetOpposite(), amount, PointSource.Absenteeism);
         }
 
         public bool SetupExecute(District targetedDistrict)

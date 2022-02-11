@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using Parisk;
+using Parisk.Action;
 using UnityEngine;
 
 public class District : MonoBehaviour
@@ -12,7 +13,7 @@ public class District : MonoBehaviour
     [SerializeReference]
     private List<Building> buildings = null;
     private Player _owner = null;
-    private ControlPointContainer _pointContainer = ControlPointContainer.InitializeRandom();
+    private readonly ControlPointContainer _pointContainer = ControlPointContainer.InitializeRandom();
     [SerializeField] private Collider _collider;
     private AnimationSelectionDirection _animationSelectionDirection;
     private int _inertiaPoints = 0;
@@ -22,10 +23,12 @@ public class District : MonoBehaviour
 
     private Election _nextElection;
 
+    private UniqueActionDistrict _uniqueActionDistrict;
+
     private void Awake()
     {
-        MeshCollider collider = GetComponentInChildren<MeshCollider>();
-        collider.gameObject.AddComponent<ColliderBridge>().Initialize(this);
+        MeshCollider meshCollider = GetComponentInChildren<MeshCollider>();
+        meshCollider.gameObject.AddComponent<ColliderBridge>().Initialize(this);
     }
 
     // Start is called before the first frame update
@@ -63,7 +66,7 @@ public class District : MonoBehaviour
         Debug.Log("Mouse over District " + number);
     }
 
-    public String getBuildings()
+    public String GetBuildings()
     {
         String res = "";
         foreach(Building building in buildings)
@@ -114,16 +117,28 @@ public class District : MonoBehaviour
         _owner = newOwner;
         if (_owner != null)
         {
+            if (_owner.Side == Side.Versaillais)
+                _uniqueActionDistrict = new ExecutePrisoners();
+            else
+                _uniqueActionDistrict = new DestroyBuilding();
+
             var materialComponent = boardObject.GetComponent<MeshRenderer>();
             materialComponent.GetComponent<Renderer>().material = _owner.Side == Side.Versaillais
                 ? Resources.Load("Materials/Blue", typeof(Material)) as Material
                 : Resources.Load("Materials/Red", typeof(Material)) as Material;
         }
+        else
+            _uniqueActionDistrict = null;
     }
 
     public Player GetOwner()
     {
         return _owner;
+    }
+
+    public UniqueActionDistrict GetUniqueActionDistrict()
+    {
+        return _uniqueActionDistrict;
     }
 
     public void UpdateControlPointsOnEvent(int amount, bool adding)
@@ -152,7 +167,7 @@ public class District : MonoBehaviour
         buildings.RemoveAll(building => building.getName() == buildingName);
     }
 
-    public ControlPointContainer getPointController()
+    public ControlPointContainer GetPointController()
     {
         return _pointContainer;
     }

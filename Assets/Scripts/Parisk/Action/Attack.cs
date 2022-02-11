@@ -12,7 +12,7 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "Attaquer l'adversaire et lui prendre entre " + Convert.ToInt32(ActionCost.AttackMin) + " à " + Convert.ToInt32(ActionCost.AttackMax) + " points de contrôle. Cette action a 20% de chance de rater.";
+            return "Attaquer l'adversaire et lui prendre entre " + Convert.ToInt32(ActionCost.AttackMin) + " ï¿½ " + Convert.ToInt32(ActionCost.AttackMax) + " points de contrï¿½le. Cette action a 20% de chance de rater.";
         }
 
         public bool CanExecute(Player side, District district)
@@ -23,7 +23,7 @@ namespace Parisk.Action
         public void Execute(Player side, District district)
         {
             var amount = new Random().Next(Convert.ToInt32(ActionCost.AttackMin), Convert.ToInt32(ActionCost.AttackMax));
-            district.getPointController().AddPointsTo(side.Side, amount, PointSource.Adversary);
+            district.GetPointController().AddPointsTo(side.Side, amount, PointSource.Adversary);
         }
     }
 }
