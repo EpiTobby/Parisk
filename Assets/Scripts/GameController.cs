@@ -36,6 +36,9 @@ public class GameController : MonoBehaviour
     private List<District> _districts;
     
     private IAction[] _actions;
+
+    [SerializeField]
+    private ActionScrollView _actionScrollView = null;
     
     // Start is called before the first frame update
     void Start()
@@ -55,6 +58,7 @@ public class GameController : MonoBehaviour
             new SendScout(),
             new DeployTroops(),
         };
+        _actionScrollView.createButtons(_actions);
         playerTurnText.text = "COMMUNARD";
     }
 
@@ -132,6 +136,7 @@ public class GameController : MonoBehaviour
     {
         if (_active.Side == Side.Versaillais)
         {
+            _active = _communard;
             playerTurnText.text = "COMMUNARD";
             nextTurn();
         }
@@ -152,7 +157,6 @@ public class GameController : MonoBehaviour
             turnNumber.text = "Turn " + _turn;
             ProcessOnGoingElections();
             applyInfluence();
-            _active = _communard;
             eventController.HandleEvents(_turn);
         }
     }
@@ -219,6 +223,11 @@ public class GameController : MonoBehaviour
     public int GetTurn()
     {
         return _turn;
+    } 
+    
+    public Player GetActive()
+    {
+        return _active;
     }
 
     public static GameController Get()
