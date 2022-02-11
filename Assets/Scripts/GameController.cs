@@ -47,7 +47,9 @@ public class GameController : MonoBehaviour
         initDistrict();
         _actions = new IAction[]
         {
-            new CreateNewspaper()
+            new CreateNewspaper(),
+            new SpeakerDebate(),
+            new ElectionAction(),
         };
         playerTurnText.text = "COMMUNARD";
     }
@@ -144,9 +146,21 @@ public class GameController : MonoBehaviour
         else
         {
             turnNumber.text = "Turn " + _turn;
+            ProcessOnGoingElections();
             applyInfluence();
             _active = _communard;
             eventController.HandleEvents(_turn);
+        }
+    }
+
+    private void ProcessOnGoingElections()
+    {
+        foreach (var district in _districts)
+        {
+            if (district.GetNextElection() != null && district.GetNextElection()!.GetTurn() == _turn)
+            {
+                district.DoElections();
+            }
         }
     }
 
@@ -196,6 +210,11 @@ public class GameController : MonoBehaviour
         }
         else
             _districtSelectionPanelController.Hide();
+    }
+
+    public int GetTurn()
+    {
+        return _turn;
     }
 
     public static GameController Get()
