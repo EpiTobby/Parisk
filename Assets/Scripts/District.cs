@@ -96,6 +96,16 @@ public class District : MonoBehaviour, ColliderListener
         return pointContainer;
     }
 
+    public void OnSelect()
+    {
+        
+    }
+
+    public void OnDeselect()
+    {
+        
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
         
@@ -114,6 +124,11 @@ public class District : MonoBehaviour, ColliderListener
     public void OnMouseExit()
     {
         gameObject.transform.Translate(0, -0.3f, 0);
+    }
+
+    public void OnMouseUpAsButton()
+    {
+        GameController.Get().SelectDistrict(this);
     }
 }
 
@@ -144,6 +159,11 @@ class ColliderBridge : MonoBehaviour
     {
         _listener.OnCollisionExit(other);
     }
+
+    private void OnMouseUpAsButton()
+    {
+        _listener.OnMouseUpAsButton();
+    }
 }
 
 interface ColliderListener
@@ -154,4 +174,5 @@ interface ColliderListener
     public void OnMouseEnter();
 
     public void OnMouseExit();
+    public void OnMouseUpAsButton();
 }

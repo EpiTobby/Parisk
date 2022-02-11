@@ -109,6 +109,15 @@ public class GameController : MonoBehaviour
         };
     }
 
+    public void SelectDistrict(District district)
+    {
+        if (SelectedDistrict != null)
+            SelectedDistrict.OnDeselect();
+        SelectedDistrict = district;
+        if (district != null)
+            district.OnSelect();
+    }
+
     public static GameController Get()
     {
         return GameObject.FindWithTag("GameController").GetComponent<GameController>();
