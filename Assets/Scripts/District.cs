@@ -10,10 +10,11 @@ public class District : MonoBehaviour
     private int number;
     [SerializeReference]
     private List<Building> buildings = null;
-    private Player owner = null;
-    private ControlPointContainer pointContainer = ControlPointContainer.InitializeRandom();
+    private Player _owner = null;
+    private ControlPointContainer _pointContainer = ControlPointContainer.InitializeRandom();
     [SerializeField] private Collider _collider;
     private AnimationSelectionDirection _animationSelectionDirection;
+    private int _inertiaPoints = 0;
 
     private void Awake()
     {
@@ -72,7 +73,7 @@ public class District : MonoBehaviour
     public ElectionsResult DoElections()
     {
         var result = PredictElections();
-        owner = result.Side == null 
+        _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
         return result;
@@ -83,35 +84,62 @@ public class District : MonoBehaviour
      */
     private ElectionsResult PredictElections()
     {
-        if (owner != null)
+        if (_owner != null)
         {
-            if (pointContainer.GetPointsFor(owner.Side) > pointContainer.GetPointsFor(owner.Side.GetOpposite()))
-                return new ElectionsResult(owner.Side, ElectionsResultType.Maintain);
+            if (_pointContainer.GetPointsFor(_owner.Side) > _pointContainer.GetPointsFor(_owner.Side.GetOpposite()))
+                return new ElectionsResult(_owner.Side, ElectionsResultType.Maintain);
         }
         Side winningSide;
-        if (pointContainer.GetPointsFor(Side.Communards) > 50)
+        if (_pointContainer.GetPointsFor(Side.Communards) > 50)
             winningSide = Side.Communards;
-        else if (pointContainer.GetPointsFor(Side.Versaillais) > 50)
+        else if (_pointContainer.GetPointsFor(Side.Versaillais) > 50)
             winningSide = Side.Versaillais;
         else
             return new ElectionsResult(null, ElectionsResultType.Draw);
 
-        return new ElectionsResult(winningSide, owner != null ? ElectionsResultType.Reversal : ElectionsResultType.Win);
+        return new ElectionsResult(winningSide, _owner != null ? ElectionsResultType.Reversal : ElectionsResultType.Win);
     }
 
     private void setOwner(Player newOwner)
     {
-        owner = newOwner;
+        _owner = newOwner;
     }
 
     public Player getOwner()
     {
-        return owner;
+        return _owner;
+    }
+
+
+    public void UpdateControlPointsOnEvent(int amount, bool adding)
+    {
+        if (_owner == null)
+            return;
+        
+        _pointContainer.AddPointsTo(adding ? _owner.Side : _owner.Side.GetOpposite(), amount);
+    }
+
+    public void UpdateInertiaPointsOnEvent(int amount, bool adding)
+    {
+        if (_owner == null)
+            return;
+
+        _inertiaPoints = adding ? _inertiaPoints + amount : Math.Max(_inertiaPoints - amount, 0);
+    }
+
+    public void DestroyBuildingOnEvent(String buildingName)
+    {
+        if (_owner == null || _owner.Side != Side.Communards)
+            return;
+        
+        _pointContainer.UpdatePointsOnDestroyBuildingEvent();
+
+        buildings.RemoveAll(building => building.getName() == buildingName);
     }
 
     public ControlPointContainer getPointController()
     {
-        return pointContainer;
+        return _pointContainer;
     }
 
     private void AnimateSelection(AnimationSelectionDirection direction)
