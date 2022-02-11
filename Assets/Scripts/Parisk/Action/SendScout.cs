@@ -5,6 +5,8 @@ namespace Parisk.Action
 {
     public class SendScout : IAction
     {
+        private District _targetDistrict = null;
+
         public string Name()
         {
             return "Envoyer un éclaireur";
@@ -26,8 +28,16 @@ namespace Parisk.Action
         {
             var amount = Convert.ToInt32(ActionCost.SendScout);
             district.getPointController().RemovePointsTo(side.Side, amount);
-            // TODO: add points to target district
-            // target.getPointController().AddPointsTo(side.Side.GetOpposite(), amount, PointSource.Absenteeism);
+            _targetDistrict.getPointController().AddPointsTo(side.Side.GetOpposite(), amount, PointSource.Absenteeism);
+        }
+
+        public bool SetupExecute(District targetedDistrict)
+        {
+            if (targetedDistrict == null)
+                return false;
+
+            _targetDistrict = targetedDistrict;
+            return true;
         }
     }
 }
