@@ -12,7 +12,9 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "Lancer un débat entre orateur pour gagner entre 5 et 25 points de contrôle.";
+            var min = Convert.ToInt32(ActionCost.DebateMin);
+            var max = Convert.ToInt32(ActionCost.DebateMax);
+            return "Lancer un débat entre orateur pour gagner entre " + min + " et " + max + " points de contrôle.";
         }
 
         public bool CanExecute(Player side, District district)
