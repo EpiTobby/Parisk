@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
@@ -28,6 +29,8 @@ public class GameController : MonoBehaviour
     
     [SerializeField]
     private GameObject resultPanel = null;
+
+    [SerializeField] private new GameObject light;
     
     private ControlPointContainer _controlPointContainer;
     [CanBeNull] public District SelectedDistrict { get; set; }
@@ -145,6 +148,7 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("Turn " + _turn + " ended.");
         _turn++;
+        StartCoroutine(AnimateLight());
         if (_turn >= 73)
             endGame();
         else
@@ -155,6 +159,21 @@ public class GameController : MonoBehaviour
             _active = _communard;
             eventController.HandleEvents(_turn);
         }
+    }
+
+    private IEnumerator AnimateLight()
+    {
+        var rigidBody = light.GetComponent<Rigidbody>();
+        rigidBody.AddForce(0, 0, 2000f);
+        Debug.Log(light.transform.position.z);
+        while (light.transform.position.z < 50)
+            yield return null;
+        rigidBody.transform.Translate(0, 0, -100f, Space.World);
+        rigidBody.AddForce(0, 0, 2000f);
+        while (light.transform.position.z < -7)
+            yield return null;
+        rigidBody.velocity = new Vector3(0, 0, 0);
+        rigidBody.transform.position = new Vector3(-5.4f, 17.76f, -7.13f);
     }
 
     private void ProcessOnGoingElections()
