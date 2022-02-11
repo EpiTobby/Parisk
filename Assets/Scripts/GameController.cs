@@ -24,40 +24,16 @@ public class GameController : MonoBehaviour
     private TextMeshProUGUI textResult = null;
     private Player _versaillais = null;
     private Player _communard = null;
+    private Player _active = null;
     
     [SerializeField]
     private GameObject resultPanel = null;
     
-    private Player versaillais = null;
-    private Player communard = null;
     private ControlPointContainer _controlPointContainer;
     [CanBeNull] public District SelectedDistrict { get; set; }
     [SerializeField] private DistrictSelectionPanelController _districtSelectionPanelController;
 
     private List<District> _districts;
-    private List<List<int>> districtAdjLists = new List<List<int>>()
-    {
-        new List<int>{2,3,4,6,7,8},
-        new List<int>{1,3,8,9,10},
-        new List<int>{1,2,4,10,11,12},
-        new List<int>{1,3,5,6,11,12},
-        new List<int>{4,6,12,13,14},
-        new List<int>{1,4,5,7,14,15},
-        new List<int>{1,6,8,14,15,16},
-        new List<int>{1,2,6,7,8,9,16,17},
-        new List<int>{2,8,10,17,18},
-        new List<int>{2,3,9,11,18,19,20},
-        new List<int>{3,4,10,12,20},
-        new List<int>{4,5,11,13,20},
-        new List<int>{5,13,14},
-        new List<int>{5,6,13,15},
-        new List<int>{6,7,14,16},
-        new List<int>{7,8,15,17},
-        new List<int>{8,16,18},
-        new List<int>{9,10,17,19},
-        new List<int>{10,18,20},
-        new List<int>{11,12,19},
-    };
     
     private IAction[] _actions;
     
@@ -67,12 +43,13 @@ public class GameController : MonoBehaviour
         Debug.Log("Hello world!");
         _versaillais = new Player(Side.Versaillais);
         _communard = new Player(Side.Communards);
+        _active = _communard;
         initDistrict();
-        UpdateTextPlayerTurn();
         _actions = new IAction[]
         {
             new CreateNewspaper()
         };
+        playerTurnText.text = "COMMUNARD";
     }
 
     void initDistrict()
@@ -84,14 +61,36 @@ public class GameController : MonoBehaviour
         _districts[15].SetOwner(_versaillais);
         _districts[17].SetOwner(_communard);
         _districts[18].SetOwner(_communard);
-    }
-    
-    void UpdateTextPlayerTurn()
-    {
-        if (_turn % 2 == 1)
-            playerTurnText.text = "Communard's Turn";
-        else
-            playerTurnText.text = "Versaillais's Turn";
+        List<List<int>> districtAdjLists = new List<List<int>>()
+        {
+            new List<int>{2,3,4,6,7,8},
+            new List<int>{1,3,8,9,10},
+            new List<int>{1,2,4,10,11,12},
+            new List<int>{1,3,5,6,11,12},
+            new List<int>{4,6,12,13,14},
+            new List<int>{1,4,5,7,14,15},
+            new List<int>{1,6,8,14,15,16},
+            new List<int>{1,2,6,7,8,9,16,17},
+            new List<int>{2,8,10,17,18},
+            new List<int>{2,3,9,11,18,19,20},
+            new List<int>{3,4,10,12,20},
+            new List<int>{4,5,11,13,20},
+            new List<int>{5,13,14},
+            new List<int>{5,6,13,15},
+            new List<int>{6,7,14,16},
+            new List<int>{7,8,15,17},
+            new List<int>{8,16,18},
+            new List<int>{9,10,17,19},
+            new List<int>{10,18,20},
+            new List<int>{11,12,19},
+        };
+        foreach (District district in _districts)
+        {
+            foreach (int adj in districtAdjLists[district.GetNumber() - 1])
+            {
+                district.adj.Add(_districts[adj - 1]);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -99,7 +98,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            nextTurn();
+            endActivePlayerTurn();
         }
     }
 
@@ -108,25 +107,34 @@ public class GameController : MonoBehaviour
         return _districts.Where(district => player.Equals(district.GetOwner())).ToArray();
     }
 
-    public List<int> getAdjListOfDistrict(int districtNumber)
-    {
-        return districtAdjLists[districtNumber];
-    }
-
     void applyInfluence()
     {
         foreach (District district in _districts)
         {
             if (district.GetOwner() == null)
                 continue;
-            foreach (int adj in districtAdjLists[district.GetNumber() - 1])
+
+            foreach (District adj in district.adj)
             {
-                Debug.Log(district.GetNumber().ToString() + " influences " + adj);
-                _districts[adj - 1].getPointController().AddPointsTo(district.GetOwner().Side,2);
+                Debug.Log(district.GetNumber() + " influences " + adj.GetNumber());
+                adj.getPointController().AddPointsTo(district.GetOwner().Side,2);
             }
         }
     }
 
+    void endActivePlayerTurn()
+    {
+        if (_active.Side == Side.Versaillais)
+        {
+            playerTurnText.text = "COMMUNARD";
+            nextTurn();
+        }
+        else
+        {
+            _active = _versaillais;
+            playerTurnText.text = "VERSAILLAIS";
+        }
+    }
     void nextTurn()
     {
         Debug.Log("Turn " + _turn + " ended.");
@@ -137,7 +145,7 @@ public class GameController : MonoBehaviour
         {
             turnNumber.text = "Turn " + _turn;
             applyInfluence();
-            UpdateTextPlayerTurn();
+            _active = _communard;
             eventController.HandleEvents(_turn);
         }
     }
@@ -160,6 +168,8 @@ public class GameController : MonoBehaviour
 
     void endGame()
     {
+        turnNumber.text = " ";
+        playerTurnText.text = " ";
         resultPanel.SetActive(true);
         textResult.text = getResult();
     }

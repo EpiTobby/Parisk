@@ -22,7 +22,7 @@ namespace Parisk.Action
 
         public void Execute(Player side, District district)
         {
-            int amountControl = Convert.ToInt32(ActionCost.CreateNewsPaperControl) * GameController.Get().getAdjListOfDistrict(district.GetNumber()).Count;
+            int amountControl = Convert.ToInt32(ActionCost.CreateNewsPaperControl) * district.adj.Count;
             
             district.getPointController().AddPointsTo(side.Side, amountControl);
             district.UpdateInertiaPoints(Convert.ToInt32(ActionCost.CreateNewsPaperInertia), true);

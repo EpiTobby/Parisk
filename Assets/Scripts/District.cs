@@ -16,6 +16,8 @@ public class District : MonoBehaviour
     private AnimationSelectionDirection _animationSelectionDirection;
     private int _inertiaPoints = 0;
     [SerializeField] private GameObject boardObject;
+    
+    public List<District> adj = new List<District>();
 
     private void Awake()
     {
