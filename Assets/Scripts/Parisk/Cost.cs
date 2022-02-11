@@ -6,7 +6,7 @@ namespace Parisk
         ExecutePrisoners = 30,
         DebateMin = 5,
         DebateMax = 25,
-        PressureOnElectedOfficials = 15,
+        PressureOnElected = 15,
         CreateNewsPaperControl = 2,
         CreateNewsPaperInertia = 5,
         SendScout = 5,

@@ -45,12 +45,13 @@ public class GameController : MonoBehaviour
         _communard = new Player(Side.Communards);
         _active = _communard;
         initDistrict();
-       
         _actions = new IAction[]
         {
-            new DeployTroops()
+            new CreateNewspaper(),
+            new SpeakerDebate(),
+            new ElectionAction(),
+            new DeployTroops(),
         };
-        
         playerTurnText.text = "COMMUNARD";
     }
 
@@ -58,7 +59,7 @@ public class GameController : MonoBehaviour
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         _districts = objects.Select(obj => obj.GetComponent<District>()).ToList();
-        _districts = _districts.OrderBy(district => district.getNumber()).ToList();
+        _districts = _districts.OrderBy(district => district.GetNumber()).ToList();
         _districts[14].SetOwner(_versaillais);
         _districts[15].SetOwner(_versaillais);
         _districts[17].SetOwner(_communard);
@@ -88,7 +89,7 @@ public class GameController : MonoBehaviour
         };
         foreach (District district in _districts)
         {
-            foreach (int adj in districtAdjLists[district.getNumber() - 1])
+            foreach (int adj in districtAdjLists[district.GetNumber() - 1])
             {
                 district.adj.Add(_districts[adj - 1]);
             }
@@ -108,16 +109,17 @@ public class GameController : MonoBehaviour
     {
         return _districts.Where(district => player.Equals(district.GetOwner())).ToArray();
     }
-    
+
     void applyInfluence()
     {
         foreach (District district in _districts)
         {
             if (district.GetOwner() == null)
                 continue;
+
             foreach (District adj in district.adj)
             {
-                Debug.Log(district.getNumber() + " influences " + adj.getNumber());
+                Debug.Log(district.GetNumber() + " influences " + adj.GetNumber());
                 adj.getPointController().AddPointsTo(district.GetOwner().Side,2);
             }
         }
@@ -145,9 +147,21 @@ public class GameController : MonoBehaviour
         else
         {
             turnNumber.text = "Turn " + _turn;
+            ProcessOnGoingElections();
             applyInfluence();
             _active = _communard;
             eventController.HandleEvents(_turn);
+        }
+    }
+
+    private void ProcessOnGoingElections()
+    {
+        foreach (var district in _districts)
+        {
+            if (district.GetNextElection() != null && district.GetNextElection()!.GetTurn() == _turn)
+            {
+                district.DoElections();
+            }
         }
     }
 
@@ -197,6 +211,11 @@ public class GameController : MonoBehaviour
         }
         else
             _districtSelectionPanelController.Hide();
+    }
+
+    public int GetTurn()
+    {
+        return _turn;
     }
 
     public static GameController Get()
