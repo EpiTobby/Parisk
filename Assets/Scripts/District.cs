@@ -14,6 +14,7 @@ public class District : MonoBehaviour, ColliderListener
     private Player owner = null;
     private ControlPointContainer pointContainer = ControlPointContainer.InitializeRandom();
     [SerializeField] private Collider _collider;
+    private AnimationSelectionDirection _animationSelectionDirection;
 
     private void Awake()
     {
@@ -30,7 +31,23 @@ public class District : MonoBehaviour, ColliderListener
     // Update is called once per frame
     void Update()
     {
-        
+        switch (_animationSelectionDirection)
+        {
+            case AnimationSelectionDirection.None:
+                break;
+            case AnimationSelectionDirection.Up:
+                gameObject.transform.Translate(0, 0.08f, 0);
+                if (gameObject.transform.position.y >= 0.3f)
+                    _animationSelectionDirection = AnimationSelectionDirection.None;
+                break;
+            case AnimationSelectionDirection.Down:
+                gameObject.transform.Translate(0, -0.08f, 0);
+                if (gameObject.transform.position.y <= -0.02461721f)
+                    _animationSelectionDirection = AnimationSelectionDirection.None;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private void OnMouseOver()
@@ -96,6 +113,11 @@ public class District : MonoBehaviour, ColliderListener
         return pointContainer;
     }
 
+    private void AnimateSelection(AnimationSelectionDirection direction)
+    {
+        _animationSelectionDirection = direction;
+    }
+
     public void OnSelect()
     {
         
@@ -118,12 +140,12 @@ public class District : MonoBehaviour, ColliderListener
 
     public void OnMouseEnter()
     {
-        gameObject.transform.Translate(0, 0.3f, 0);
+        AnimateSelection(AnimationSelectionDirection.Up);
     }
 
     public void OnMouseExit()
     {
-        gameObject.transform.Translate(0, -0.3f, 0);
+        AnimateSelection(AnimationSelectionDirection.Down);
     }
 
     public void OnMouseUpAsButton()
@@ -175,4 +197,11 @@ interface ColliderListener
 
     public void OnMouseExit();
     public void OnMouseUpAsButton();
+}
+
+enum AnimationSelectionDirection
+{
+    None,
+    Up,
+    Down,
 }
