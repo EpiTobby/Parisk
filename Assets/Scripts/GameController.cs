@@ -110,6 +110,10 @@ public class GameController : MonoBehaviour
         {
             endActivePlayerTurn();
         }
+        if (Input.GetKeyDown("e"))
+        {
+            endGame();
+        }
     }
 
     District[] getPlayerdistrict(Player player)

@@ -5,6 +5,7 @@ using DefaultNamespace;
 using Parisk.Action;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActionScrollView : MonoBehaviour
 {
@@ -47,7 +48,10 @@ public class ActionScrollView : MonoBehaviour
         foreach (var pair in ActionbuttonDictionary)
         {
             if (pair.Key.CanExecute(player, district))
+            {
                 pair.Value.SetActive(true);
+                pair.Value.GetComponent<Button>().onClick.AddListener(delegate { pair.Key.Execute(player,district); });
+            }
             else
                 pair.Value.SetActive(false);
         }
