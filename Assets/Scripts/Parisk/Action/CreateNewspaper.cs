@@ -12,7 +12,10 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "Créer un journal rapport +5 en inertie politique +2 points de controle par arrondissement adjacent controlé";
+            return "Créer un journal rapport: " 
+                   + Convert.ToInt32(ActionCost.CreateNewsPaperInertia) 
+                   + " en inertie politique " + Convert.ToInt32(ActionCost.CreateNewsPaperControl) 
+                   + " points de controle par arrondissement adjacent controlé";
         }
 
         public bool CanExecute(Player side, District district)
