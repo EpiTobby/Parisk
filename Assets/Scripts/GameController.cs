@@ -69,14 +69,17 @@ public class GameController : MonoBehaviour
         _communard = new Player(Side.Communards);
         initDistrict();
         UpdateTextPlayerTurn();
-        _actions = new IAction[0];
+        _actions = new IAction[]
+        {
+            new CreateNewspaper()
+        };
     }
 
     void initDistrict()
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         _districts = objects.Select(obj => obj.GetComponent<District>()).ToList();
-        _districts = _districts.OrderBy(district => district.getNumber()).ToList();
+        _districts = _districts.OrderBy(district => district.GetNumber()).ToList();
         _districts[14].SetOwner(_versaillais);
         _districts[15].SetOwner(_versaillais);
         _districts[17].SetOwner(_communard);
@@ -104,16 +107,21 @@ public class GameController : MonoBehaviour
     {
         return _districts.Where(district => player.Equals(district.GetOwner())).ToArray();
     }
-    
+
+    public List<int> getAdjListOfDistrict(int districtNumber)
+    {
+        return districtAdjLists[districtNumber];
+    }
+
     void applyInfluence()
     {
         foreach (District district in _districts)
         {
             if (district.GetOwner() == null)
                 continue;
-            foreach (int adj in districtAdjLists[district.getNumber() - 1])
+            foreach (int adj in districtAdjLists[district.GetNumber() - 1])
             {
-                Debug.Log(district.getNumber().ToString() + " influences " + adj);
+                Debug.Log(district.GetNumber().ToString() + " influences " + adj);
                 _districts[adj - 1].getPointController().AddPointsTo(district.GetOwner().Side,2);
             }
         }

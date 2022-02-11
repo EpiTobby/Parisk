@@ -126,7 +126,7 @@ public class District : MonoBehaviour
         _pointContainer.AddPointsTo(adding ? _owner.Side : _owner.Side.GetOpposite(), amount);
     }
 
-    public void UpdateInertiaPointsOnEvent(int amount, bool adding)
+    public void UpdateInertiaPoints(int amount, bool adding)
     {
         if (_owner == null)
             return;
@@ -142,11 +142,6 @@ public class District : MonoBehaviour
         _pointContainer.UpdatePointsOnDestroyBuildingEvent();
 
         buildings.RemoveAll(building => building.getName() == buildingName);
-    }
-    
-    public int getNumber()
-    {
-        return number;
     }
 
     public ControlPointContainer getPointController()
