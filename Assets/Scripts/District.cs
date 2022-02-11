@@ -5,7 +5,7 @@ using DefaultNamespace;
 using Parisk;
 using UnityEngine;
 
-public class District : MonoBehaviour, ColliderListener
+public class District : MonoBehaviour
 {
     [SerializeField]
     private int number = 0;
@@ -128,16 +128,6 @@ public class District : MonoBehaviour, ColliderListener
         
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        
-    }
-
-    public void OnCollisionExit(Collision collision)
-    {
-        
-    }
-
     public void OnMouseEnter()
     {
         AnimateSelection(AnimationSelectionDirection.Up);
@@ -156,8 +146,8 @@ public class District : MonoBehaviour, ColliderListener
 
 class ColliderBridge : MonoBehaviour
 {
-    ColliderListener _listener;
-    public void Initialize(ColliderListener l)
+    District _listener;
+    public void Initialize(District l)
     {
         _listener = l;
     }
@@ -172,31 +162,10 @@ class ColliderBridge : MonoBehaviour
         _listener.OnMouseExit();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        _listener.OnCollisionEnter(collision);
-    }
-
-    private void OnCollisionExit(Collision other)
-    {
-        _listener.OnCollisionExit(other);
-    }
-
     private void OnMouseUpAsButton()
     {
         _listener.OnMouseUpAsButton();
     }
-}
-
-interface ColliderListener
-{
-    public void OnCollisionEnter(Collision collision);
-    public void OnCollisionExit(Collision collision);
-
-    public void OnMouseEnter();
-
-    public void OnMouseExit();
-    public void OnMouseUpAsButton();
 }
 
 enum AnimationSelectionDirection
