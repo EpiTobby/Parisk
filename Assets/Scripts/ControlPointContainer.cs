@@ -57,4 +57,11 @@ public class ControlPointContainer
                 throw new Exception();
         }
     }
+
+    public void UpdatePointsOnDestroyBuildingEvent()
+    {
+        _points[Side.Versaillais] =
+            Math.Max(_points[Side.Versaillais] - Convert.ToInt32(EventCost.DestroyBuildingOnEvent), 0);
+    }
+}
 }
