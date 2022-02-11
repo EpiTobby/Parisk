@@ -30,7 +30,7 @@ namespace Parisk.Action
         public void Execute(Player side, District selectedDistrict)
         {
             _targetDistrict.getPointController().AddPointsTo(side.Side, _numberOfTroops);
-            selectedDistrict.getPointController().TransferHalfPointFrom(side.Side, _numberOfTroops);
+            selectedDistrict.getPointController().RemovePointsTo(side.Side, _numberOfTroops);
         }
 
         public void SetupExecute(int amount, District targetedDistrict)
