@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
 using Parisk;
+using Parisk.Action;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,18 +35,18 @@ public class GameController : MonoBehaviour
     private District[] districts;
     private Player versaillais = null;
     private Player communard = null;
-    private ControlPointContainer _controlPointContainer;
-
+    private IAction[] _actions;
+    
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Hello world!");
-        _versaillais = new Player(Side.Versaillais);
-        _communard = new Player(Side.Communards);
-        _controlPointContainer = ControlPointContainer.InitializeRandom();
+        versaillais = new Player(Side.Versaillais);
+        communard = new Player(Side.Communards);
         GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         districts = objects.Select(obj => obj.GetComponent<District>()).ToArray();
         UpdateTextPlayerTurn();
+        _actions = new IAction[0];
     }
 
     void UpdateTextPlayerTurn()
