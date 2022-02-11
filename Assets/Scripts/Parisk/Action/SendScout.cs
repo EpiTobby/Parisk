@@ -20,7 +20,7 @@ namespace Parisk.Action
         public bool CanExecute(Player side, District district)
         {
             var currentPoints = district.getPointController().GetPointsFor(side.Side);
-            var requiredPoints = Convert.ToInt32(ActionCost.PressureOnElected);
+            var requiredPoints = Convert.ToInt32(ActionCost.SendScout);
             return currentPoints >= requiredPoints;
         }
 
