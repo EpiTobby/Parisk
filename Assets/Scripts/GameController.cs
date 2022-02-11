@@ -54,6 +54,7 @@ public class GameController : MonoBehaviour
             new PressureOnElected(),
             new SendScout(),
             new DeployTroops(),
+            new RigElection(),
         };
         playerTurnText.text = "COMMUNARD";
     }
