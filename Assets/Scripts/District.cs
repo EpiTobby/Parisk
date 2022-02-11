@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using JetBrains.Annotations;
 using Parisk;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ public class District : MonoBehaviour
     [SerializeField] private GameObject boardObject;
     
     public List<District> adj = new List<District>();
+
+    private Election _nextElection;
 
     private void Awake()
     {
@@ -75,10 +78,13 @@ public class District : MonoBehaviour
      */
     public ElectionsResult DoElections()
     {
+        if (_nextElection == null)
+            throw new Exception("No election in this district");
         var result = PredictElections();
         _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
+        _nextElection = null;
         return result;
     }
 
@@ -190,6 +196,19 @@ public class District : MonoBehaviour
     public int GetNumber()
     {
         return number;
+    }
+
+    public void StartElections()
+    {
+        if (_nextElection != null)
+            throw new Exception("Elections already in progress in district " + number);
+        _nextElection = new Election(GameController.Get().GetTurn() + 1);
+    }
+
+    [CanBeNull]
+    public Election GetNextElection()
+    {
+        return _nextElection;
     }
 }
 
