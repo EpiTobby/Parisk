@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using Parisk;
@@ -8,7 +7,7 @@ using UnityEngine;
 public class District : MonoBehaviour
 {
     [SerializeField]
-    private int number = 0;
+    private int number;
     [SerializeReference]
     private List<Building> buildings = null;
     private Player owner = null;
@@ -144,6 +143,11 @@ public class District : MonoBehaviour
     public void OnMouseUpAsButton()
     {
         GameController.Get().SelectDistrict(this);
+    }
+
+    public int GetNumber()
+    {
+        return number;
     }
 }
 

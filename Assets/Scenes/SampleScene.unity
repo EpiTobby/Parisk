@@ -329,7 +329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &216410460
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1629,6 +1629,7 @@ MonoBehaviour:
   TurnNumber: {fileID: 532706334}
   textResult: {fileID: 1473666678}
   resultPanel: {fileID: 1070373146}
+  _districtSelectionPanelController: {fileID: 216410461}
 --- !u!114 &1030975750
 MonoBehaviour:
   m_ObjectHideFlags: 0

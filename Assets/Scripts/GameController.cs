@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using Parisk;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
@@ -30,6 +26,7 @@ public class GameController : MonoBehaviour
     private Player communard = null;
     private ControlPointContainer _controlPointContainer;
     [CanBeNull] public District SelectedDistrict { get; set; }
+    [SerializeField] private DistrictSelectionPanelController _districtSelectionPanelController;
 
     // Start is called before the first frame update
     void Start()
@@ -115,7 +112,12 @@ public class GameController : MonoBehaviour
             SelectedDistrict.OnDeselect();
         SelectedDistrict = district;
         if (district != null)
+        {
             district.OnSelect();
+            _districtSelectionPanelController.Initialize(district);
+        }
+        else
+            _districtSelectionPanelController.Hide();
     }
 
     public static GameController Get()
