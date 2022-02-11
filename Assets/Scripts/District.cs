@@ -36,14 +36,16 @@ public class District : MonoBehaviour
             case AnimationSelectionDirection.None:
                 break;
             case AnimationSelectionDirection.Up:
-                gameObject.transform.Translate(0, 0.08f, 0);
                 if (gameObject.transform.position.y >= 0.3f)
                     _animationSelectionDirection = AnimationSelectionDirection.None;
+                else
+                    gameObject.transform.Translate(0, 0.08f, 0);
                 break;
             case AnimationSelectionDirection.Down:
-                gameObject.transform.Translate(0, -0.08f, 0);
                 if (gameObject.transform.position.y <= -0.02461721f)
                     _animationSelectionDirection = AnimationSelectionDirection.None;
+                else
+                    gameObject.transform.Translate(0, -0.08f, 0);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -120,12 +122,12 @@ public class District : MonoBehaviour
 
     public void OnSelect()
     {
-        
+        AnimateSelection(AnimationSelectionDirection.Up);
     }
 
     public void OnDeselect()
     {
-        
+        AnimateSelection(AnimationSelectionDirection.Down);
     }
 
     public void OnMouseEnter()
@@ -135,7 +137,8 @@ public class District : MonoBehaviour
 
     public void OnMouseExit()
     {
-        AnimateSelection(AnimationSelectionDirection.Down);
+        if (GameController.Get().SelectedDistrict != this)
+            AnimateSelection(AnimationSelectionDirection.Down);
     }
 
     public void OnMouseUpAsButton()
