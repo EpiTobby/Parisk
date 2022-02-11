@@ -49,6 +49,9 @@ public class GameController : MonoBehaviour
         {
             new SpeakerDebate(),
             new ElectionAction(),
+            new Attack(),
+            new PressureOnElected(),
+            new SendScout(),
         };
         playerTurnText.text = "COMMUNARD";
     }
