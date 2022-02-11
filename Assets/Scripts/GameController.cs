@@ -183,6 +183,11 @@ public class GameController : MonoBehaviour
             _districtSelectionPanelController.Hide();
     }
 
+    public int GetTurn()
+    {
+        return _turn;
+    }
+
     public static GameController Get()
     {
         return GameObject.FindWithTag("GameController").GetComponent<GameController>();

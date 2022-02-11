@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using JetBrains.Annotations;
 using Parisk;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class District : MonoBehaviour
     private AnimationSelectionDirection _animationSelectionDirection;
     private int _inertiaPoints = 0;
     [SerializeField] private GameObject boardObject;
+
+    private Election _nextElection;
 
     private void Awake()
     {
@@ -188,6 +191,19 @@ public class District : MonoBehaviour
     public int GetNumber()
     {
         return number;
+    }
+
+    public void StartElections()
+    {
+        if (_nextElection != null)
+            throw new Exception("Elections already in progress in district " + number);
+        _nextElection = new Election(GameController.Get().GetTurn() + 1);
+    }
+
+    [CanBeNull]
+    public Election GetNextElection()
+    {
+        return _nextElection;
     }
 }
 
