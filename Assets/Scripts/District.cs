@@ -107,9 +107,9 @@ public class District : MonoBehaviour
         if (_owner != null)
         {
             var materialComponent = boardObject.GetComponent<MeshRenderer>();
-            materialComponent.materials[0] = _owner.Side == Side.Versaillais
-                ? Resources.Load("Blue", typeof(Material)) as Material
-                : Resources.Load("Red", typeof(Material)) as Material;
+            materialComponent.GetComponent<Renderer>().material = _owner.Side == Side.Versaillais
+                ? Resources.Load("Materials/Blue", typeof(Material)) as Material
+                : Resources.Load("Materials/Red", typeof(Material)) as Material;
         }
     }
 
