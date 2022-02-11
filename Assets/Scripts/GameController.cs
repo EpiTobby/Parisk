@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
 using Parisk;
+using Parisk.Action;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -58,7 +59,8 @@ public class GameController : MonoBehaviour
 
     private Player versaillais = null;
     private Player communard = null;
-
+    private IAction[] _actions;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +69,7 @@ public class GameController : MonoBehaviour
         communard = new Player(Side.Communards);
         initDistrict();
         UpdateTextPlayerTurn();
+        _actions = new IAction[0];
     }
 
     void initDistrict()
