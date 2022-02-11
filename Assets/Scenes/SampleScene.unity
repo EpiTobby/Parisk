@@ -178,6 +178,7 @@ MonoBehaviour:
   number: 12
   buildings: []
   _collider: {fileID: 8619484435134989069}
+  boardObject: {fileID: 8619484435134989068}
 --- !u!1 &102598779
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,6 +877,7 @@ MonoBehaviour:
   number: 4
   buildings: []
   _collider: {fileID: 4325583035347573333}
+  boardObject: {fileID: 4325583035347573332}
 --- !u!1 &693527859
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,6 +927,7 @@ MonoBehaviour:
   number: 16
   buildings: []
   _collider: {fileID: 1206772482498146202}
+  boardObject: {fileID: 1206772482498146201}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,6 +1132,7 @@ MonoBehaviour:
   number: 20
   buildings: []
   _collider: {fileID: 3548203709202747463}
+  boardObject: {fileID: 3548203709202747462}
 --- !u!1 &928602151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1186,7 @@ MonoBehaviour:
   number: 13
   buildings: []
   _collider: {fileID: 8729641182206515539}
+  boardObject: {fileID: 8729641182206515538}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,7 +1631,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTurnText: {fileID: 225949258}
-  TurnNumber: {fileID: 532706334}
+  turnNumber: {fileID: 0}
+  eventController: {fileID: 0}
   textResult: {fileID: 1473666678}
   resultPanel: {fileID: 1070373146}
   _districtSelectionPanelController: {fileID: 216410461}
@@ -1811,6 +1817,7 @@ MonoBehaviour:
   number: 9
   buildings: []
   _collider: {fileID: 4953176071727978383}
+  boardObject: {fileID: 4953176071727978382}
 --- !u!1 &1349666144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,6 +1868,7 @@ MonoBehaviour:
   number: 2
   buildings: []
   _collider: {fileID: 3645980659790600892}
+  boardObject: {fileID: 3645980659790600891}
 --- !u!1 &1473666676
 GameObject:
   m_ObjectHideFlags: 0
@@ -2048,6 +2056,7 @@ MonoBehaviour:
   number: 8
   buildings: []
   _collider: {fileID: 896158395303039708}
+  boardObject: {fileID: 896158395303039707}
 --- !u!1 &1542859747
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,6 +2111,7 @@ MonoBehaviour:
   number: 15
   buildings: []
   _collider: {fileID: 5197980906312971773}
+  boardObject: {fileID: 5197980906312971772}
 --- !u!1 &1557862090
 GameObject:
   m_ObjectHideFlags: 0
@@ -2151,6 +2161,7 @@ MonoBehaviour:
   number: 1
   buildings: []
   _collider: {fileID: 5907836877349085082}
+  boardObject: {fileID: 5907836877349085081}
 --- !u!1 &1671985479
 GameObject:
   m_ObjectHideFlags: 0
@@ -2333,6 +2344,7 @@ MonoBehaviour:
   number: 18
   buildings: []
   _collider: {fileID: 8364867881462646954}
+  boardObject: {fileID: 8364867881462646953}
 --- !u!1 &1825901581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,6 +2398,7 @@ MonoBehaviour:
   number: 7
   buildings: []
   _collider: {fileID: 5927250842830161885}
+  boardObject: {fileID: 5927250842830161884}
 --- !u!1 &1831039295
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,6 +2448,7 @@ MonoBehaviour:
   number: 10
   buildings: []
   _collider: {fileID: 2416441693577846993}
+  boardObject: {fileID: 2416441693577846992}
 --- !u!1 &1875859869
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,6 +2499,7 @@ MonoBehaviour:
   number: 3
   buildings: []
   _collider: {fileID: 9035333920693981972}
+  boardObject: {fileID: 9035333920693981971}
 --- !u!1 &1918197968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,6 +2551,7 @@ MonoBehaviour:
   number: 5
   buildings: []
   _collider: {fileID: 402927480594130104}
+  boardObject: {fileID: 402927480594130103}
 --- !u!1 &1947210773
 GameObject:
   m_ObjectHideFlags: 0
@@ -2667,6 +2683,7 @@ MonoBehaviour:
   number: 17
   buildings: []
   _collider: {fileID: 7750435666835066916}
+  boardObject: {fileID: 7750435666835066915}
 --- !u!1 &2001006341
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,6 +2733,7 @@ MonoBehaviour:
   number: 11
   buildings: []
   _collider: {fileID: 675452406724079495}
+  boardObject: {fileID: 675452406724079494}
 --- !u!1 &2075037943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,6 +2784,7 @@ MonoBehaviour:
   number: 6
   buildings: []
   _collider: {fileID: 7953422059839510497}
+  boardObject: {fileID: 7953422059839510496}
 --- !u!1 &2096468373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2815,6 +2834,7 @@ MonoBehaviour:
   number: 14
   buildings: []
   _collider: {fileID: 6091149152345663944}
+  boardObject: {fileID: 6091149152345663943}
 --- !u!1 &2147231725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2873,6 +2893,7 @@ MonoBehaviour:
   number: 19
   buildings: []
   _collider: {fileID: 3844934205131074579}
+  boardObject: {fileID: 3844934205131074578}
 --- !u!33 &19156296790642346
 MeshFilter:
   m_ObjectHideFlags: 0

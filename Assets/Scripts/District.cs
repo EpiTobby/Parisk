@@ -15,6 +15,7 @@ public class District : MonoBehaviour
     [SerializeField] private Collider _collider;
     private AnimationSelectionDirection _animationSelectionDirection;
     private int _inertiaPoints = 0;
+    [SerializeField] private GameObject boardObject;
 
     private void Awake()
     {
@@ -103,6 +104,13 @@ public class District : MonoBehaviour
     private void setOwner(Player newOwner)
     {
         _owner = newOwner;
+        if (_owner != null)
+        {
+            var materialComponent = boardObject.GetComponent<MeshRenderer>();
+            materialComponent.materials[0] = _owner.Side == Side.Versaillais
+                ? Resources.Load("Blue", typeof(Material)) as Material
+                : Resources.Load("Red", typeof(Material)) as Material;
+        }
     }
 
     public Player getOwner()
