@@ -17,8 +17,7 @@ namespace Parisk.Action
 
         public bool CanExecute(Player side, District district)
         {
-            // FIXME: return false if elections in this district
-            return true;
+            return district.GetNextElection() == null;
         }
 
         public void Execute(Player side, District district)
