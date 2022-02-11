@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using Parisk;
@@ -8,17 +7,22 @@ using UnityEngine;
 public class District : MonoBehaviour
 {
     [SerializeField]
-    private int number = 0;
-    
+    private int number;
     [SerializeReference]
     private List<Building> buildings = null;
-    
-    public Player owner = null;
-
-    private int _inertiaPoints = 0;
-    
+    private Player _owner = null;
     private ControlPointContainer _pointContainer = ControlPointContainer.InitializeRandom();
-    
+    [SerializeField] private Collider _collider;
+    private AnimationSelectionDirection _animationSelectionDirection;
+    private int _inertiaPoints = 0;
+    [SerializeField] private GameObject boardObject;
+
+    private void Awake()
+    {
+        MeshCollider collider = GetComponentInChildren<MeshCollider>();
+        collider.gameObject.AddComponent<ColliderBridge>().Initialize(this);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +32,25 @@ public class District : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        switch (_animationSelectionDirection)
+        {
+            case AnimationSelectionDirection.None:
+                break;
+            case AnimationSelectionDirection.Up:
+                if (gameObject.transform.position.y >= 0.3f)
+                    _animationSelectionDirection = AnimationSelectionDirection.None;
+                else
+                    gameObject.transform.Translate(0, 0.08f, 0);
+                break;
+            case AnimationSelectionDirection.Down:
+                if (gameObject.transform.position.y <= -0.02461721f)
+                    _animationSelectionDirection = AnimationSelectionDirection.None;
+                else
+                    gameObject.transform.Translate(0, -0.08f, 0);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private void OnMouseOver()
@@ -52,7 +74,7 @@ public class District : MonoBehaviour
     public ElectionsResult DoElections()
     {
         var result = PredictElections();
-        owner = result.Side == null 
+        _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
         return result;
@@ -63,10 +85,10 @@ public class District : MonoBehaviour
      */
     private ElectionsResult PredictElections()
     {
-        if (owner != null)
+        if (_owner != null)
         {
-            if (_pointContainer.GetPointsFor(owner.Side) > _pointContainer.GetPointsFor(owner.Side.GetOpposite()))
-                return new ElectionsResult(owner.Side, ElectionsResultType.Maintain);
+            if (_pointContainer.GetPointsFor(_owner.Side) > _pointContainer.GetPointsFor(_owner.Side.GetOpposite()))
+                return new ElectionsResult(_owner.Side, ElectionsResultType.Maintain);
         }
         Side winningSide;
         if (_pointContainer.GetPointsFor(Side.Communards) > 50)
@@ -76,20 +98,37 @@ public class District : MonoBehaviour
         else
             return new ElectionsResult(null, ElectionsResultType.Draw);
 
-        return new ElectionsResult(winningSide, owner != null ? ElectionsResultType.Reversal : ElectionsResultType.Win);
+        return new ElectionsResult(winningSide, _owner != null ? ElectionsResultType.Reversal : ElectionsResultType.Win);
+    }
+
+    public void SetOwner(Player newOwner)
+    {
+        _owner = newOwner;
+        if (_owner != null)
+        {
+            var materialComponent = boardObject.GetComponent<MeshRenderer>();
+            materialComponent.GetComponent<Renderer>().material = _owner.Side == Side.Versaillais
+                ? Resources.Load("Materials/Blue", typeof(Material)) as Material
+                : Resources.Load("Materials/Red", typeof(Material)) as Material;
+        }
+    }
+
+    public Player GetOwner()
+    {
+        return _owner;
     }
 
     public void UpdateControlPointsOnEvent(int amount, bool adding)
     {
-        if (owner == null)
+        if (_owner == null)
             return;
         
-        _pointContainer.AddPointsTo(adding ? owner.Side : owner.Side.GetOpposite(), amount);
+        _pointContainer.AddPointsTo(adding ? _owner.Side : _owner.Side.GetOpposite(), amount);
     }
 
     public void UpdateInertiaPointsOnEvent(int amount, bool adding)
     {
-        if (owner == null)
+        if (_owner == null)
             return;
 
         _inertiaPoints = adding ? _inertiaPoints + amount : Math.Max(_inertiaPoints - amount, 0);
@@ -97,7 +136,7 @@ public class District : MonoBehaviour
 
     public void DestroyBuildingOnEvent(String buildingName)
     {
-        if (owner == null || owner.Side != Side.Communards)
+        if (_owner == null || _owner.Side != Side.Communards)
             return;
         
         _pointContainer.UpdatePointsOnDestroyBuildingEvent();
@@ -114,4 +153,71 @@ public class District : MonoBehaviour
     {
         return _pointContainer;
     }
+
+    private void AnimateSelection(AnimationSelectionDirection direction)
+    {
+        _animationSelectionDirection = direction;
+    }
+
+    public void OnSelect()
+    {
+        AnimateSelection(AnimationSelectionDirection.Up);
+    }
+
+    public void OnDeselect()
+    {
+        AnimateSelection(AnimationSelectionDirection.Down);
+    }
+
+    public void OnMouseEnter()
+    {
+        AnimateSelection(AnimationSelectionDirection.Up);
+    }
+
+    public void OnMouseExit()
+    {
+        if (GameController.Get().SelectedDistrict != this)
+            AnimateSelection(AnimationSelectionDirection.Down);
+    }
+
+    public void OnMouseUpAsButton()
+    {
+        GameController.Get().SelectDistrict(this);
+    }
+
+    public int GetNumber()
+    {
+        return number;
+    }
+}
+
+class ColliderBridge : MonoBehaviour
+{
+    District _listener;
+    public void Initialize(District l)
+    {
+        _listener = l;
+    }
+
+    private void OnMouseEnter()
+    {
+        _listener.OnMouseEnter();
+    }
+
+    private void OnMouseExit()
+    {
+        _listener.OnMouseExit();
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        _listener.OnMouseUpAsButton();
+    }
+}
+
+enum AnimationSelectionDirection
+{
+    None,
+    Up,
+    Down,
 }

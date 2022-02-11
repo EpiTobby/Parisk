@@ -1,14 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
+using JetBrains.Annotations;
 using Parisk;
 using Parisk.Action;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
@@ -30,6 +28,12 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject resultPanel = null;
     
+    private Player versaillais = null;
+    private Player communard = null;
+    private ControlPointContainer _controlPointContainer;
+    [CanBeNull] public District SelectedDistrict { get; set; }
+    [SerializeField] private DistrictSelectionPanelController _districtSelectionPanelController;
+
     private List<District> _districts;
     private List<List<int>> districtAdjLists = new List<List<int>>()
     {
@@ -73,10 +77,10 @@ public class GameController : MonoBehaviour
         GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         _districts = objects.Select(obj => obj.GetComponent<District>()).ToList();
         _districts = _districts.OrderBy(district => district.getNumber()).ToList();
-        _districts[14].owner = _versaillais;
-        _districts[15].owner = _versaillais;
-        _districts[17].owner = _communard;
-        _districts[18].owner = _communard;
+        _districts[14].SetOwner(_versaillais);
+        _districts[15].SetOwner(_versaillais);
+        _districts[17].SetOwner(_communard);
+        _districts[18].SetOwner(_communard);
     }
     
     void UpdateTextPlayerTurn()
@@ -98,19 +102,19 @@ public class GameController : MonoBehaviour
 
     District[] getPlayerdistrict(Player player)
     {
-        return _districts.Where(district => player.Equals(district.owner)).ToArray();
+        return _districts.Where(district => player.Equals(district.GetOwner())).ToArray();
     }
     
     void applyInfluence()
     {
         foreach (District district in _districts)
         {
-            if (district.owner == null)
+            if (district.GetOwner() == null)
                 continue;
             foreach (int adj in districtAdjLists[district.getNumber() - 1])
             {
                 Debug.Log(district.getNumber().ToString() + " influences " + adj);
-                _districts[adj - 1].getPointController().AddPointsTo(district.owner.Side,2);
+                _districts[adj - 1].getPointController().AddPointsTo(district.GetOwner().Side,2);
             }
         }
     }
@@ -160,6 +164,20 @@ public class GameController : MonoBehaviour
             Side.Versaillais => _versaillais,
             _ => throw new ArgumentOutOfRangeException(nameof(side), side, null)
         };
+    }
+
+    public void SelectDistrict(District district)
+    {
+        if (SelectedDistrict != null)
+            SelectedDistrict.OnDeselect();
+        SelectedDistrict = district;
+        if (district != null)
+        {
+            district.OnSelect();
+            _districtSelectionPanelController.Initialize(district);
+        }
+        else
+            _districtSelectionPanelController.Hide();
     }
 
     public static GameController Get()
