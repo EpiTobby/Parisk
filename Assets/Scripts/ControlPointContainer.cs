@@ -68,4 +68,10 @@ public class ControlPointContainer
         _points[Side.Versaillais] =
             Math.Max(_points[Side.Versaillais] - Convert.ToInt32(EventCost.DestroyBuildingOnEvent), 0);
     }
+ 
+    public void RemovePointsTo(Side side, int amount)
+    {
+        _points[side] = Math.Max(0, _points[side] - amount);
+    }
 }
+
