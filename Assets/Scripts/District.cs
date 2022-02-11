@@ -76,10 +76,13 @@ public class District : MonoBehaviour
      */
     public ElectionsResult DoElections()
     {
+        if (_nextElection == null)
+            throw new Exception("No election in this district");
         var result = PredictElections();
         _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
+        _nextElection = null;
         return result;
     }
 

@@ -131,9 +131,21 @@ public class GameController : MonoBehaviour
         else
         {
             turnNumber.text = "Turn " + _turn;
+            ProcessOnGoingElections();
             applyInfluence();
             UpdateTextPlayerTurn();
             eventController.HandleEvents(_turn);
+        }
+    }
+
+    private void ProcessOnGoingElections()
+    {
+        foreach (var district in _districts)
+        {
+            if (district.GetNextElection() != null && district.GetNextElection()!.GetTurn() == _turn)
+            {
+                district.DoElections();
+            }
         }
     }
 
