@@ -69,7 +69,12 @@ public class GameController : MonoBehaviour
         _communard = new Player(Side.Communards);
         initDistrict();
         UpdateTextPlayerTurn();
-        _actions = new IAction[0];
+        _actions = new IAction[]
+        {
+            new DeployTroops()
+        };
+
+
     }
 
     void initDistrict()
