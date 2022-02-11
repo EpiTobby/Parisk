@@ -8,13 +8,12 @@ using UnityEngine;
 public class District : MonoBehaviour
 {
     [SerializeField]
-    private int number;
+    private int number = 0;
     
     [SerializeReference]
     private List<Building> buildings = null;
-    private ControlPointContainer pointContainer = ControlPointContainer.InitializeRandom();
-    public List<District> Adj = new List<District>();
-    private Player _owner = null;
+    
+    public Player owner = null;
 
     private int _inertiaPoints = 0;
     
@@ -53,7 +52,7 @@ public class District : MonoBehaviour
     public ElectionsResult DoElections()
     {
         var result = PredictElections();
-        _owner = result.Side == null 
+        owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
         return result;
@@ -64,10 +63,10 @@ public class District : MonoBehaviour
      */
     private ElectionsResult PredictElections()
     {
-        if (_owner != null)
+        if (owner != null)
         {
-            if (_pointContainer.GetPointsFor(_owner.Side) > _pointContainer.GetPointsFor(_owner.Side.GetOpposite()))
-                return new ElectionsResult(_owner.Side, ElectionsResultType.Maintain);
+            if (_pointContainer.GetPointsFor(owner.Side) > _pointContainer.GetPointsFor(owner.Side.GetOpposite()))
+                return new ElectionsResult(owner.Side, ElectionsResultType.Maintain);
         }
         Side winningSide;
         if (_pointContainer.GetPointsFor(Side.Communards) > 50)
@@ -77,31 +76,20 @@ public class District : MonoBehaviour
         else
             return new ElectionsResult(null, ElectionsResultType.Draw);
 
-        return new ElectionsResult(winningSide, _owner != null ? ElectionsResultType.Reversal : ElectionsResultType.Win);
+        return new ElectionsResult(winningSide, owner != null ? ElectionsResultType.Reversal : ElectionsResultType.Win);
     }
-
-    private void setOwner(Player newOwner)
-    {
-        _owner = newOwner;
-    }
-
-    public Player getOwner()
-    {
-        return _owner;
-    }
-
 
     public void UpdateControlPointsOnEvent(int amount, bool adding)
     {
-        if (_owner == null)
+        if (owner == null)
             return;
         
-        _pointContainer.AddPointsTo(adding ? _owner.Side : _owner.Side.GetOpposite(), amount);
+        _pointContainer.AddPointsTo(adding ? owner.Side : owner.Side.GetOpposite(), amount);
     }
 
     public void UpdateInertiaPointsOnEvent(int amount, bool adding)
     {
-        if (_owner == null)
+        if (owner == null)
             return;
 
         _inertiaPoints = adding ? _inertiaPoints + amount : Math.Max(_inertiaPoints - amount, 0);
@@ -109,7 +97,7 @@ public class District : MonoBehaviour
 
     public void DestroyBuildingOnEvent(String buildingName)
     {
-        if (_owner == null || _owner.Side != Side.Communards)
+        if (owner == null || owner.Side != Side.Communards)
             return;
         
         _pointContainer.UpdatePointsOnDestroyBuildingEvent();
