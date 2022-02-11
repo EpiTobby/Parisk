@@ -55,7 +55,7 @@ public class EventController : MonoBehaviour
     {
         foreach (District district in _districts)
         {
-            if (district.getOwner() == null)
+            if (district.GetOwner() == null)
                 district.UpdateInertiaPointsOnEvent(Convert.ToInt32(EventCost.RestrainPressFreedom), false);
         }
     }

@@ -101,7 +101,7 @@ public class District : MonoBehaviour
         return new ElectionsResult(winningSide, _owner != null ? ElectionsResultType.Reversal : ElectionsResultType.Win);
     }
 
-    private void setOwner(Player newOwner)
+    public void SetOwner(Player newOwner)
     {
         _owner = newOwner;
         if (_owner != null)
@@ -113,11 +113,10 @@ public class District : MonoBehaviour
         }
     }
 
-    public Player getOwner()
+    public Player GetOwner()
     {
         return _owner;
     }
-
 
     public void UpdateControlPointsOnEvent(int amount, bool adding)
     {
@@ -143,6 +142,11 @@ public class District : MonoBehaviour
         _pointContainer.UpdatePointsOnDestroyBuildingEvent();
 
         buildings.RemoveAll(building => building.getName() == buildingName);
+    }
+    
+    public int getNumber()
+    {
+        return number;
     }
 
     public ControlPointContainer getPointController()
