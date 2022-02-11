@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
             new CreateNewspaper(),
             new SpeakerDebate(),
             new ElectionAction(),
+            new DeployTroops(),
         };
         playerTurnText.text = "COMMUNARD";
     }
