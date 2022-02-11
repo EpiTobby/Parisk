@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour
         initDistrict();
         _actions = new IAction[]
         {
+            new CreateNewspaper(),
             new SpeakerDebate(),
             new ElectionAction(),
         };
@@ -57,7 +58,7 @@ public class GameController : MonoBehaviour
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         _districts = objects.Select(obj => obj.GetComponent<District>()).ToList();
-        _districts = _districts.OrderBy(district => district.getNumber()).ToList();
+        _districts = _districts.OrderBy(district => district.GetNumber()).ToList();
         _districts[14].SetOwner(_versaillais);
         _districts[15].SetOwner(_versaillais);
         _districts[17].SetOwner(_communard);
@@ -87,7 +88,7 @@ public class GameController : MonoBehaviour
         };
         foreach (District district in _districts)
         {
-            foreach (int adj in districtAdjLists[district.getNumber() - 1])
+            foreach (int adj in districtAdjLists[district.GetNumber() - 1])
             {
                 district.adj.Add(_districts[adj - 1]);
             }
@@ -107,16 +108,17 @@ public class GameController : MonoBehaviour
     {
         return _districts.Where(district => player.Equals(district.GetOwner())).ToArray();
     }
-    
+
     void applyInfluence()
     {
         foreach (District district in _districts)
         {
             if (district.GetOwner() == null)
                 continue;
+
             foreach (District adj in district.adj)
             {
-                Debug.Log(district.getNumber() + " influences " + adj.getNumber());
+                Debug.Log(district.GetNumber() + " influences " + adj.GetNumber());
                 adj.getPointController().AddPointsTo(district.GetOwner().Side,2);
             }
         }
