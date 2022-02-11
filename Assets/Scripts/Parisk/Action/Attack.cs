@@ -12,7 +12,7 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "Attaquer l'adversaire et lui prendre entre " + Convert.ToInt32(ActionCost.AttackMin) + " à " + Convert.ToInt32(ActionCost.AttackMax) + " points de contrôle.";
+            return "Attaquer l'adversaire et lui prendre entre " + Convert.ToInt32(ActionCost.AttackMin) + " à " + Convert.ToInt32(ActionCost.AttackMax) + " points de contrôle. Cette action a 20% de chance de rater.";
         }
 
         public bool CanExecute(Player side, District district)
