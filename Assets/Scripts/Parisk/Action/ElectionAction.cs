@@ -11,7 +11,7 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "";
+            return "Lancer une élection. Au prochain tour, le joueur ayant la majorité remportera l'arrondissement.";
         }
 
         public bool CanExecute(Player side, District district)
