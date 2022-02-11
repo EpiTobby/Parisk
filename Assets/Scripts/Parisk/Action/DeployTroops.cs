@@ -21,10 +21,8 @@ namespace Parisk.Action
 
         public bool CanExecute(Player side, District selectedDistrict)
         {
-            return _targetDistrict != null 
-                   && selectedDistrict.GetOwner() == side 
-                   && selectedDistrict.getPointController().GetPointsFor(side.Side) > _numberOfTroops
-                   && (_targetDistrict.GetOwner() == null || _targetDistrict.GetOwner().Side == side.Side);
+            return selectedDistrict.GetOwner() == side 
+                   && selectedDistrict.getPointController().GetPointsFor(side.Side) > _numberOfTroops;
         }
 
         public void Execute(Player side, District selectedDistrict)
@@ -33,10 +31,16 @@ namespace Parisk.Action
             selectedDistrict.getPointController().RemovePointsTo(side.Side, _numberOfTroops);
         }
 
-        public void SetupExecute(int amount, District targetedDistrict)
+        public bool SetupExecute(Player side, int amount, District targetedDistrict)
         {
+            if (_targetDistrict == null ||
+                (_targetDistrict.GetOwner() != null && _targetDistrict.GetOwner().Side != side.Side))
+                return false;
+            
             _numberOfTroops = amount;
             _targetDistrict = targetedDistrict;
+
+            return true;
         }
     }
 }
