@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 12
   buildings: []
+  Adj: []
 --- !u!1 &102598779
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 4
   buildings: []
+  Adj: []
 --- !u!1 &693527859
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,6 +755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 16
   buildings: []
+  Adj: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,6 +959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 20
   buildings: []
+  Adj: []
 --- !u!1 &928602151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,6 +1012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 13
   buildings: []
+  Adj: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,7 +1456,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTurnText: {fileID: 225949258}
-  TurnNumber: {fileID: 532706334}
+  turnNumber: {fileID: 532706334}
+  eventController: {fileID: 0}
   textResult: {fileID: 1473666678}
   resultPanel: {fileID: 1070373146}
 --- !u!114 &1030975750
@@ -1634,6 +1640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 9
   buildings: []
+  Adj: []
 --- !u!1 &1349666144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,6 +1690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 2
   buildings: []
+  Adj: []
 --- !u!1 &1473666676
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,6 +1877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 8
   buildings: []
+  Adj: []
 --- !u!1 &1542859747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,6 +1931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 15
   buildings: []
+  Adj: []
 --- !u!1 &1557862090
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,6 +1980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 1
   buildings: []
+  Adj: []
 --- !u!1 &1671985479
 GameObject:
   m_ObjectHideFlags: 0
@@ -2151,6 +2162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 18
   buildings: []
+  Adj: []
 --- !u!1 &1825901581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,6 +2215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 7
   buildings: []
+  Adj: []
 --- !u!1 &1831039295
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,6 +2264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 10
   buildings: []
+  Adj: []
 --- !u!1 &1875859869
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,6 +2314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 3
   buildings: []
+  Adj: []
 --- !u!1 &1918197968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2350,6 +2365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 5
   buildings: []
+  Adj: []
 --- !u!1 &1947210773
 GameObject:
   m_ObjectHideFlags: 0
@@ -2480,6 +2496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 17
   buildings: []
+  Adj: []
 --- !u!1 &2001006341
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,6 +2545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 11
   buildings: []
+  Adj: []
 --- !u!1 &2075037943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2577,6 +2595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 6
   buildings: []
+  Adj: []
 --- !u!1 &2096468373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2625,6 +2644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 14
   buildings: []
+  Adj: []
 --- !u!1 &2147231725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2682,6 +2702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 19
   buildings: []
+  Adj: []
 --- !u!33 &19156296790642346
 MeshFilter:
   m_ObjectHideFlags: 0

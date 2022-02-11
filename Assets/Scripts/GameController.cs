@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour
         {
             foreach (int number in districtAdjLists[district.getNumber() - 1])
             {
-                district.Adj.Add(districts[number]);
+                district.Adj.Add(districts[number - 1]);
             }
         }
     }
@@ -111,7 +111,8 @@ public class GameController : MonoBehaviour
             foreach (District adj in district.Adj)
             {
                 Debug.Log(district.getNumber().ToString() + " influences " + adj.getNumber());
-                adj.getPointController().AddPointsTo(district.getOwner().Side,2);
+                if (district.getOwner() != null)
+                    adj.getPointController().AddPointsTo(district.getOwner().Side,2);
             }
         }
     }
@@ -124,6 +125,7 @@ public class GameController : MonoBehaviour
             endGame();
         else
         {
+            turnNumber.text = "Turn " + _turn;
             applyInfluence();
             UpdateTextPlayerTurn();
             eventController.HandleEvents(_turn);

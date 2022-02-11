@@ -8,7 +8,7 @@ using UnityEngine;
 public class District : MonoBehaviour
 {
     [SerializeField]
-    private int number = 0;
+    private int number;
     
     [SerializeReference]
     private List<Building> buildings = null;
