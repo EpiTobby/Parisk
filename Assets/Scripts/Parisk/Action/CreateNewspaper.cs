@@ -20,7 +20,7 @@ namespace Parisk.Action
 
         public string Image()
         {
-            return "newspaper.png";
+            return "newspaper";
         }
 
         public bool CanExecute(Player side, District district)

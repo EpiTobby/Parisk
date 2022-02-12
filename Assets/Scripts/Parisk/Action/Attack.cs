@@ -18,7 +18,7 @@ namespace Parisk.Action
 
         public string Image()
         {
-            return "attaque.png";
+            return "attaque";
         }
 
         public bool CanExecute(Player side, District district)

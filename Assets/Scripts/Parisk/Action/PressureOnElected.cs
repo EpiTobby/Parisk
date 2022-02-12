@@ -22,7 +22,7 @@ namespace Parisk.Action
 
         public string Image()
         {
-            return "pressure.png";
+            return "pressure";
         }
 
         public void Execute(Player side, District district)

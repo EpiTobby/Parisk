@@ -24,7 +24,7 @@ namespace Parisk.Action
 
         public string Image()
         {
-            return "debate.png";
+            return "debate";
         }
 
         public void Execute(Player side, District district)

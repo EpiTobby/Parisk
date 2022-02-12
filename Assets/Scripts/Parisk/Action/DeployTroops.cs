@@ -21,7 +21,7 @@ namespace Parisk.Action
 
         public string Image()
         {
-            return "troops.png";
+            return "troops";
         }
 
         public bool CanExecute(Player side, District selectedDistrict)
