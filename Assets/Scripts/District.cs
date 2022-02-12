@@ -94,14 +94,12 @@ public class District : MonoBehaviour
             if (success)
             {
                 controlPointContainer.AddPointsTo(side, Convert.ToInt32(ActionCost.RigElectionSuccess));
-                
-                result = new ElectionsResult(side,type);
+                result = new ElectionsResult(side, type);
             }
             else
             {
                 controlPointContainer.RemovePointsTo(side, Convert.ToInt32(ActionCost.RigElectionFailure));
-
-                result = _owner == null ? new ElectionsResult(null, type) : new ElectionsResult(_owner.Side,type);
+                result = PredictElections();
             }
         }
         else
