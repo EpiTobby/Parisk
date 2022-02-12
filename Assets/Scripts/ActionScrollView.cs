@@ -24,14 +24,6 @@ public class ActionScrollView : MonoBehaviour
         
     }
 
-    public void OnSelectDistrict(District district)
-    {
-        if (district != null)
-        {
-            DisplayButtons(GameController.Get().GetActive(),district);
-        }
-    }
-
     public void createButtons(IAction[] actions)
     {
         int y = 285;

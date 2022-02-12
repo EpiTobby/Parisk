@@ -155,6 +155,7 @@ public class GameController : MonoBehaviour
             _active = _versaillais;
             playerTurnText.text = "VERSAILLAIS";
         }
+        _active.ExecutedActions.Clear();
     }
     void nextTurn()
     {
@@ -225,7 +226,6 @@ public class GameController : MonoBehaviour
         {
             district.OnSelect();
             _districtSelectionPanelController.Initialize(district);
-            _actionScrollView.OnSelectDistrict(district);
         }
         else
             _districtSelectionPanelController.Hide();
@@ -249,6 +249,7 @@ public class GameController : MonoBehaviour
     public void ExecuteAction(Player player, IAction action, District district)
     {
         action.Execute(player, district);
+        player.ExecutedActions[district] = action;
         _observers.ForEach(observer => observer.OnAction());
     }
 
