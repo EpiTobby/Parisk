@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void endActivePlayerTurn()
+    public void endActivePlayerTurn()
     {
         if (_active.Side == Side.Versaillais)
         {
