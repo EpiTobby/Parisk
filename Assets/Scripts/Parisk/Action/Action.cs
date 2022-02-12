@@ -10,6 +10,8 @@ namespace Parisk.Action
 
         public string Description();
 
+        public string Image();
+
         public bool CanExecute(Player side, District district);
         
         public void Execute(Player side, District district);

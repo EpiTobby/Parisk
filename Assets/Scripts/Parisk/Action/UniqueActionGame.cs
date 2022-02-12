@@ -17,6 +17,11 @@ namespace Parisk.Action
             throw new System.NotImplementedException();
         }
 
+        public string Image()
+        {
+            return "attaque.png";
+        }
+
         public virtual bool CanExecute(Player side, District district)
         {
             return !_alreadyDone && district.GetOwner() != null && district.GetOwner().Side == side.Side;

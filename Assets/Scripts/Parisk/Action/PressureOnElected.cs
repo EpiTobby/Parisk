@@ -20,6 +20,11 @@ namespace Parisk.Action
             return true;
         }
 
+        public string Image()
+        {
+            return "pressure.png";
+        }
+
         public void Execute(Player side, District district)
         {
             var amount = Convert.ToInt32(ActionCost.PressureOnElected);

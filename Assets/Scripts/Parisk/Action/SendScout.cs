@@ -17,6 +17,11 @@ namespace Parisk.Action
             return "Permet de connaitre le nombre de points de contr�le d'un arrondissement. Envoyer un �claireur donne " + Convert.ToInt32(ActionCost.SendScout) + " points de contr�le � l'adversaire.";
         }
 
+        public string Image()
+        {
+            return "scout.png";
+        }
+
         public bool CanExecute(Player side, District district)
         {
             var currentPoints = district.getPointController().GetPointsFor(side.Side);

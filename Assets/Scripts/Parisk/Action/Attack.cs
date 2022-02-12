@@ -16,6 +16,11 @@ namespace Parisk.Action
             return "Attaquer l'adversaire et lui prendre entre " + Convert.ToInt32(ActionCost.AttackMin) + " � " + Convert.ToInt32(ActionCost.AttackMax) + " points de contr�le. Cette action a 20% de chance de rater.";
         }
 
+        public string Image()
+        {
+            return "attaque.png";
+        }
+
         public bool CanExecute(Player side, District district)
         {
             return true;

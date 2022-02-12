@@ -22,6 +22,11 @@ namespace Parisk.Action
             return district.GetNextElection() == null;
         }
 
+        public string Image()
+        {
+            return "debate.png";
+        }
+
         public void Execute(Player side, District district)
         {
             var amount = new Random().Next(Convert.ToInt32(ActionCost.DebateMin), Convert.ToInt32(ActionCost.DebateMax));
