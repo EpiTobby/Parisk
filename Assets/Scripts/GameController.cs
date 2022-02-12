@@ -39,7 +39,9 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private ActionScrollView _actionScrollView = null;
-    
+
+    private List<EventObserver> _observers = new List<EventObserver>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -114,6 +116,10 @@ public class GameController : MonoBehaviour
         {
             endGame();
         }
+        if (Input.GetKeyDown("a"))
+        {
+            _observers.ForEach(observer => observer.OnAction());
+        }
     }
 
     public District[] GetPlayerDistrict(Player player)
@@ -136,7 +142,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void endActivePlayerTurn()
+    public void endActivePlayerTurn()
     {
         if (_active.Side == Side.Versaillais)
         {
@@ -161,7 +167,7 @@ public class GameController : MonoBehaviour
             turnNumber.text = "Turn " + _turn;
             ProcessOnGoingElections();
             applyInfluence();
-            eventController.HandleEvents(_turn);
+            // eventController.HandleEvents(_turn);
         }
     }
 
@@ -232,6 +238,11 @@ public class GameController : MonoBehaviour
     public Player GetActive()
     {
         return _active;
+    }
+
+    public void RegisterEventObserver(EventObserver eventObserver)
+    {
+        _observers.Add(eventObserver);
     }
 
     public static GameController Get()
