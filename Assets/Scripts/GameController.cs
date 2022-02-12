@@ -163,6 +163,7 @@ public class GameController : MonoBehaviour
             playerTurnText.text = "VERSAILLAIS";
             playerTurn.color = VersaillaisColor;
         }
+        _active.ExecutedActions.Clear();
     }
 
     void nextTurn()
@@ -252,6 +253,14 @@ public class GameController : MonoBehaviour
     public void RegisterEventObserver(EventObserver eventObserver)
     {
         _observers.Add(eventObserver);
+    }
+
+    public void ExecuteAction(Player player, IAction action, District district)
+    {
+        action.Execute(player, district);
+        player.ExecutedActions[district] = action;
+        _observers.ForEach(observer => observer.OnAction());
+        SelectDistrict(null);
     }
 
     public static GameController Get()

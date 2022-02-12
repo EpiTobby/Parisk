@@ -48,7 +48,7 @@ public class TurnPanelController : MonoBehaviour, EventObserver
 
     private void UpdateDate()
     {
-        var currentDate = _date.AddDays(GameController.Get().GetTurn());
+        var currentDate = _date.AddDays(GameController.Get().GetTurn() - 1);
         dateText.text = currentDate.ToString("D", new CultureInfo("fr-CA", true));
     }
 

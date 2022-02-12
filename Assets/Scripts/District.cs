@@ -108,8 +108,6 @@ public class District : MonoBehaviour
             : GameController.Get().GetPlayer(result.Side.Value);
         StartCoroutine(ChangeDistrictColorWithAnimation());
         
-        Debug.Log(_owner.Side.ToString() + " win the election in district" + number);
-        
         _nextElection = null;
         return result;
     }

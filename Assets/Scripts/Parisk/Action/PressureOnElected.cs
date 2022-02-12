@@ -7,12 +7,12 @@ namespace Parisk.Action
     {
         public string Name()
         {
-            return "Pression sur les �lus";
+            return "Pression sur les élus";
         }
 
         public string Description()
         {
-            return "Faire pression sur les �lus et gagner " + Convert.ToInt32(ActionCost.PressureOnElected) + " points de contr�le.";
+            return "Faire pression sur les élus et gagner " + Convert.ToInt32(ActionCost.PressureOnElected) + " points de contrôle.";
         }
 
         public bool CanExecute(Player side, District district)
