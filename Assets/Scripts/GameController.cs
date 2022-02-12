@@ -167,7 +167,7 @@ public class GameController : MonoBehaviour
             turnNumber.text = "Turn " + _turn;
             ProcessOnGoingElections();
             applyInfluence();
-            eventController.HandleEvents(_turn);
+            // eventController.HandleEvents(_turn);
         }
     }
 
