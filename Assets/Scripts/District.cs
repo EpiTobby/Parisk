@@ -76,6 +76,24 @@ public class District : MonoBehaviour
         return res;
     }
 
+    private void ChangeDistrictColor()
+    {
+        var materialComponent = boardObject.GetComponent<MeshRenderer>();
+        materialComponent.GetComponent<Renderer>().material = _owner == null ? 
+            Resources.Load("Materials/White", typeof(Material)) as Material
+            : _owner.Side == Side.Versaillais
+            ? Resources.Load("Materials/Blue", typeof(Material)) as Material
+            : Resources.Load("Materials/Red", typeof(Material)) as Material;
+    }
+
+    IEnumerator ChangeDistrictColorWithAnimation()
+    {
+        transition.SetTrigger("start_flip");
+
+        yield return new WaitForSeconds(0.5f);
+        ChangeDistrictColor();
+    }
+
     /**
      * Do an election an set the new owner of this district
      */
@@ -87,6 +105,10 @@ public class District : MonoBehaviour
         _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
+        ChangeDistrictColor();
+        
+        Debug.Log(_owner.Side.ToString() + " win the election in district" + number);
+        
         _nextElection = null;
         return result;
     }
@@ -114,27 +136,8 @@ public class District : MonoBehaviour
 
     public void SetOwner(Player newOwner)
     {
-        StartCoroutine(SetOwnerWithAnimation(newOwner));
-    }
-
-    IEnumerator SetOwnerWithAnimation(Player newOwner)
-    {
-        transition.SetTrigger("start_flip");
-
-        yield return new WaitForSeconds(0.5f);
-
         _owner = newOwner;
-        var materialComponent = boardObject.GetComponent<MeshRenderer>();
-        if (_owner != null)
-        {
-            materialComponent.GetComponent<Renderer>().material = _owner.Side == Side.Versaillais
-                ? Resources.Load("Materials/Blue", typeof(Material)) as Material
-                : Resources.Load("Materials/Red", typeof(Material)) as Material;
-        }
-        else
-        {
-            materialComponent.GetComponent<Renderer>().material = Resources.Load("Materials/White", typeof(Material)) as Material;
-        }
+        StartCoroutine(ChangeDistrictColorWithAnimation());
     }
 
     public Player GetOwner()
