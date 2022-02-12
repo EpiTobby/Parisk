@@ -119,7 +119,7 @@ public class District : MonoBehaviour
             Side side = _nextElection.GetFakedSide().GetValueOrDefault();
             bool success = new Random().Next(0, 100) <= Convert.ToInt32(ActionCost.RigElectionSuccessRate);
 
-            ControlPointContainer controlPointContainer = getPointController();
+            ControlPointContainer controlPointContainer = GetPointController();
             var type = _owner == null ? ElectionsResultType.Win :
                 _owner.Side != side ? ElectionsResultType.Reversal : ElectionsResultType.Maintain; 
             if (success)
