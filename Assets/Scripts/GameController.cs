@@ -246,6 +246,12 @@ public class GameController : MonoBehaviour
         _observers.Add(eventObserver);
     }
 
+    public void ExecuteAction(Player player, IAction action, District district)
+    {
+        action.Execute(player, district);
+        _observers.ForEach(observer => observer.OnAction());
+    }
+
     public static GameController Get()
     {
         return GameObject.FindWithTag("GameController").GetComponent<GameController>();

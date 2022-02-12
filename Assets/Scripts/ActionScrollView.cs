@@ -55,7 +55,10 @@ public class ActionScrollView : MonoBehaviour
             {
                 pair.Value.SetActive(true);
                 pair.Value.GetComponent<Button>().onClick.RemoveAllListeners();
-                pair.Value.GetComponent<Button>().onClick.AddListener(delegate { pair.Key.Execute(player,district); });
+                pair.Value.GetComponent<Button>().onClick.AddListener(() =>
+                { 
+                    GameController.Get().ExecuteAction(player, pair.Key, district);
+                });
             }
             else
                 pair.Value.SetActive(false);

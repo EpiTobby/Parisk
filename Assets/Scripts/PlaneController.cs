@@ -16,6 +16,5 @@ public class PlaneController : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        GameController.Get().SelectDistrict(null);
     }
 }
