@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI turnNumber = null;
 
-    [SerializeReference] private EventController eventController = null;
+    private EventController _eventController;
 
     [SerializeField]
     private TextMeshProUGUI textResult = null;
@@ -35,7 +35,6 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject resultPanel = null;
     
-    private ControlPointContainer _controlPointContainer;
     [CanBeNull] public District SelectedDistrict { get; set; }
     [SerializeField] private DistrictSelectionPanelController _districtSelectionPanelController;
 
@@ -46,7 +45,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private ActionScrollView _actionScrollView = null;
 
-    private List<EventObserver> _observers = new List<EventObserver>();
+    private readonly List<EventObserver> _observers = new List<EventObserver>();
 
     // Start is called before the first frame update
     void Start()
@@ -55,7 +54,8 @@ public class GameController : MonoBehaviour
         _versaillais = new Player(Side.Versaillais);
         _communard = new Player(Side.Communards);
         _active = _communard;
-        initDistrict();
+        InitDistrict();
+        _eventController = new EventController(_districts);
         _actions = new IAction[]
         {
             new CreateNewspaper(),
@@ -70,7 +70,7 @@ public class GameController : MonoBehaviour
         playerTurnText.text = "COMMUNARD";
     }
 
-    void initDistrict()
+    void InitDistrict()
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         _districts = objects.Select(obj => obj.GetComponent<District>()).ToList();
@@ -116,11 +116,11 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            endActivePlayerTurn();
+            EndActivePlayerTurn();
         }
         if (Input.GetKeyDown("e"))
         {
-            endGame();
+            EndGame();
         }
         if (Input.GetKeyDown("a"))
         {
@@ -133,7 +133,7 @@ public class GameController : MonoBehaviour
         return _districts.Where(district => player.Equals(district.GetOwner())).ToArray();
     }
 
-    void applyInfluence()
+    void ApplyInfluence()
     {
         foreach (District district in _districts)
         {
@@ -148,14 +148,14 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void endActivePlayerTurn()
+    public void EndActivePlayerTurn()
     {
         if (_active.Side == Side.Versaillais)
         {
             _active = _communard;
             playerTurnText.text = "COMMUNARD";
             playerTurn.color = CommunardColor;
-            nextTurn();
+            NextTurn();
         }
         else
         {
@@ -165,18 +165,18 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void nextTurn()
+    void NextTurn()
     {
         Debug.Log("Turn " + _turn + " ended.");
         _turn++;
         if (_turn >= 73)
-            endGame();
+            EndGame();
         else
         {
             turnNumber.text = "Turn " + _turn;
             ProcessOnGoingElections();
-            applyInfluence();
-            // eventController.HandleEvents(_turn);
+            ApplyInfluence();
+            _eventController.HandleEvents(_turn);
         }
     }
 
@@ -191,7 +191,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    String getResult()
+    String GetResult()
     {
         int scoreVersaillais = 0;
         int scoreCommunard = 0;
@@ -207,12 +207,12 @@ public class GameController : MonoBehaviour
         return "IT'S A DRAW!";
     }
 
-    void endGame()
+    void EndGame()
     {
         turnNumber.text = " ";
         playerTurnText.text = " ";
         resultPanel.SetActive(true);
-        textResult.text = getResult();
+        textResult.text = GetResult();
     }
 
     public Player GetPlayer(Side side)
