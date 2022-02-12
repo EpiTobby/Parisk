@@ -50,6 +50,7 @@ public class ActionScrollView : MonoBehaviour
             if (pair.Key.CanExecute(player, district))
             {
                 pair.Value.SetActive(true);
+                pair.Value.GetComponent<Button>().onClick.RemoveAllListeners();
                 pair.Value.GetComponent<Button>().onClick.AddListener(delegate { pair.Key.Execute(player,district); });
             }
             else
