@@ -27,8 +27,12 @@ namespace Parisk.Action
         public void Execute(Player side, District district)
         {
             var amount = Convert.ToInt32(ActionCost.SendScout);
+
             district.GetPointController().RemovePointsTo(side.Side, amount);
             _targetDistrict.GetPointController().AddPointsTo(side.Side.GetOpposite(), amount, PointSource.Absenteeism);
+
+            Logger.LogExecute("Send scout", district);
+
         }
 
         public bool SetupExecute(District targetedDistrict)

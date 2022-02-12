@@ -24,6 +24,8 @@ namespace Parisk.Action
         {
             var amount = Convert.ToInt32(ActionCost.PressureOnElected);
             district.GetPointController().AddPointsTo(side.Side, amount);
+            
+            Logger.LogExecute("Pressure on elected", district);
         }
     }
 }
