@@ -23,7 +23,7 @@ public class DistrictSelectionPanelController : MonoBehaviour
     {
         _titleText.text = district.GetNumber() + "e arrondissement";
         gameObject.SetActive(true);
-        if (!GameController.Get().GetActive().ExecutedActions.ContainsKey(district))
+        if (!GameController.Get().GetActive().ExecutedActions.ContainsKey(district) && GameController.Get().GetActive().ExecutedActions.Count < 2)
         {
             actionScrollView.DisplayButtons(GameController.Get().GetActive(), district);
             actionScrollView.gameObject.SetActive(true);
