@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using Parisk;
@@ -17,7 +18,9 @@ public class District : MonoBehaviour
     private AnimationSelectionDirection _animationSelectionDirection;
     private int _inertiaPoints = 0;
     [SerializeField] private GameObject boardObject;
-    
+
+    public Animator transition;
+
     public List<District> adj = new List<District>();
 
     private Election _nextElection;
@@ -111,13 +114,26 @@ public class District : MonoBehaviour
 
     public void SetOwner(Player newOwner)
     {
+        StartCoroutine(SetOwnerWithAnimation(newOwner));
+    }
+
+    IEnumerator SetOwnerWithAnimation(Player newOwner)
+    {
+        transition.SetTrigger("start_flip");
+
+        yield return new WaitForSeconds(0.5f);
+
         _owner = newOwner;
+        var materialComponent = boardObject.GetComponent<MeshRenderer>();
         if (_owner != null)
         {
-            var materialComponent = boardObject.GetComponent<MeshRenderer>();
             materialComponent.GetComponent<Renderer>().material = _owner.Side == Side.Versaillais
                 ? Resources.Load("Materials/Blue", typeof(Material)) as Material
                 : Resources.Load("Materials/Red", typeof(Material)) as Material;
+        }
+        else
+        {
+            materialComponent.GetComponent<Renderer>().material = Resources.Load("Materials/White", typeof(Material)) as Material;
         }
     }
 
