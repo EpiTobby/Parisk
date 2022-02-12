@@ -17,7 +17,8 @@ public class District : MonoBehaviour
     private AnimationSelectionDirection _animationSelectionDirection;
     private int _inertiaPoints = 0;
     [SerializeField] private GameObject boardObject;
-    
+    [SerializeField] private GameObject scoutModal;
+
     public List<District> adj = new List<District>();
 
     private Election _nextElection;
@@ -215,6 +216,15 @@ public class District : MonoBehaviour
     public Election GetNextElection()
     {
         return _nextElection;
+    }
+
+    public void OpenScoutModal()
+    {
+        if (scoutModal != null)
+        {
+            var script = (ScoutModal)scoutModal.GetComponent(typeof(ScoutModal));
+            script.OpenModal(this);
+        }
     }
 }
 

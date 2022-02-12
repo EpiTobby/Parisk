@@ -31,6 +31,7 @@ namespace Parisk.Action
             _targetDistrict.getPointController().AddPointsTo(side.Side.GetOpposite(), amount, PointSource.Absenteeism);
             
             Logger.LogExecute("Send scout", district);
+            district.OpenScoutModal();
         }
 
         public bool SetupExecute(District targetedDistrict)
