@@ -116,7 +116,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    District[] getPlayerdistrict(Player player)
+    public District[] GetPlayerDistrict(Player player)
     {
         return _districts.Where(district => player.Equals(district.GetOwner())).ToArray();
     }

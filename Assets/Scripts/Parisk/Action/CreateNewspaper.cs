@@ -29,6 +29,8 @@ namespace Parisk.Action
             
             district.getPointController().AddPointsTo(side.Side, amountControl);
             district.UpdateInertiaPoints(Convert.ToInt32(ActionCost.CreateNewsPaperInertia), true);
+            
+            Logger.LogExecute("Create Newspaper", district);
         }
     }
 }

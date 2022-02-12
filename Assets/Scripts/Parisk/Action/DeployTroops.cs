@@ -29,6 +29,8 @@ namespace Parisk.Action
         {
             _targetDistrict.getPointController().AddPointsTo(side.Side, _numberOfTroops);
             selectedDistrict.getPointController().RemovePointsTo(side.Side, _numberOfTroops);
+            
+            Logger.LogExecute("Deploy Troops", selectedDistrict);
         }
 
         public bool SetupExecute(Player side, int amount, District targetedDistrict)

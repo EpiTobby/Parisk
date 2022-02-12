@@ -73,6 +73,16 @@ public class District : MonoBehaviour
         return res;
     }
 
+    private void ChangeDistrictColor()
+    {
+        var materialComponent = boardObject.GetComponent<MeshRenderer>();
+        materialComponent.GetComponent<Renderer>().material = _owner == null ? 
+            Resources.Load("Materials/White", typeof(Material)) as Material
+            : _owner.Side == Side.Versaillais
+            ? Resources.Load("Materials/Blue", typeof(Material)) as Material
+            : Resources.Load("Materials/Red", typeof(Material)) as Material;
+    }
+
     /**
      * Do an election an set the new owner of this district
      */
@@ -84,6 +94,10 @@ public class District : MonoBehaviour
         _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
+        ChangeDistrictColor();
+        
+        Debug.Log(_owner.Side.ToString() + " win the election in district" + number);
+        
         _nextElection = null;
         return result;
     }
@@ -114,10 +128,7 @@ public class District : MonoBehaviour
         _owner = newOwner;
         if (_owner != null)
         {
-            var materialComponent = boardObject.GetComponent<MeshRenderer>();
-            materialComponent.GetComponent<Renderer>().material = _owner.Side == Side.Versaillais
-                ? Resources.Load("Materials/Blue", typeof(Material)) as Material
-                : Resources.Load("Materials/Red", typeof(Material)) as Material;
+            ChangeDistrictColor();
         }
     }
 
