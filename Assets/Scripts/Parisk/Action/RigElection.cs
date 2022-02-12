@@ -28,13 +28,7 @@ namespace Parisk.Action
 
         public void Execute(Player side, District district)
         {
-            bool success = new Random().Next(0, 100) <= Convert.ToInt32(ActionCost.RigElectionSuccessRate);
-
-            ControlPointContainer controlPointContainer = district.getPointController();
-            if (success)
-                controlPointContainer.AddPointsTo(side.Side, Convert.ToInt32(ActionCost.RigElectionSuccess));
-            else
-                controlPointContainer.RemovePointsTo(side.Side, Convert.ToInt32(ActionCost.RigElectionFailure));
+            district.GetNextElection()?.FakeElection(side.Side);
         }
     }
 }
