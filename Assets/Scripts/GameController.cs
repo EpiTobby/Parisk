@@ -39,7 +39,9 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private ActionScrollView _actionScrollView = null;
-    
+
+    private List<EventObserver> _observers = new List<EventObserver>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -113,6 +115,10 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown("e"))
         {
             endGame();
+        }
+        if (Input.GetKeyDown("a"))
+        {
+            _observers.ForEach(observer => observer.OnAction());
         }
     }
 
@@ -232,6 +238,11 @@ public class GameController : MonoBehaviour
     public Player GetActive()
     {
         return _active;
+    }
+
+    public void RegisterEventObserver(EventObserver eventObserver)
+    {
+        _observers.Add(eventObserver);
     }
 
     public static GameController Get()
