@@ -15,20 +15,22 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "Déplacer des troupes : transfère des points de controle d’un arrondissement possédé vers un arrondissement non ennemi (neutre ou ami)." + 
+            return "Transfère des points de controle d’un arrondissement possédé vers un arrondissement non ennemi." + 
                    " Les points perdus dans l’arrondissement de départ sont complétés à moitié par l’ennemi et à moitié par l’absenteisme.";
         }
 
         public bool CanExecute(Player side, District selectedDistrict)
         {
             return selectedDistrict.GetOwner() == side 
-                   && selectedDistrict.getPointController().GetPointsFor(side.Side) > _numberOfTroops;
+                   && selectedDistrict.GetPointController().GetPointsFor(side.Side) > _numberOfTroops;
         }
 
         public void Execute(Player side, District selectedDistrict)
         {
-            _targetDistrict.getPointController().AddPointsTo(side.Side, _numberOfTroops);
-            selectedDistrict.getPointController().RemovePointsTo(side.Side, _numberOfTroops);
+
+            _targetDistrict.GetPointController().AddPointsTo(side.Side, _numberOfTroops);
+            selectedDistrict.GetPointController().RemovePointsTo(side.Side, _numberOfTroops);
+            Logger.LogExecute("Deploy Troops", selectedDistrict);
         }
 
         public bool SetupExecute(Player side, int amount, District targetedDistrict)

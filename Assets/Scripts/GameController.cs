@@ -7,14 +7,20 @@ using Parisk;
 using Parisk.Action;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     private int _turn = 1;
     
     [SerializeField]
-    private TextMeshProUGUI playerTurnText = null;
-    
+    private Text playerTurnText = null;
+    [SerializeField]
+    private Image playerTurn = null;
+
+    private Color VersaillaisColor = new Color(57f / 255f, 69f / 255f, 212f / 255f);
+    private Color CommunardColor = new Color(215f / 255f, 38f / 255f, 38f / 255f);
+
     [SerializeField]
     private TextMeshProUGUI turnNumber = null;
 
@@ -36,7 +42,12 @@ public class GameController : MonoBehaviour
     private List<District> _districts;
     
     private IAction[] _actions;
-    
+
+    [SerializeField]
+    private ActionScrollView _actionScrollView = null;
+
+    private List<EventObserver> _observers = new List<EventObserver>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +67,7 @@ public class GameController : MonoBehaviour
             new DeployTroops(),
             new RigElection(),
         };
+        _actionScrollView.createButtons(_actions);
         playerTurnText.text = "COMMUNARD";
     }
 
@@ -107,9 +119,17 @@ public class GameController : MonoBehaviour
         {
             endActivePlayerTurn();
         }
+        if (Input.GetKeyDown("e"))
+        {
+            endGame();
+        }
+        if (Input.GetKeyDown("a"))
+        {
+            _observers.ForEach(observer => observer.OnAction());
+        }
     }
 
-    District[] getPlayerdistrict(Player player)
+    public District[] GetPlayerDistrict(Player player)
     {
         return _districts.Where(district => player.Equals(district.GetOwner())).ToArray();
     }
@@ -124,24 +144,28 @@ public class GameController : MonoBehaviour
             foreach (District adj in district.adj)
             {
                 Debug.Log(district.GetNumber() + " influences " + adj.GetNumber());
-                adj.getPointController().AddPointsTo(district.GetOwner().Side,2);
+                adj.GetPointController().AddPointsTo(district.GetOwner().Side,2);
             }
         }
     }
 
-    void endActivePlayerTurn()
+    public void endActivePlayerTurn()
     {
         if (_active.Side == Side.Versaillais)
         {
+            _active = _communard;
             playerTurnText.text = "COMMUNARD";
+            playerTurn.color = CommunardColor;
             nextTurn();
         }
         else
         {
             _active = _versaillais;
             playerTurnText.text = "VERSAILLAIS";
+            playerTurn.color = VersaillaisColor;
         }
     }
+
     void nextTurn()
     {
         Debug.Log("Turn " + _turn + " ended.");
@@ -153,8 +177,7 @@ public class GameController : MonoBehaviour
             turnNumber.text = "Turn " + _turn;
             ProcessOnGoingElections();
             applyInfluence();
-            _active = _communard;
-            eventController.HandleEvents(_turn);
+            // eventController.HandleEvents(_turn);
         }
     }
 
@@ -175,8 +198,8 @@ public class GameController : MonoBehaviour
         int scoreCommunard = 0;
         foreach (District district in _districts)
         {
-            scoreVersaillais += district.getPointController().GetPointsFor(_versaillais.Side);
-            scoreCommunard += district.getPointController().GetPointsFor(_communard.Side);
+            scoreVersaillais += district.GetPointController().GetPointsFor(_versaillais.Side);
+            scoreCommunard += district.GetPointController().GetPointsFor(_communard.Side);
         }
         if (scoreCommunard != scoreVersaillais)
         {
@@ -220,6 +243,16 @@ public class GameController : MonoBehaviour
     public int GetTurn()
     {
         return _turn;
+    } 
+    
+    public Player GetActive()
+    {
+        return _active;
+    }
+
+    public void RegisterEventObserver(EventObserver eventObserver)
+    {
+        _observers.Add(eventObserver);
     }
 
     public static GameController Get()

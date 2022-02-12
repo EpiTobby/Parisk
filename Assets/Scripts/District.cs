@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using Parisk;
+using Parisk.Action;
 using UnityEngine;
 using Random = System.Random;
 
@@ -13,26 +15,37 @@ public class District : MonoBehaviour
     [SerializeReference]
     private List<Building> buildings = null;
     private Player _owner = null;
-    private ControlPointContainer _pointContainer = ControlPointContainer.InitializeRandom();
+    private readonly ControlPointContainer _pointContainer = ControlPointContainer.InitializeRandom();
     [SerializeField] private Collider _collider;
     private AnimationSelectionDirection _animationSelectionDirection;
     private int _inertiaPoints = 0;
     [SerializeField] private GameObject boardObject;
-    
+    [SerializeField] private GameObject scoutModal;
+
+    public Animator transition;
+
     public List<District> adj = new List<District>();
 
     private Election _nextElection;
 
+    private UniqueActionDistrict[] _uniqueActionDistrict =
+    {
+        new DestroyBuilding(), 
+        new ExecutePrisoners(), 
+    };
+
+    private bool _alreadyDoneUniqueActionDistrict = false;
+
     private void Awake()
     {
-        MeshCollider collider = GetComponentInChildren<MeshCollider>();
-        collider.gameObject.AddComponent<ColliderBridge>().Initialize(this);
+        MeshCollider meshCollider = GetComponentInChildren<MeshCollider>();
+        meshCollider.gameObject.AddComponent<ColliderBridge>().Initialize(this);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("District " + number);
+        
     }
 
     // Update is called once per frame
@@ -64,7 +77,7 @@ public class District : MonoBehaviour
         Debug.Log("Mouse over District " + number);
     }
 
-    public String getBuildings()
+    public String GetBuildings()
     {
         String res = "";
         foreach(Building building in buildings)
@@ -72,6 +85,24 @@ public class District : MonoBehaviour
             res += building.getName() + '\n';
         }
         return res;
+    }
+
+    private void ChangeDistrictColor()
+    {
+        var materialComponent = boardObject.GetComponent<MeshRenderer>();
+        materialComponent.GetComponent<Renderer>().material = _owner == null ? 
+            Resources.Load("Materials/White", typeof(Material)) as Material
+            : _owner.Side == Side.Versaillais
+            ? Resources.Load("Materials/Blue", typeof(Material)) as Material
+            : Resources.Load("Materials/Red", typeof(Material)) as Material;
+    }
+
+    IEnumerator ChangeDistrictColorWithAnimation()
+    {
+        transition.SetTrigger("start_flip");
+
+        yield return new WaitForSeconds(0.5f);
+        ChangeDistrictColor();
     }
 
     /**
@@ -110,6 +141,10 @@ public class District : MonoBehaviour
         _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
+        StartCoroutine(ChangeDistrictColorWithAnimation());
+        
+        Debug.Log(_owner.Side.ToString() + " win the election in district" + number);
+        
         _nextElection = null;
         return result;
     }
@@ -138,18 +173,27 @@ public class District : MonoBehaviour
     public void SetOwner(Player newOwner)
     {
         _owner = newOwner;
-        if (_owner != null)
-        {
-            var materialComponent = boardObject.GetComponent<MeshRenderer>();
-            materialComponent.GetComponent<Renderer>().material = _owner.Side == Side.Versaillais
-                ? Resources.Load("Materials/Blue", typeof(Material)) as Material
-                : Resources.Load("Materials/Red", typeof(Material)) as Material;
-        }
+        StartCoroutine(ChangeDistrictColorWithAnimation());
     }
 
     public Player GetOwner()
     {
         return _owner;
+    }
+
+    public bool CanExecuteUniqueActionDistrict()
+    {
+        return _alreadyDoneUniqueActionDistrict == false;
+    }
+
+    public void ExecuteUniqueActionDistrict()
+    {
+        _alreadyDoneUniqueActionDistrict = true;
+    }
+
+    public UniqueActionDistrict GetUniqueActionDistrict()
+    {
+        return _uniqueActionDistrict[Convert.ToInt32(_owner.Side)];
     }
 
     public void UpdateControlPointsOnEvent(int amount, bool adding)
@@ -178,7 +222,7 @@ public class District : MonoBehaviour
         buildings.RemoveAll(building => building.getName() == buildingName);
     }
 
-    public ControlPointContainer getPointController()
+    public ControlPointContainer GetPointController()
     {
         return _pointContainer;
     }
@@ -230,6 +274,15 @@ public class District : MonoBehaviour
     public Election GetNextElection()
     {
         return _nextElection;
+    }
+
+    public void OpenScoutModal()
+    {
+        if (scoutModal != null)
+        {
+            var script = (ScoutModal)scoutModal.GetComponent(typeof(ScoutModal));
+            script.OpenModal(this);
+        }
     }
 }
 
