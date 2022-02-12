@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using Parisk;
@@ -17,7 +18,10 @@ public class District : MonoBehaviour
     private AnimationSelectionDirection _animationSelectionDirection;
     private int _inertiaPoints = 0;
     [SerializeField] private GameObject boardObject;
-    
+    [SerializeField] private GameObject scoutModal;
+
+    public Animator transition;
+
     public List<District> adj = new List<District>();
 
     private Election _nextElection;
@@ -83,6 +87,14 @@ public class District : MonoBehaviour
             : Resources.Load("Materials/Red", typeof(Material)) as Material;
     }
 
+    IEnumerator ChangeDistrictColorWithAnimation()
+    {
+        transition.SetTrigger("start_flip");
+
+        yield return new WaitForSeconds(0.5f);
+        ChangeDistrictColor();
+    }
+
     /**
      * Do an election an set the new owner of this district
      */
@@ -94,7 +106,7 @@ public class District : MonoBehaviour
         _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
-        ChangeDistrictColor();
+        StartCoroutine(ChangeDistrictColorWithAnimation());
         
         Debug.Log(_owner.Side.ToString() + " win the election in district" + number);
         
@@ -126,10 +138,7 @@ public class District : MonoBehaviour
     public void SetOwner(Player newOwner)
     {
         _owner = newOwner;
-        if (_owner != null)
-        {
-            ChangeDistrictColor();
-        }
+        StartCoroutine(ChangeDistrictColorWithAnimation());
     }
 
     public Player GetOwner()
@@ -215,6 +224,15 @@ public class District : MonoBehaviour
     public Election GetNextElection()
     {
         return _nextElection;
+    }
+
+    public void OpenScoutModal()
+    {
+        if (scoutModal != null)
+        {
+            var script = (ScoutModal)scoutModal.GetComponent(typeof(ScoutModal));
+            script.OpenModal(this);
+        }
     }
 }
 
