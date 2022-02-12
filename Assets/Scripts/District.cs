@@ -23,7 +23,13 @@ public class District : MonoBehaviour
 
     private Election _nextElection;
 
-    private UniqueActionDistrict _uniqueActionDistrict;
+    private UniqueActionDistrict[] _uniqueActionDistrict =
+    {
+        new DestroyBuilding(), 
+        new ExecutePrisoners(), 
+    };
+
+    private bool _alreadyDoneUniqueActionDistrict = false;
 
     private void Awake()
     {
@@ -117,11 +123,6 @@ public class District : MonoBehaviour
         _owner = newOwner;
         if (_owner != null)
         {
-            if (_owner.Side == Side.Versaillais)
-                _uniqueActionDistrict = new ExecutePrisoners();
-            else
-                _uniqueActionDistrict = new DestroyBuilding();
-
             var materialComponent = boardObject.GetComponent<MeshRenderer>();
             materialComponent.GetComponent<Renderer>().material = _owner.Side == Side.Versaillais
                 ? Resources.Load("Materials/Blue", typeof(Material)) as Material
@@ -136,9 +137,19 @@ public class District : MonoBehaviour
         return _owner;
     }
 
+    public bool CanExecuteUniqueActionDistrict()
+    {
+        return _alreadyDoneUniqueActionDistrict == false;
+    }
+
+    public void ExecuteUniqueActionDistrict()
+    {
+        _alreadyDoneUniqueActionDistrict = true;
+    }
+
     public UniqueActionDistrict GetUniqueActionDistrict()
     {
-        return _uniqueActionDistrict;
+        return _uniqueActionDistrict[Convert.ToInt32(_owner.Side)];
     }
 
     public void UpdateControlPointsOnEvent(int amount, bool adding)
