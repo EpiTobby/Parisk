@@ -105,7 +105,7 @@ public class District : MonoBehaviour
         _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
-        ChangeDistrictColor();
+        StartCoroutine(ChangeDistrictColorWithAnimation());
         
         Debug.Log(_owner.Side.ToString() + " win the election in district" + number);
         
