@@ -21,7 +21,11 @@ public class ActionScrollView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        District district = GameController.Get().SelectedDistrict;
+        
+    }
+
+    public void OnSelectDistrict(District district)
+    {
         if (district != null)
         {
             DisplayButtons(GameController.Get().GetActive(),district);

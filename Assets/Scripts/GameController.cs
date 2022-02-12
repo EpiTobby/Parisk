@@ -225,6 +225,7 @@ public class GameController : MonoBehaviour
         {
             district.OnSelect();
             _districtSelectionPanelController.Initialize(district);
+            _actionScrollView.OnSelectDistrict(district);
         }
         else
             _districtSelectionPanelController.Hide();
