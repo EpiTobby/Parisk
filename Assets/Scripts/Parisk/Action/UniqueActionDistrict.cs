@@ -5,8 +5,6 @@ namespace Parisk.Action
 {
     public abstract class UniqueActionDistrict : IAction
     {
-        
-        
         public virtual string Name()
         {
             throw new System.NotImplementedException();

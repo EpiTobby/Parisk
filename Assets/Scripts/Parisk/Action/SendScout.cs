@@ -33,6 +33,7 @@ namespace Parisk.Action
 
             Logger.LogExecute("Send scout", district);
 
+            district.OpenScoutModal();
         }
 
         public bool SetupExecute(District targetedDistrict)
