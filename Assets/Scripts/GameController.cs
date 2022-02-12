@@ -251,6 +251,7 @@ public class GameController : MonoBehaviour
         action.Execute(player, district);
         player.ExecutedActions[district] = action;
         _observers.ForEach(observer => observer.OnAction());
+        SelectDistrict(null);
     }
 
     public static GameController Get()
