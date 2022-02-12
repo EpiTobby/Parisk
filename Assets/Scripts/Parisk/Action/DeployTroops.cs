@@ -22,14 +22,14 @@ namespace Parisk.Action
         public bool CanExecute(Player side, District selectedDistrict)
         {
             return selectedDistrict.GetOwner() == side 
-                   && selectedDistrict.getPointController().GetPointsFor(side.Side) > _numberOfTroops;
+                   && selectedDistrict.GetPointController().GetPointsFor(side.Side) > _numberOfTroops;
         }
 
         public void Execute(Player side, District selectedDistrict)
         {
-            _targetDistrict.getPointController().AddPointsTo(side.Side, _numberOfTroops);
-            selectedDistrict.getPointController().RemovePointsTo(side.Side, _numberOfTroops);
-            
+
+            _targetDistrict.GetPointController().AddPointsTo(side.Side, _numberOfTroops);
+            selectedDistrict.GetPointController().RemovePointsTo(side.Side, _numberOfTroops);
             Logger.LogExecute("Deploy Troops", selectedDistrict);
         }
 

@@ -4,6 +4,7 @@ using System.Collections;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using Parisk;
+using Parisk.Action;
 using UnityEngine;
 
 public class District : MonoBehaviour
@@ -13,7 +14,7 @@ public class District : MonoBehaviour
     [SerializeReference]
     private List<Building> buildings = null;
     private Player _owner = null;
-    private ControlPointContainer _pointContainer = ControlPointContainer.InitializeRandom();
+    private readonly ControlPointContainer _pointContainer = ControlPointContainer.InitializeRandom();
     [SerializeField] private Collider _collider;
     private AnimationSelectionDirection _animationSelectionDirection;
     private int _inertiaPoints = 0;
@@ -26,10 +27,18 @@ public class District : MonoBehaviour
 
     private Election _nextElection;
 
+    private UniqueActionDistrict[] _uniqueActionDistrict =
+    {
+        new DestroyBuilding(), 
+        new ExecutePrisoners(), 
+    };
+
+    private bool _alreadyDoneUniqueActionDistrict = false;
+
     private void Awake()
     {
-        MeshCollider collider = GetComponentInChildren<MeshCollider>();
-        collider.gameObject.AddComponent<ColliderBridge>().Initialize(this);
+        MeshCollider meshCollider = GetComponentInChildren<MeshCollider>();
+        meshCollider.gameObject.AddComponent<ColliderBridge>().Initialize(this);
     }
 
     // Start is called before the first frame update
@@ -67,7 +76,7 @@ public class District : MonoBehaviour
         Debug.Log("Mouse over District " + number);
     }
 
-    public String getBuildings()
+    public String GetBuildings()
     {
         String res = "";
         foreach(Building building in buildings)
@@ -146,6 +155,21 @@ public class District : MonoBehaviour
         return _owner;
     }
 
+    public bool CanExecuteUniqueActionDistrict()
+    {
+        return _alreadyDoneUniqueActionDistrict == false;
+    }
+
+    public void ExecuteUniqueActionDistrict()
+    {
+        _alreadyDoneUniqueActionDistrict = true;
+    }
+
+    public UniqueActionDistrict GetUniqueActionDistrict()
+    {
+        return _uniqueActionDistrict[Convert.ToInt32(_owner.Side)];
+    }
+
     public void UpdateControlPointsOnEvent(int amount, bool adding)
     {
         if (_owner == null)
@@ -172,7 +196,7 @@ public class District : MonoBehaviour
         buildings.RemoveAll(building => building.getName() == buildingName);
     }
 
-    public ControlPointContainer getPointController()
+    public ControlPointContainer GetPointController()
     {
         return _pointContainer;
     }

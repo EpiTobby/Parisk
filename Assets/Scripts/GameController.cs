@@ -143,7 +143,7 @@ public class GameController : MonoBehaviour
             foreach (District adj in district.adj)
             {
                 Debug.Log(district.GetNumber() + " influences " + adj.GetNumber());
-                adj.getPointController().AddPointsTo(district.GetOwner().Side,2);
+                adj.GetPointController().AddPointsTo(district.GetOwner().Side,2);
             }
         }
     }
@@ -197,8 +197,8 @@ public class GameController : MonoBehaviour
         int scoreCommunard = 0;
         foreach (District district in _districts)
         {
-            scoreVersaillais += district.getPointController().GetPointsFor(_versaillais.Side);
-            scoreCommunard += district.getPointController().GetPointsFor(_communard.Side);
+            scoreVersaillais += district.GetPointController().GetPointsFor(_versaillais.Side);
+            scoreCommunard += district.GetPointController().GetPointsFor(_communard.Side);
         }
         if (scoreCommunard != scoreVersaillais)
         {

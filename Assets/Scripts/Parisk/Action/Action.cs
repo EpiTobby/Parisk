@@ -25,9 +25,9 @@ namespace Parisk.Action
                       + executeAction + " on District " 
                       + district.GetNumber() 
                       + ": Communards: " 
-                      + district.getPointController().GetPointsFor(Side.Communards)
+                      + district.GetPointController().GetPointsFor(Side.Communards)
                       + " & Versaillais: "
-                      + district.getPointController().GetPointsFor(Side.Versaillais));
+                      + district.GetPointController().GetPointsFor(Side.Versaillais));
         }
     }
 }
