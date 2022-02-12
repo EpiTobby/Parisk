@@ -7,14 +7,20 @@ using Parisk;
 using Parisk.Action;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     private int _turn = 1;
     
     [SerializeField]
-    private TextMeshProUGUI playerTurnText = null;
-    
+    private Text playerTurnText = null;
+    [SerializeField]
+    private Image playerTurn = null;
+
+    private Color VersaillaisColor = new Color(57f / 255f, 69f / 255f, 212f / 255f);
+    private Color CommunardColor = new Color(215f / 255f, 38f / 255f, 38f / 255f);
+
     [SerializeField]
     private TextMeshProUGUI turnNumber = null;
 
@@ -148,14 +154,17 @@ public class GameController : MonoBehaviour
         {
             _active = _communard;
             playerTurnText.text = "COMMUNARD";
+            playerTurn.color = CommunardColor;
             nextTurn();
         }
         else
         {
             _active = _versaillais;
             playerTurnText.text = "VERSAILLAIS";
+            playerTurn.color = VersaillaisColor;
         }
     }
+
     void nextTurn()
     {
         Debug.Log("Turn " + _turn + " ended.");
