@@ -5,6 +5,7 @@ public class DistrictSelectionPanelController : MonoBehaviour
 {
     [SerializeField] private Text _titleText;
     [SerializeField] private ActionScrollView actionScrollView;
+    [SerializeField] private GameObject alreadyPlayedText;
     
     // Start is called before the first frame update
     void Start()
@@ -26,10 +27,12 @@ public class DistrictSelectionPanelController : MonoBehaviour
         {
             actionScrollView.DisplayButtons(GameController.Get().GetActive(), district);
             actionScrollView.gameObject.SetActive(true);
+            alreadyPlayedText.SetActive(false);
         }
         else
         {
             actionScrollView.gameObject.SetActive(false);
+            alreadyPlayedText.SetActive(true);
         }
     }
 
