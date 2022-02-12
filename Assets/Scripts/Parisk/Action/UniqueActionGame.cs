@@ -42,6 +42,11 @@ namespace Parisk.Action
                    + " points aux arrondissements possédés.";
         }
 
+        public override bool CanExecute(Player side, District district)
+        {
+            return base.CanExecute(side, district) && side.Side == Side.Versaillais;
+        }
+
         public override void Execute(Player side, District district)
         {
             foreach (var playerDistrict in GameController.Get().GetPlayerDistrict(side))
@@ -64,6 +69,11 @@ namespace Parisk.Action
             return "Rétablissement de la solde de la garde nationale : +"
                    + Convert.ToInt32(ActionCost.GermanPact)
                    + " points aux arrondissements possédés.";
+        }
+
+        public override bool CanExecute(Player side, District district)
+        {
+            return base.CanExecute(side, district) && side.Side == Side.Communards;
         }
 
         public override void Execute(Player side, District district)
