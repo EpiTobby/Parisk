@@ -28,7 +28,7 @@ namespace Parisk.Action
         public void Execute(Player side, District district)
         {
             var amount = Convert.ToInt32(ActionCost.PressureOnElected);
-            district.GetPointController().AddPointsTo(side.Side, amount);
+            district.AddPointsTo(side.Side, amount);
             
             Logger.LogExecute("Pressure on elected", district);
         }
