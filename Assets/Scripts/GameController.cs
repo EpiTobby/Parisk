@@ -181,7 +181,7 @@ public class GameController : MonoBehaviour
             EndGame();
         else
         {
-            turnNumber.text = "Turn " + _turn;
+            turnNumber.text = "Tour " + _turn;
             ProcessOnGoingElections();
             ApplyInfluence();
             _eventController.HandleEvents(_turn);
@@ -225,9 +225,9 @@ public class GameController : MonoBehaviour
         }
         if (scoreCommunard != scoreVersaillais)
         {
-            return scoreVersaillais > scoreCommunard ? "VERSAILLAIS WINS" : "COMMUNARD WINS";
+            return scoreVersaillais > scoreCommunard ? "LES VERSAILLAIS GAGNENT" : "LES COMMUNARDS GAGNENT";
         }
-        return "IT'S A DRAW!";
+        return "ÉGALITÉ";
     }
 
     void EndGame()
