@@ -17,6 +17,11 @@ namespace Parisk.Action
             throw new System.NotImplementedException();
         }
 
+        public string Image()
+        {
+            return "destroy";
+        }
+
         public virtual bool CanExecute(Player side, District district)
         {
             return !_alreadyDone && district.GetOwner() != null && district.GetOwner().Side == side.Side;
@@ -40,6 +45,11 @@ namespace Parisk.Action
             return "Pacte avec les allemands (libération de prisonniers de guerre) : +"
                    + Convert.ToInt32(ActionCost.GermanPact)
                    + " points aux arrondissements possédés.";
+        }
+
+        public string Image()
+        {
+            return "german";
         }
 
         public override bool CanExecute(Player side, District district)
@@ -69,6 +79,11 @@ namespace Parisk.Action
             return "Rétablissement de la solde de la garde nationale : +"
                    + Convert.ToInt32(ActionCost.GermanPact)
                    + " points aux arrondissements possédés.";
+        }
+
+        public string Image()
+        {
+            return "destroy";
         }
 
         public override bool CanExecute(Player side, District district)

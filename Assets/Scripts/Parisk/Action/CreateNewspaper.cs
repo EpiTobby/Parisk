@@ -18,6 +18,11 @@ namespace Parisk.Action
                    + " points de controle par arrondissement adjacent controlé";
         }
 
+        public string Image()
+        {
+            return "newspaper";
+        }
+
         public bool CanExecute(Player side, District district)
         {
             return true;

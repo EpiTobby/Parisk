@@ -14,6 +14,11 @@ namespace Parisk.Action
             return "Lancer une élection. Au prochain tour, le joueur ayant la majorité remportera l'arrondissement.";
         }
 
+        public string Image()
+        {
+            return "elections";
+        }
+
         public bool CanExecute(Player side, District district)
         {
             return district.GetNextElection() == null;

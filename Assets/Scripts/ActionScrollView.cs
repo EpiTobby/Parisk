@@ -21,11 +21,7 @@ public class ActionScrollView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        District district = GameController.Get().SelectedDistrict;
-        if (district != null)
-        {
-            DisplayButtons(GameController.Get().GetActive(),district);
-        }
+        
     }
 
     public void createButtons(IAction[] actions)
@@ -38,6 +34,7 @@ public class ActionScrollView : MonoBehaviour
             button.transform.SetParent(parent.transform, false);
             button.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = action.Name();
             button.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = action.Description();
+            button.transform.GetChild(2).gameObject.GetComponent<RawImage>().texture = Resources.Load("Images/" + action.Image()) as Texture2D;
             ActionbuttonDictionary.Add(action,button);
             y-=150;
         }
@@ -50,7 +47,11 @@ public class ActionScrollView : MonoBehaviour
             if (pair.Key.CanExecute(player, district))
             {
                 pair.Value.SetActive(true);
-                pair.Value.GetComponent<Button>().onClick.AddListener(delegate { pair.Key.Execute(player,district); });
+                pair.Value.GetComponent<Button>().onClick.RemoveAllListeners();
+                pair.Value.GetComponent<Button>().onClick.AddListener(() =>
+                { 
+                    GameController.Get().ExecuteAction(player, pair.Key, district);
+                });
             }
             else
                 pair.Value.SetActive(false);

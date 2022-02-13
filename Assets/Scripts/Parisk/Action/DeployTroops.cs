@@ -19,6 +19,11 @@ namespace Parisk.Action
                    " Les points perdus dans l’arrondissement de départ sont complétés à moitié par l’ennemi et à moitié par l’absenteisme.";
         }
 
+        public string Image()
+        {
+            return "troops";
+        }
+
         public bool CanExecute(Player side, District selectedDistrict)
         {
             return selectedDistrict.GetOwner() == side 
