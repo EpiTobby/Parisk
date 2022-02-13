@@ -31,7 +31,7 @@ namespace Parisk.Action
         {
             var amount = new Random().Next(Convert.ToInt32(ActionCost.DebateMin), Convert.ToInt32(ActionCost.DebateMax));
 
-            district.GetPointController().AddPointsTo(side.Side, amount);
+            district.AddPointsTo(side.Side, amount);
 
             Logger.LogExecute("Speaker Debate", district);
         }

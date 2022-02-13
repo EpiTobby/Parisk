@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using Parisk;
 using Parisk.Action;
 using UnityEngine;
+using TMPro;
 using Random = System.Random;
 
 public class District : MonoBehaviour
@@ -21,6 +22,8 @@ public class District : MonoBehaviour
     private int _inertiaPoints = 0;
     [SerializeField] private GameObject boardObject;
     [SerializeField] private GameObject scoutModal;
+    [SerializeField] private TMP_Text versaillaisPoints = null;
+    [SerializeField] private TMP_Text communardsPoints = null;
 
     public Animator transition;
 
@@ -45,7 +48,8 @@ public class District : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _pointContainer.SetVersaillaisPoints(versaillaisPoints);
+        _pointContainer.SetCommunardsPoints(communardsPoints);
     }
 
     // Update is called once per frame
@@ -70,6 +74,18 @@ public class District : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    public void AddPointsTo(Side side, int amount, PointSource source = PointSource.Mixed)
+    {
+        _pointContainer.AddPointsTo(side, amount, source);
+        transition.SetTrigger("start_points");
+    }
+
+    public void RemovePointsTo(Side side, int amount)
+    {
+        _pointContainer.RemovePointsTo(side, amount);
+        transition.SetTrigger("start_points");
     }
 
     private void OnMouseOver()
@@ -119,17 +135,16 @@ public class District : MonoBehaviour
             Side side = _nextElection.GetFakedSide().GetValueOrDefault();
             bool success = new Random().Next(0, 100) <= Convert.ToInt32(ActionCost.RigElectionSuccessRate);
 
-            ControlPointContainer controlPointContainer = GetPointController();
             var type = _owner == null ? ElectionsResultType.Win :
                 _owner.Side != side ? ElectionsResultType.Reversal : ElectionsResultType.Maintain; 
             if (success)
             {
-                controlPointContainer.AddPointsTo(side, Convert.ToInt32(ActionCost.RigElectionSuccess));
+                AddPointsTo(side, Convert.ToInt32(ActionCost.RigElectionSuccess));
                 result = new ElectionsResult(side, type);
             }
             else
             {
-                controlPointContainer.RemovePointsTo(side, Convert.ToInt32(ActionCost.RigElectionFailure));
+                RemovePointsTo(side, Convert.ToInt32(ActionCost.RigElectionFailure));
                 result = PredictElections();
             }
         }
@@ -199,7 +214,7 @@ public class District : MonoBehaviour
         if (_owner == null)
             return;
         
-        _pointContainer.AddPointsTo(adding ? _owner.Side : _owner.Side.GetOpposite(), amount);
+        AddPointsTo(adding ? _owner.Side : _owner.Side.GetOpposite(), amount);
     }
 
     public void UpdateInertiaPoints(int amount, bool adding)

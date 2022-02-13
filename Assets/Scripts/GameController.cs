@@ -147,7 +147,7 @@ public class GameController : MonoBehaviour
             foreach (District adj in district.adj)
             {
                 Debug.Log(district.GetNumber() + " influences " + adj.GetNumber());
-                adj.GetPointController().AddPointsTo(district.GetOwner().Side,2);
+                adj.AddPointsTo(district.GetOwner().Side,2);
             }
         }
     }
