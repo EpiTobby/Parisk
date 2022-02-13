@@ -48,6 +48,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private ActionScrollView _actionScrollView = null;
 
+    [SerializeField] private EventPanelControler eventPanelController;
+
     private readonly List<EventObserver> _observers = new List<EventObserver>();
 
     // Start is called before the first frame update
@@ -286,6 +288,11 @@ public class GameController : MonoBehaviour
     public List<District> GetDistricts()
     {
         return _districts;
+    }
+
+    public EventPanelControler GetEventPanelController()
+    {
+        return eventPanelController;
     }
 
     public static GameController Get()

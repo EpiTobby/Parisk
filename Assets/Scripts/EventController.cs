@@ -22,7 +22,7 @@ public class EventController
         {
             if (iEvent.Turn() == turn)
             {
-                iEvent.Execute();
+                GameController.Get().GetEventPanelController().DisplayEvent(iEvent);
             }
         }
     }
