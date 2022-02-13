@@ -11,10 +11,16 @@ public class ControlPointContainer
     
     private const int MinRandom = 10;
     private const int MaxRandom = 30;
+    
+    private int _communardRandom;
+    private int _versaillaisRandom;
 
     private ControlPointContainer(Dictionary<Side, int> points)
     {
         _points = points;
+        _versaillaisRandom = _points[Side.Versaillais];
+        _communardRandom = _points[Side.Communards];
+        
     }
 
     public static ControlPointContainer InitializeRandom()
@@ -113,6 +119,16 @@ public class ControlPointContainer
     {
         _points[Side.Versaillais] =
             Math.Max(_points[Side.Versaillais] - Convert.ToInt32(EventCost.DestroyBuildingOnEvent), 0);
+    }
+    
+    public int GetCommunardRandomPoints()
+    {
+        return _communardRandom;
+    }
+
+    public int GetVersaillaisRandomPoints()
+    {
+        return _versaillaisRandom;
     }
 }
 
