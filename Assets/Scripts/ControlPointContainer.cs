@@ -8,7 +8,9 @@ public class ControlPointContainer
     private Dictionary<Side, int> _points;
     private TMP_Text _versaillaisPoints = null;
     private TMP_Text _communardsPoints = null;
-
+    
+    private const int MinRandom = 10;
+    private const int MaxRandom = 30;
 
     private ControlPointContainer(Dictionary<Side, int> points)
     {
@@ -18,8 +20,9 @@ public class ControlPointContainer
     public static ControlPointContainer InitializeRandom()
     {
         Dictionary<Side,int> dictionary = new Dictionary<Side, int>();
-        dictionary.Add(Side.Communards, 0); // FIXME (random)
-        dictionary.Add(Side.Versaillais, 0); // FIXME (random)
+        
+        dictionary.Add(Side.Communards, new Random().Next(MinRandom, MaxRandom));
+        dictionary.Add(Side.Versaillais, new Random().Next(MinRandom, MaxRandom)); 
         return new ControlPointContainer(dictionary);
     }
 
