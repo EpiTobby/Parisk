@@ -299,9 +299,4 @@ public class GameController : MonoBehaviour
     {
         return GameObject.FindWithTag("GameController").GetComponent<GameController>();
     }
-
-    public List<District> GetDistricts()
-    {
-        return _districts;
-    }
 }

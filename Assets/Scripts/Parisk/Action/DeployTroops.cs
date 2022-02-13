@@ -26,8 +26,7 @@ namespace Parisk.Action
 
         public bool CanExecute(Player side, District selectedDistrict)
         {
-            return selectedDistrict.GetOwner() == side;
-                   //&& selectedDistrict.GetPointController().GetPointsFor(side.Side) > _numberOfTroops;
+            return selectedDistrict.GetOwner() == side && selectedDistrict.GetPointController().GetPointsFor(side.Side) > _numberOfTroops;
         }
 
         public void Execute(Player side, District selectedDistrict)

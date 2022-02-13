@@ -98,6 +98,7 @@ public class DeployTroopsUI : MonoBehaviour
             District targeted = gameController.GetDistricts()[int.Parse(DistrictDropdown.options[DistrictDropdown.value].text)];
             deployTroops.SetupExecute(active,GetValueFromInputText(value.text),targeted);
             deployTroops.Execute(active, selectedDistrict);
+            panel.SetActive(false);
         }
     }
 }
