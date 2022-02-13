@@ -58,7 +58,7 @@ public class GameController : MonoBehaviour
         _communard = new Player(Side.Communards);
         _active = _communard;
         InitDistrict();
-        _eventController = new EventController(_districts);
+        _eventController = new EventController();
         _actions = new IAction[]
         {
             new CreateNewspaper(),
@@ -281,6 +281,11 @@ public class GameController : MonoBehaviour
         player.ExecutedActions[district] = action;
         _observers.ForEach(observer => observer.OnAction());
         SelectDistrict(null);
+    }
+
+    public List<District> GetDistricts()
+    {
+        return _districts;
     }
 
     public static GameController Get()

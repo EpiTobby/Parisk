@@ -1,73 +1,29 @@
-using System;
-using System.Collections.Generic;
-using Parisk;
-
+using Parisk.Event;
 
 public class EventController
 {
-    private List<District> _districts;
+    private IEvent[] _events;
 
-    public EventController(List<District> districts)
+    public EventController()
     {
-        _districts = districts;
+        _events = new IEvent[]
+        {
+            new CouncilCityHallEvent(),
+            new FirstFiresEvent(),
+            new RestrainPressFreedomEvent(),
+            new SecondFiresEvent(),
+            new TakeDownStatueEvent(),
+        };
     }
 
     public void HandleEvents(int turn)
     {
-        switch (turn)
+        foreach (var iEvent in _events)
         {
-            case 11:
-                // 28 mars
-                EventCouncilCityHall();
-                break;
-            case 32:
-                // 18 avril
-                EventRestrainPressFreedom();
-                break;
-            case 60:
-                // 16 mai
-                EventTakeDownStatue();
-                break;
-            case 67:
-                // 23 mai
-                EventFirstFires();
-                break;
-            case 68:
-                // 24 mai
-                EventSecondFires();
-                break;
+            if (iEvent.Turn() == turn)
+            {
+                iEvent.Execute();
+            }
         }
     }
-
-
-    public void EventCouncilCityHall()
-    {
-        _districts[3].UpdateControlPointsOnEvent(Convert.ToInt32(EventCost.InstallCouncilCityHall), true);
-    }
-
-    public void EventRestrainPressFreedom()
-    {
-        foreach (District district in _districts)
-        {
-            if (district.GetOwner() == null)
-                district.UpdateInertiaPoints(Convert.ToInt32(EventCost.RestrainPressFreedom), false);
-        }
-    }
-
-    public void EventTakeDownStatue()
-    {
-        _districts[0].DestroyBuildingOnEvent("Vendome");
-    }
-
-    public void EventFirstFires()
-    {
-        _districts[7].DestroyBuildingOnEvent("Rue Royale");
-    }
-
-    public void EventSecondFires()
-    {
-        _districts[3].DestroyBuildingOnEvent("Hotel de Ville"); 
-    }
-    
-    
 }
