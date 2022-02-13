@@ -33,7 +33,7 @@ public class ActionScrollView : MonoBehaviour
         int y = 285;
         foreach (IAction action in actions)
         {
-            if (action.Name().Equals("Déployer des troupes"))
+            if (action is DeployTroops)
                 deployTroopsUI.deployTroops = action as DeployTroops;
             Debug.Log(action.Name());
             GameObject button = Instantiate(ActionButtonPrefab,new Vector3(0, y, 0), Quaternion.identity);
@@ -54,7 +54,7 @@ public class ActionScrollView : MonoBehaviour
             {
                 pair.Value.SetActive(true);
                 pair.Value.GetComponent<Button>().onClick.RemoveAllListeners();
-                if (pair.Key.Name().Equals("Déployer des troupes"))
+                if (pair.Key is DeployTroops)
                 {
                     deployTroopsUI.DistrictDropdownSetUp();
                     pair.Value.GetComponent<Button>().onClick.AddListener(() =>

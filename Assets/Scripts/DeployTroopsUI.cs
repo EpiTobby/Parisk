@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
 using Parisk.Action;
 using TMPro.Examples;
@@ -36,14 +37,14 @@ public class DeployTroopsUI : MonoBehaviour
 
     public int GetValueFromInputText(string s)
     {
-        foreach (char c in s)
+        try
         {
-            if (!(c >= '0' && c <= '9')) {
-                return -1;
-            }
+            return int.Parse(s);
         }
- 
-        return int.Parse(s);
+        catch (Exception e)
+        {
+            return -1;
+        }
     }
 
     public void DistrictDropdownSetUp()
@@ -51,15 +52,9 @@ public class DeployTroopsUI : MonoBehaviour
         DistrictDropdown.ClearOptions();
         GameController gameController = GameController.Get();
         Player active = gameController.GetActive();
-        List<string> options = new List<string>();
-        foreach (District district in gameController.GetDistricts())
-        {
-            if (district.GetOwner() == null || district.GetOwner().Side == active.Side)
-            {
-                options.Add(district.GetNumber().ToString());
-            }
-        }
-        DistrictDropdown.AddOptions(options);
+        DistrictDropdown.AddOptions(DistrictDropdown.AddOptions(gameController.GetDistricts()
+            .Where(district => district.GetOwner() == null || district.GetOwner().Side == active.Side)
+            .Select(district => district.GetNumber().ToString())));
     }
     
     public bool CheckValues()
