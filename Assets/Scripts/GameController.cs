@@ -9,6 +9,7 @@ using Parisk.Action;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = System.Random;
 
 public class GameController : MonoBehaviour
 {
@@ -76,15 +77,36 @@ public class GameController : MonoBehaviour
         playerTurnText.text = "COMMUNARD";
     }
 
+    void InitOwnerDistrict()
+    {
+        List<int> communardDistricts = new List<int>(){10, 11, 12, 13, 18, 19, 20};
+        List<int> versaillaisDistricts = new List<int>(){1, 2, 3, 9, 15, 16};
+        
+        int random = new Random().Next(communardDistricts.Count);
+        int value = communardDistricts[random];
+        _districts[value - 1].SetOwner(_communard);
+        communardDistricts.RemoveAt(random);
+
+        int closest = communardDistricts.OrderBy(district => Math.Abs(value - district)).First();
+        _districts[closest - 1].SetOwner(_communard);
+        
+        random = new Random().Next(versaillaisDistricts.Count);
+        value = versaillaisDistricts[random];
+        _districts[value - 1].SetOwner(_versaillais);
+        versaillaisDistricts.RemoveAt(random);
+        
+        closest = versaillaisDistricts.OrderBy(district => Math.Abs(value - district)).First();
+        _districts[closest - 1].SetOwner(_versaillais);
+    }
+
     void InitDistrict()
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         _districts = objects.Select(obj => obj.GetComponent<District>()).ToList();
         _districts = _districts.OrderBy(district => district.GetNumber()).ToList();
-        _districts[14].SetOwner(_versaillais);
-        _districts[15].SetOwner(_versaillais);
-        _districts[17].SetOwner(_communard);
-        _districts[18].SetOwner(_communard);
+
+        InitOwnerDistrict();
+        
         List<List<int>> districtAdjLists = new List<List<int>>()
         {
             new List<int>{2,3,4,6,7,8},
