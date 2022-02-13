@@ -172,8 +172,8 @@ MonoBehaviour:
   _collider: {fileID: 81017695}
   boardObject: {fileID: 81017693}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 724607508}
+  communardsPoints: {fileID: 1627749398}
   transition: {fileID: 1489956017}
   adj: []
 --- !u!1 &26024462
@@ -776,6 +776,40 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!21 &94889694
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 214.1802, g: 86.0754, b: 30, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &102598779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,8 +1066,8 @@ MonoBehaviour:
   _collider: {fileID: 384352241}
   boardObject: {fileID: 384352239}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 1467825357}
+  communardsPoints: {fileID: 1867993307}
   transition: {fileID: 582408740}
   adj: []
 --- !u!1 &119113185
@@ -1333,6 +1367,40 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141378090}
   m_Mesh: {fileID: -4919936998300877784, guid: 342f48c43ef08a74f823f3bac5ffcfed, type: 3}
+--- !u!21 &142445707
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 400, g: 100, b: 30, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &142596209
 GameObject:
   m_ObjectHideFlags: 0
@@ -2780,8 +2848,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 359994422}
-  - {fileID: 532706333}
   - {fileID: 694181036}
+  - {fileID: 857987741}
   m_Father: {fileID: 1030975748}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3061,8 +3129,8 @@ MonoBehaviour:
   _collider: {fileID: 282546618}
   boardObject: {fileID: 282546616}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 718959162}
+  communardsPoints: {fileID: 521937098}
   transition: {fileID: 1896328690}
   adj: []
 --- !u!1 &282546616
@@ -3210,8 +3278,8 @@ MonoBehaviour:
   _collider: {fileID: 1209504596}
   boardObject: {fileID: 1209504594}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 303539466}
+  communardsPoints: {fileID: 1054470533}
   transition: {fileID: 1356993657}
   adj: []
 --- !u!1 &293208159
@@ -3903,7 +3971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 797261819}
+  m_Material: {fileID: 142445707}
   m_Color: {r: 0.8392157, g: 0.14509805, b: 0.14509805, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -5754,6 +5822,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 509910602}
   m_CullTransparentMesh: 1
+--- !u!21 &514494492
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 300, g: 75, b: 30, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &517641741
 GameObject:
   m_ObjectHideFlags: 0
@@ -6251,16 +6353,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532706332}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0000085831}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 234859620}
-  m_RootOrder: 1
+  m_Father: {fileID: 857987741}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 193.99988, y: -68.99997}
+  m_AnchoredPosition: {x: 107.09, y: -43.038}
   m_SizeDelta: {x: 191.26135, y: 97.15723}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &532706334
@@ -6286,14 +6388,14 @@ MonoBehaviour:
   m_text: Tour 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 8acb9609ac0cd034f8065d7586b19782, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -8268,8 +8370,8 @@ MonoBehaviour:
   _collider: {fileID: 1141412270}
   boardObject: {fileID: 1141412268}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 372230298}
+  communardsPoints: {fileID: 1867859018}
   transition: {fileID: 50373548}
   adj: []
 --- !u!1 &675835610
@@ -8417,8 +8519,8 @@ MonoBehaviour:
   _collider: {fileID: 1434848212}
   boardObject: {fileID: 1434848210}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 789501587}
+  communardsPoints: {fileID: 249286439}
   transition: {fileID: 1522623097}
   adj: []
 --- !u!1 &677502532
@@ -8644,6 +8746,7 @@ GameObject:
   - component: {fileID: 694181039}
   - component: {fileID: 694181038}
   - component: {fileID: 694181037}
+  - component: {fileID: 694181040}
   m_Layer: 5
   m_Name: NextTurnButton
   m_TagString: Untagged
@@ -8664,7 +8767,7 @@ RectTransform:
   m_Children:
   - {fileID: 1698628201}
   m_Father: {fileID: 234859620}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8739,15 +8842,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Material: {fileID: 1608716253}
+  m_Color: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8765,6 +8868,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694181035}
   m_CullTransparentMesh: 1
+--- !u!114 &694181040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694181035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 30
+  image: {fileID: 694181038}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -10192,40 +10309,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!21 &797261819
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _WidthHeightRadius: {r: 400, g: 100, b: 30, a: 0}
-  m_BuildTextureStacks: []
 --- !u!1 &797833749
 GameObject:
   m_ObjectHideFlags: 0
@@ -10275,10 +10358,44 @@ MonoBehaviour:
   _collider: {fileID: 506893752}
   boardObject: {fileID: 506893750}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 207926631}
+  communardsPoints: {fileID: 970217654}
   transition: {fileID: 1251028370}
   adj: []
+--- !u!21 &818677120
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 300, g: 75, b: 30, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &824791573
 GameObject:
   m_ObjectHideFlags: 0
@@ -10328,8 +10445,8 @@ MonoBehaviour:
   _collider: {fileID: 190653787}
   boardObject: {fileID: 190653785}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 2091556514}
+  communardsPoints: {fileID: 169983924}
   transition: {fileID: 1014305161}
   adj: []
 --- !u!1 &830385717
@@ -10858,6 +10975,97 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848740740}
   m_Mesh: {fileID: 1921215057333919990, guid: 342f48c43ef08a74f823f3bac5ffcfed, type: 3}
+--- !u!1 &857987740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 857987741}
+  - component: {fileID: 857987744}
+  - component: {fileID: 857987743}
+  - component: {fileID: 857987742}
+  m_Layer: 5
+  m_Name: TurnNumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &857987741
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857987740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 532706333}
+  m_Father: {fileID: 234859620}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -739, y: 478}
+  m_SizeDelta: {x: 214.1802, y: 86.0754}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &857987742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857987740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 30
+  image: {fileID: 857987743}
+--- !u!114 &857987743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857987740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 94889694}
+  m_Color: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &857987744
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857987740}
+  m_CullTransparentMesh: 1
 --- !u!1 &863021318
 GameObject:
   m_ObjectHideFlags: 0
@@ -10907,8 +11115,8 @@ MonoBehaviour:
   _collider: {fileID: 330931920}
   boardObject: {fileID: 330931918}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 445317424}
+  communardsPoints: {fileID: 1072377576}
   transition: {fileID: 137705696}
   adj: []
 --- !u!1 &874442122
@@ -11039,8 +11247,8 @@ MonoBehaviour:
   _collider: {fileID: 675835612}
   boardObject: {fileID: 675835610}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 978384773}
+  communardsPoints: {fileID: 744759666}
   transition: {fileID: 526284532}
   adj: []
 --- !u!1 &890323150
@@ -12180,8 +12388,8 @@ MonoBehaviour:
   _collider: {fileID: 551134672}
   boardObject: {fileID: 551134670}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 560115682}
+  communardsPoints: {fileID: 2143355020}
   transition: {fileID: 451581693}
   adj: []
 --- !u!1 &977156308
@@ -15076,8 +15284,8 @@ MonoBehaviour:
   _collider: {fileID: 2066318044}
   boardObject: {fileID: 2066318042}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 76228957}
+  communardsPoints: {fileID: 363404013}
   transition: {fileID: 762465267}
   adj: []
 --- !u!1 &1209504594
@@ -15699,7 +15907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 1599216060}
+  m_Material: {fileID: 1302737388}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -15895,6 +16103,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!21 &1302737388
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 400, g: 450, b: 40, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &1310449223
 GameObject:
   m_ObjectHideFlags: 0
@@ -17342,8 +17584,8 @@ MonoBehaviour:
   _collider: {fileID: 1775625831}
   boardObject: {fileID: 1775625829}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 1948443635}
+  communardsPoints: {fileID: 1586767935}
   transition: {fileID: 1075640514}
   adj: []
 --- !u!1 &1447753587
@@ -17557,8 +17799,8 @@ MonoBehaviour:
   _collider: {fileID: 1570341685}
   boardObject: {fileID: 1570341683}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 607016905}
+  communardsPoints: {fileID: 2045802592}
   transition: {fileID: 1163309873}
   adj: []
 --- !u!1 &1459137529
@@ -18174,7 +18416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 1646388204}
+  m_Material: {fileID: 514494492}
   m_Color: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -19092,40 +19334,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!21 &1599216060
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _WidthHeightRadius: {r: 400, g: 450, b: 40, a: 0}
-  m_BuildTextureStacks: []
 --- !u!1 &1600007794
 GameObject:
   m_ObjectHideFlags: 0
@@ -19262,6 +19470,40 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!21 &1608716253
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 260.17932, g: 101.56891, b: 30, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &1617258866
 GameObject:
   m_ObjectHideFlags: 0
@@ -19311,8 +19553,8 @@ MonoBehaviour:
   _collider: {fileID: 838250952}
   boardObject: {fileID: 838250950}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 1025270510}
+  communardsPoints: {fileID: 1164694690}
   transition: {fileID: 1247091649}
   adj: []
 --- !u!1 &1618402316
@@ -19886,44 +20128,10 @@ MonoBehaviour:
   _collider: {fileID: 1564527260}
   boardObject: {fileID: 1564527258}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 1418685540}
+  communardsPoints: {fileID: 2095508442}
   transition: {fileID: 911726230}
   adj: []
---- !u!21 &1646388204
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _WidthHeightRadius: {r: 300, g: 75, b: 30, a: 0}
-  m_BuildTextureStacks: []
 --- !u!1 &1671985479
 GameObject:
   m_ObjectHideFlags: 0
@@ -20520,7 +20728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20528,11 +20736,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 42
+    m_Font: {fileID: 12800000, guid: f4c99a340a6e6504aa6e992b7a253612, type: 3}
+    m_FontSize: 31
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 9
     m_MaxSize: 42
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -20927,7 +21135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 1871717344}
+  m_Material: {fileID: 1900417174}
   m_Color: {r: 0.8862745, g: 0.34509805, b: 0.3137255, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -21002,8 +21210,8 @@ MonoBehaviour:
   _collider: {fileID: 1622022371}
   boardObject: {fileID: 1622022369}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 1688615646}
+  communardsPoints: {fileID: 392425209}
   transition: {fileID: 26024464}
   adj: []
 --- !u!1 &1775625829
@@ -21928,40 +22136,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!21 &1871717344
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _WidthHeightRadius: {r: 300, g: 75, b: 30, a: 0}
-  m_BuildTextureStacks: []
 --- !u!1 &1880438361
 GameObject:
   m_ObjectHideFlags: 0
@@ -22109,7 +22283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 1923057616}
+  m_Material: {fileID: 818677120}
   m_Color: {r: 0.5921569, g: 0.62352943, b: 0.972549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -22271,6 +22445,40 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!21 &1900417174
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 300, g: 75, b: 30, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &1913045168
 GameObject:
   m_ObjectHideFlags: 0
@@ -22320,44 +22528,10 @@ MonoBehaviour:
   _collider: {fileID: 1618402318}
   boardObject: {fileID: 1618402316}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 963650889}
+  communardsPoints: {fileID: 2132246507}
   transition: {fileID: 89182815}
   adj: []
---- !u!21 &1923057616
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _WidthHeightRadius: {r: 300, g: 75, b: 30, a: 0}
-  m_BuildTextureStacks: []
 --- !u!1 &1925655551
 GameObject:
   m_ObjectHideFlags: 0
@@ -22899,8 +23073,8 @@ MonoBehaviour:
   _collider: {fileID: 1364171768}
   boardObject: {fileID: 1364171766}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 1099083553}
+  communardsPoints: {fileID: 1515664059}
   transition: {fileID: 1603265577}
   adj: []
 --- !u!1 &1984197145
@@ -22952,8 +23126,8 @@ MonoBehaviour:
   _collider: {fileID: 168306834}
   boardObject: {fileID: 168306832}
   scoutModal: {fileID: 1262448987}
-  versaillaisPoints: {fileID: 0}
-  communardsPoints: {fileID: 0}
+  versaillaisPoints: {fileID: 1280181866}
+  communardsPoints: {fileID: 392999525}
   transition: {fileID: 1337987403}
   adj: []
 --- !u!1 &2008716564
