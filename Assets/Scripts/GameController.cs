@@ -67,9 +67,9 @@ public class GameController : MonoBehaviour
             new SpeakerDebate(),
             new ElectionAction(),
             new Attack(),
+            new DeployTroops(),
             new PressureOnElected(),
             new SendScout(),
-            new DeployTroops(),
             new RigElection(),
         };
         _actionScrollView.createButtons(_actions);

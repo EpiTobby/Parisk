@@ -9,7 +9,7 @@ namespace Parisk.Action
 
         public string Name()
         {
-            return "Envoyer un �claireur";
+            return "Envoyer un éclaireur";
         }
 
         public string Description()
