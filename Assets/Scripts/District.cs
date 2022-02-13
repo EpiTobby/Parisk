@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using Parisk;
 using Parisk.Action;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Random = System.Random;
 
 public class District : MonoBehaviour
@@ -294,17 +295,21 @@ class ColliderBridge : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        _listener.OnMouseEnter();
+        // Check if the left mouse button was clicked
+        if (!EventSystem.current.IsPointerOverGameObject()) 
+            _listener.OnMouseEnter();
     }
 
     private void OnMouseExit()
     {
-        _listener.OnMouseExit();
+        if (!EventSystem.current.IsPointerOverGameObject())
+            _listener.OnMouseExit();
     }
 
     private void OnMouseUpAsButton()
     {
-        _listener.OnMouseUpAsButton();
+        if (!EventSystem.current.IsPointerOverGameObject())
+            _listener.OnMouseUpAsButton();
     }
 }
 
