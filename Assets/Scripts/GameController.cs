@@ -65,6 +65,7 @@ public class GameController : MonoBehaviour
             new PressureOnElected(),
             new SendScout(),
             new DeployTroops(),
+            new RigElection(),
         };
         _actionScrollView.createButtons(_actions);
         playerTurnText.text = "COMMUNARD";

@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using Parisk;
 using Parisk.Action;
 using UnityEngine;
+using Random = System.Random;
 
 public class District : MonoBehaviour
 {
@@ -111,7 +112,32 @@ public class District : MonoBehaviour
     {
         if (_nextElection == null)
             throw new Exception("No election in this district");
-        var result = PredictElections();
+
+        ElectionsResult result;
+        if (_nextElection.GetFakedSide().HasValue)
+        {
+            Side side = _nextElection.GetFakedSide().GetValueOrDefault();
+            bool success = new Random().Next(0, 100) <= Convert.ToInt32(ActionCost.RigElectionSuccessRate);
+
+            ControlPointContainer controlPointContainer = GetPointController();
+            var type = _owner == null ? ElectionsResultType.Win :
+                _owner.Side != side ? ElectionsResultType.Reversal : ElectionsResultType.Maintain; 
+            if (success)
+            {
+                controlPointContainer.AddPointsTo(side, Convert.ToInt32(ActionCost.RigElectionSuccess));
+                result = new ElectionsResult(side, type);
+            }
+            else
+            {
+                controlPointContainer.RemovePointsTo(side, Convert.ToInt32(ActionCost.RigElectionFailure));
+                result = PredictElections();
+            }
+        }
+        else
+        {
+            result = PredictElections();
+        }
+        
         _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
