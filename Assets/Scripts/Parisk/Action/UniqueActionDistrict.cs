@@ -15,6 +15,11 @@ namespace Parisk.Action
             throw new System.NotImplementedException();
         }
 
+        public string Image()
+        {
+            return "destroy";
+        }
+
         public virtual bool CanExecute(Player side, District district)
         {
             return district.CanExecuteUniqueActionDistrict() && district.GetOwner() != null && district.GetOwner().Side == side.Side;
@@ -38,6 +43,11 @@ namespace Parisk.Action
             return "Destruction d’un bâtiment (hôtel particulier de Thiers, colonne Vendôme): -"
                    + Convert.ToInt32(ActionCost.DestroyBuilding)
                    + "pour l’adversaire (qui passent en absentéisme) à faire qu’une fois dans la partie pour cet arrondissement.";
+        }
+
+        public string Image()
+        {
+            return "destroy";
         }
 
         public override bool CanExecute(Player side, District district)
@@ -64,6 +74,11 @@ namespace Parisk.Action
             return "Exécution de prisonniers : -"
                    + Convert.ToInt32(ActionCost.ExecutePrisoners)
                    + " pour l’adversaire (qui passent en absentéisme) à faire qu’une fois dans la partie pour cet arrondissement.";
+        }
+
+        public string Image()
+        {
+            return "guillotine";
         }
 
         public override bool CanExecute(Player side, District district)

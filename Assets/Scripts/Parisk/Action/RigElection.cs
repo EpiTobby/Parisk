@@ -21,6 +21,11 @@ namespace Parisk.Action
                    + " sinon";
         }
 
+        public string Image()
+        {
+            return "document";
+        }
+
         public bool CanExecute(Player side, District district)
         {
             return district.GetNextElection() != null;
