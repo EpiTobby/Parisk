@@ -65,9 +65,9 @@ public class GameController : MonoBehaviour
             new SpeakerDebate(),
             new ElectionAction(),
             new Attack(),
+            new DeployTroops(),
             new PressureOnElected(),
             new SendScout(),
-            new DeployTroops(),
             new RigElection(),
         };
         _actionScrollView.createButtons(_actions);
@@ -286,5 +286,10 @@ public class GameController : MonoBehaviour
     public static GameController Get()
     {
         return GameObject.FindWithTag("GameController").GetComponent<GameController>();
+    }
+
+    public List<District> GetDistricts()
+    {
+        return _districts;
     }
 }

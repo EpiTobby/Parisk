@@ -12,6 +12,10 @@ public class ActionScrollView : MonoBehaviour
     public Dictionary<IAction, GameObject> ActionbuttonDictionary = new Dictionary<IAction, GameObject>();
     public Transform parent = null;
     public GameObject ActionButtonPrefab = null;
+
+    [SerializeField] 
+    public DeployTroopsUI deployTroopsUI = null;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +33,8 @@ public class ActionScrollView : MonoBehaviour
         int y = 285;
         foreach (IAction action in actions)
         {
+            if (action.Name().Equals("Déployer des troupes"))
+                deployTroopsUI.deployTroops = action as DeployTroops;
             Debug.Log(action.Name());
             GameObject button = Instantiate(ActionButtonPrefab,new Vector3(0, y, 0), Quaternion.identity);
             button.transform.SetParent(parent.transform, false);
@@ -48,10 +54,21 @@ public class ActionScrollView : MonoBehaviour
             {
                 pair.Value.SetActive(true);
                 pair.Value.GetComponent<Button>().onClick.RemoveAllListeners();
-                pair.Value.GetComponent<Button>().onClick.AddListener(() =>
-                { 
-                    GameController.Get().ExecuteAction(player, pair.Key, district);
-                });
+                if (pair.Key.Name().Equals("Déployer des troupes"))
+                {
+                    deployTroopsUI.DistrictDropdownSetUp();
+                    pair.Value.GetComponent<Button>().onClick.AddListener(() =>
+                    {
+                        deployTroopsUI.panel.SetActive(true);
+                    });
+                }
+                else
+                {
+                    pair.Value.GetComponent<Button>().onClick.AddListener(() =>
+                    { 
+                        GameController.Get().ExecuteAction(player, pair.Key, district);
+                    });
+                }
             }
             else
                 pair.Value.SetActive(false);
