@@ -24,7 +24,7 @@ namespace Parisk.Action
 
         public bool CanExecute(Player side, District district)
         {
-            var currentPoints = district.getPointController().GetPointsFor(side.Side);
+            var currentPoints = district.GetPointController().GetPointsFor(side.Side);
             var requiredPoints = Convert.ToInt32(ActionCost.SendScout);
             return currentPoints >= requiredPoints;
         }
@@ -32,10 +32,12 @@ namespace Parisk.Action
         public void Execute(Player side, District district)
         {
             var amount = Convert.ToInt32(ActionCost.SendScout);
-            district.getPointController().RemovePointsTo(side.Side, amount);
-            _targetDistrict.getPointController().AddPointsTo(side.Side.GetOpposite(), amount, PointSource.Absenteeism);
-            
+
+            district.GetPointController().RemovePointsTo(side.Side, amount);
+            _targetDistrict.GetPointController().AddPointsTo(side.Side.GetOpposite(), amount, PointSource.Absenteeism);
+
             Logger.LogExecute("Send scout", district);
+
             district.OpenScoutModal();
         }
 

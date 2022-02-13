@@ -55,7 +55,7 @@ public class TurnPanelController : MonoBehaviour, EventObserver
     public void OnClickNextTurn()
     {
         _actionCount = 0;
-        GameController.Get().endActivePlayerTurn();
+        GameController.Get().EndActivePlayerTurn();
         UpdateNextTurnButton();
         UpdateDate();
     }

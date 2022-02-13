@@ -15,9 +15,9 @@ public class ScoutModal : MonoBehaviour
     public void OpenModal(District district)
     {
         number.text = district.GetNumber().ToString();
-        versaillais.text = district.getPointController().GetPointsFor(Side.Versaillais).ToString();
-        communards.text = district.getPointController().GetPointsFor(Side.Communards).ToString();
-        absenteeism.text = district.getPointController().GetAbsenteeism().ToString();
+        versaillais.text = district.GetPointController().GetPointsFor(Side.Versaillais).ToString();
+        communards.text = district.GetPointController().GetPointsFor(Side.Communards).ToString();
+        absenteeism.text = district.GetPointController().GetAbsenteeism().ToString();
         modal.SetActive(true);
     }
 

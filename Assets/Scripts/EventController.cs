@@ -1,21 +1,15 @@
 using System;
+using System.Collections.Generic;
 using Parisk;
-using UnityEngine;
 
 
-public class EventController : MonoBehaviour
+public class EventController
 {
-    private District[] _districts;
-    
-    public District[] Districts
-    {
-        get => _districts;
-        set => _districts = value;
-    }
+    private List<District> _districts;
 
-    private void Start()
+    public EventController(List<District> districts)
     {
-        _districts = new District[20];
+        _districts = districts;
     }
 
     public void HandleEvents(int turn)

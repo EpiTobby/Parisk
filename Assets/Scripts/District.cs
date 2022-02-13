@@ -4,7 +4,9 @@ using System.Collections;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using Parisk;
+using Parisk.Action;
 using UnityEngine;
+using Random = System.Random;
 
 public class District : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class District : MonoBehaviour
     [SerializeReference]
     private List<Building> buildings = null;
     private Player _owner = null;
-    private ControlPointContainer _pointContainer = ControlPointContainer.InitializeRandom();
+    private readonly ControlPointContainer _pointContainer = ControlPointContainer.InitializeRandom();
     [SerializeField] private Collider _collider;
     private AnimationSelectionDirection _animationSelectionDirection;
     private int _inertiaPoints = 0;
@@ -26,10 +28,18 @@ public class District : MonoBehaviour
 
     private Election _nextElection;
 
+    private UniqueActionDistrict[] _uniqueActionDistrict =
+    {
+        new DestroyBuilding(), 
+        new ExecutePrisoners(), 
+    };
+
+    private bool _alreadyDoneUniqueActionDistrict = false;
+
     private void Awake()
     {
-        MeshCollider collider = GetComponentInChildren<MeshCollider>();
-        collider.gameObject.AddComponent<ColliderBridge>().Initialize(this);
+        MeshCollider meshCollider = GetComponentInChildren<MeshCollider>();
+        meshCollider.gameObject.AddComponent<ColliderBridge>().Initialize(this);
     }
 
     // Start is called before the first frame update
@@ -67,7 +77,7 @@ public class District : MonoBehaviour
         Debug.Log("Mouse over District " + number);
     }
 
-    public String getBuildings()
+    public String GetBuildings()
     {
         String res = "";
         foreach(Building building in buildings)
@@ -102,7 +112,32 @@ public class District : MonoBehaviour
     {
         if (_nextElection == null)
             throw new Exception("No election in this district");
-        var result = PredictElections();
+
+        ElectionsResult result;
+        if (_nextElection.GetFakedSide().HasValue)
+        {
+            Side side = _nextElection.GetFakedSide().GetValueOrDefault();
+            bool success = new Random().Next(0, 100) <= Convert.ToInt32(ActionCost.RigElectionSuccessRate);
+
+            ControlPointContainer controlPointContainer = GetPointController();
+            var type = _owner == null ? ElectionsResultType.Win :
+                _owner.Side != side ? ElectionsResultType.Reversal : ElectionsResultType.Maintain; 
+            if (success)
+            {
+                controlPointContainer.AddPointsTo(side, Convert.ToInt32(ActionCost.RigElectionSuccess));
+                result = new ElectionsResult(side, type);
+            }
+            else
+            {
+                controlPointContainer.RemovePointsTo(side, Convert.ToInt32(ActionCost.RigElectionFailure));
+                result = PredictElections();
+            }
+        }
+        else
+        {
+            result = PredictElections();
+        }
+        
         _owner = result.Side == null 
             ? null 
             : GameController.Get().GetPlayer(result.Side.Value);
@@ -144,6 +179,21 @@ public class District : MonoBehaviour
         return _owner;
     }
 
+    public bool CanExecuteUniqueActionDistrict()
+    {
+        return _alreadyDoneUniqueActionDistrict == false;
+    }
+
+    public void ExecuteUniqueActionDistrict()
+    {
+        _alreadyDoneUniqueActionDistrict = true;
+    }
+
+    public UniqueActionDistrict GetUniqueActionDistrict()
+    {
+        return _uniqueActionDistrict[Convert.ToInt32(_owner.Side)];
+    }
+
     public void UpdateControlPointsOnEvent(int amount, bool adding)
     {
         if (_owner == null)
@@ -170,7 +220,7 @@ public class District : MonoBehaviour
         buildings.RemoveAll(building => building.getName() == buildingName);
     }
 
-    public ControlPointContainer getPointController()
+    public ControlPointContainer GetPointController()
     {
         return _pointContainer;
     }
