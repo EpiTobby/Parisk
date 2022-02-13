@@ -33,8 +33,9 @@ public class ActionScrollView : MonoBehaviour
         int y = 285;
         foreach (IAction action in actions)
         {
-            if (action is DeployTroops)
-                deployTroopsUI.deployTroops = action as DeployTroops;
+            if (action is DeployTroops troops)
+                deployTroopsUI.deployTroops = troops;
+            
             Debug.Log(action.Name());
             GameObject button = Instantiate(ActionButtonPrefab,new Vector3(0, y, 0), Quaternion.identity);
             button.transform.SetParent(parent.transform, false);

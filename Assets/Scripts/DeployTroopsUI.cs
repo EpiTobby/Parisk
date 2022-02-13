@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,9 +53,12 @@ public class DeployTroopsUI : MonoBehaviour
         DistrictDropdown.ClearOptions();
         GameController gameController = GameController.Get();
         Player active = gameController.GetActive();
-        DistrictDropdown.AddOptions(DistrictDropdown.AddOptions(gameController.GetDistricts()
+
+        List<string> options = gameController.GetDistricts()
             .Where(district => district.GetOwner() == null || district.GetOwner().Side == active.Side)
-            .Select(district => district.GetNumber().ToString())));
+            .Select(district => district.GetNumber().ToString()).ToList();
+
+        DistrictDropdown.AddOptions(options);
     }
     
     public bool CheckValues()
