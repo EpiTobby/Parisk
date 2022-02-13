@@ -29,7 +29,7 @@ namespace Parisk.Action
         public void Execute(Player side, District district)
         {
             var amount = new Random().Next(Convert.ToInt32(ActionCost.AttackMin), Convert.ToInt32(ActionCost.AttackMax));
-            district.GetPointController().AddPointsTo(side.Side, amount, PointSource.Adversary);
+            district.AddPointsTo(side.Side, amount, PointSource.Adversary);
             
             Logger.LogExecute("Attack", district);
         }

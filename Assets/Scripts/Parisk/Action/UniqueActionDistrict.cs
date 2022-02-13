@@ -57,7 +57,7 @@ namespace Parisk.Action
 
         public override void Execute(Player side, District district)
         {
-            district.GetPointController().RemovePointsTo(side.Side.GetOpposite(), Convert.ToInt32(ActionCost.DestroyBuilding));
+            district.RemovePointsTo(side.Side.GetOpposite(), Convert.ToInt32(ActionCost.DestroyBuilding));
             base.Execute(side, district);
         }
     }
@@ -88,7 +88,7 @@ namespace Parisk.Action
 
         public override void Execute(Player side, District district)
         {
-            district.GetPointController().RemovePointsTo(side.Side.GetOpposite(), Convert.ToInt32(ActionCost.ExecutePrisoners));
+            district.RemovePointsTo(side.Side.GetOpposite(), Convert.ToInt32(ActionCost.ExecutePrisoners));
             base.Execute(side, district);
         }
     }

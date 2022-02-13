@@ -61,7 +61,7 @@ namespace Parisk.Action
         {
             foreach (var playerDistrict in GameController.Get().GetPlayerDistrict(side))
             {
-                playerDistrict.GetPointController().AddPointsTo(side.Side, Convert.ToInt32(ActionCost.GermanPact));
+                playerDistrict.AddPointsTo(side.Side, Convert.ToInt32(ActionCost.GermanPact));
             }
             base.Execute(side, district);
         }
@@ -95,7 +95,7 @@ namespace Parisk.Action
         {
             foreach (var playerDistrict in GameController.Get().GetPlayerDistrict(side))
             {
-                playerDistrict.GetPointController().AddPointsTo(side.Side, Convert.ToInt32(ActionCost.NationalGuardReinstatement));
+                playerDistrict.AddPointsTo(side.Side, Convert.ToInt32(ActionCost.NationalGuardReinstatement));
             }
             base.Execute(side, district);
         }
