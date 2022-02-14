@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using DefaultNamespace;
 
 namespace Parisk.Action
@@ -24,9 +26,14 @@ namespace Parisk.Action
 
         public bool CanExecute(Player side, District district)
         {
-            var currentPoints = district.GetPointController().GetPointsFor(side.Side);
-            var requiredPoints = Convert.ToInt32(ActionCost.SendScout);
-            return currentPoints >= requiredPoints;
+            List<District> districts = GameController.Get().GetDistricts();
+            foreach (District d in districts)
+            {
+                if (d.GetPointController().GetPointsFor(side.Side) >= 5)
+                    return true;
+            }
+
+            return false;
         }
 
         public void Execute(Player side, District district)
@@ -36,9 +43,9 @@ namespace Parisk.Action
             district.RemovePointsTo(side.Side, amount);
             _targetDistrict.AddPointsTo(side.Side.GetOpposite(), amount, PointSource.Absenteeism);
 
-            Logger.LogExecute("Send scout", district);
+            Logger.LogExecute("Send scout ", _targetDistrict);
 
-            district.OpenScoutModal();
+            _targetDistrict.OpenScoutModal();
         }
 
         public bool SetupExecute(District targetedDistrict)

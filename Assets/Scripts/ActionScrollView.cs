@@ -16,6 +16,9 @@ public class ActionScrollView : MonoBehaviour
     [SerializeField] 
     public DeployTroopsUI deployTroopsUI = null;
 
+    [SerializeField]
+    public SendScoutUI sendScoutUI = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,9 +36,10 @@ public class ActionScrollView : MonoBehaviour
         int y = 285;
         foreach (IAction action in actions)
         {
-            if (action is DeployTroops troops)
-                deployTroopsUI.deployTroops = troops;
-            
+            if (action is DeployTroops deployTroops)
+                deployTroopsUI.deployTroops = deployTroops;
+            if (action is SendScout sendScout)
+                sendScoutUI.sendScout = sendScout;
             Debug.Log(action.Name());
             GameObject button = Instantiate(ActionButtonPrefab,new Vector3(0, y, 0), Quaternion.identity);
             button.transform.SetParent(parent.transform, false);
@@ -61,6 +65,14 @@ public class ActionScrollView : MonoBehaviour
                     pair.Value.GetComponent<Button>().onClick.AddListener(() =>
                     {
                         deployTroopsUI.panel.SetActive(true);
+                    });
+                }
+                else if (pair.Key is SendScout)
+                {
+                    sendScoutUI.DistrictDropdownSetUp();
+                    pair.Value.GetComponent<Button>().onClick.AddListener(() =>
+                    {
+                        sendScoutUI.panel.SetActive(true);
                     });
                 }
                 else
