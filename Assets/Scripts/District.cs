@@ -26,6 +26,8 @@ public class District : MonoBehaviour
     [SerializeField] private TMP_Text versaillaisPoints = null;
     [SerializeField] private TMP_Text communardsPoints = null;
 
+   
+
     public Animator transition;
 
     public List<District> adj = new List<District>();
@@ -49,6 +51,8 @@ public class District : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+        
         _pointContainer.SetVersaillaisPoints(versaillaisPoints);
         _pointContainer.SetCommunardsPoints(communardsPoints);
     }
@@ -110,8 +114,8 @@ public class District : MonoBehaviour
         materialComponent.GetComponent<Renderer>().material = _owner == null ? 
             Resources.Load("Materials/White", typeof(Material)) as Material
             : _owner.Side == Side.Versaillais
-            ? Resources.Load("Materials/Blue", typeof(Material)) as Material
-            : Resources.Load("Materials/Red", typeof(Material)) as Material;
+                ? Resources.Load("Materials/Blue", typeof(Material)) as Material
+                : Resources.Load("Materials/Red", typeof(Material)) as Material;
     }
 
     IEnumerator ChangeDistrictColorWithAnimation()
@@ -276,6 +280,8 @@ public class District : MonoBehaviour
     {
         return number;
     }
+
+   
 
     public void StartElections()
     {
