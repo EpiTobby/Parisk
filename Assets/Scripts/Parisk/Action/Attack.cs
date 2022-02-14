@@ -13,7 +13,7 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "Attaquer l'adversaire et lui prendre entre " + Convert.ToInt32(ActionCost.AttackMin) + " � " + Convert.ToInt32(ActionCost.AttackMax) + " points de contr�le. Cette action a 20% de chance de rater.";
+            return "Attaquer l'adversaire et lui prendre entre " + Convert.ToInt32(ActionCost.AttackMin) + " à " + Convert.ToInt32(ActionCost.AttackMax) + " points de controle. Cette action a 20% de chance de rater.";
         }
 
         public string Image()
