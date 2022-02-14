@@ -25,8 +25,7 @@ public class District : MonoBehaviour
     [SerializeField] private GameObject scoutModal;
     [SerializeField] private TMP_Text versaillaisPoints = null;
     [SerializeField] private TMP_Text communardsPoints = null;
-
-   
+    [SerializeField] private RigElectionPanelController rigElectionPanelController;
 
     public Animator transition;
 
@@ -152,6 +151,7 @@ public class District : MonoBehaviour
                 RemovePointsTo(side, Convert.ToInt32(ActionCost.RigElectionFailure));
                 result = PredictElections();
             }
+            rigElectionPanelController.DisplayModal(success);
         }
         else
         {
