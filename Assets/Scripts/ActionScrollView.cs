@@ -16,9 +16,9 @@ public class ActionScrollView : MonoBehaviour
     [SerializeField] 
     public DeployTroopsUI deployTroopsUI = null;
 
-    [SerializeField] 
+    [SerializeField]
     public SendScoutUI sendScoutUI = null;
-    
+
     // Start is called before the first frame update
     void Start()
     {
