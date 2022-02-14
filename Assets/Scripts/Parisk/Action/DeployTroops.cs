@@ -31,7 +31,6 @@ namespace Parisk.Action
 
         public void Execute(Player side, District selectedDistrict)
         {
-
             _targetDistrict.AddPointsTo(side.Side, _numberOfTroops);
             selectedDistrict.RemovePointsTo(side.Side, _numberOfTroops);
             Logger.LogExecute("Deploy Troops", selectedDistrict);
@@ -39,13 +38,11 @@ namespace Parisk.Action
 
         public bool SetupExecute(Player side, int amount, District targetedDistrict)
         {
-            if (_targetDistrict == null ||
-                (_targetDistrict.GetOwner() != null && _targetDistrict.GetOwner().Side != side.Side))
+            if (targetedDistrict == null)
                 return false;
             
             _numberOfTroops = amount;
             _targetDistrict = targetedDistrict;
-
             return true;
         }
     }
