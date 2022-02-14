@@ -284,6 +284,11 @@ public class GameController : MonoBehaviour
             _districtSelectionPanelController.Hide();
     }
 
+    public void UnselectDistrict()
+    {
+        SelectDistrict(null);
+    }
+
     public int GetTurn()
     {
         return _turn;
