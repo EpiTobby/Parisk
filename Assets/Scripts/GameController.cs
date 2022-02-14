@@ -196,7 +196,6 @@ public class GameController : MonoBehaviour
 
     void NextTurn()
     {
-        Debug.Log("Turn " + _turn + " ended.");
         _turn++;
         StartCoroutine(AnimateLight());
         if (_turn >= 73)

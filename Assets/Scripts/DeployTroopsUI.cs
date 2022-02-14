@@ -22,6 +22,9 @@ public class DeployTroopsUI : MonoBehaviour
     [SerializeField]
     private Dropdown DistrictDropdown = null;
 
+    [SerializeField]
+    private TurnPanelController _turnPanelController = null;
+
     public DeployTroops deployTroops = null;
     
     // Start is called before the first frame update
@@ -98,6 +101,7 @@ public class DeployTroopsUI : MonoBehaviour
             deployTroops.SetupExecute(active,GetValueFromInputText(value.text),targeted);
             deployTroops.Execute(active, selectedDistrict);
             panel.SetActive(false);
+            _turnPanelController.OnAction();
         }
     }
 }
