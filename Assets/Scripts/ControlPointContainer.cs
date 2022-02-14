@@ -11,6 +11,8 @@ public class ControlPointContainer
     
     private const int MinRandom = 10;
     private const int MaxRandom = 30;
+
+    private const int InitialPoints = 70;
     
     private int _communardRandom;
     private int _versaillaisRandom;
@@ -129,6 +131,11 @@ public class ControlPointContainer
     public int GetVersaillaisRandomPoints()
     {
         return _versaillaisRandom;
+    }
+
+    public void SetInitialPoints(Side side)
+    {
+        _points[side] = InitialPoints;
     }
 }
 

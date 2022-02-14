@@ -85,18 +85,22 @@ public class GameController : MonoBehaviour
         int random = new Random().Next(communardDistricts.Count);
         int value = communardDistricts[random];
         _districts[value - 1].SetOwner(_communard);
+        _districts[value - 1].GetPointController().SetInitialPoints(Side.Communards);
         communardDistricts.RemoveAt(random);
 
         int closest = communardDistricts.OrderBy(district => Math.Abs(value - district)).First();
         _districts[closest - 1].SetOwner(_communard);
-        
+        _districts[closest - 1].GetPointController().SetInitialPoints(Side.Communards);
+
         random = new Random().Next(versaillaisDistricts.Count);
         value = versaillaisDistricts[random];
         _districts[value - 1].SetOwner(_versaillais);
+        _districts[value - 1].GetPointController().SetInitialPoints(Side.Versaillais);
         versaillaisDistricts.RemoveAt(random);
         
         closest = versaillaisDistricts.OrderBy(district => Math.Abs(value - district)).First();
         _districts[closest - 1].SetOwner(_versaillais);
+        _districts[closest - 1].GetPointController().SetInitialPoints(Side.Versaillais);
     }
 
     void InitDistrict()
