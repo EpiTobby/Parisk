@@ -26,6 +26,7 @@ public class District : MonoBehaviour
     [SerializeField] private TMP_Text versaillaisPoints = null;
     [SerializeField] private TMP_Text communardsPoints = null;
     [SerializeField] private RigElectionPanelController rigElectionPanelController;
+    [SerializeField] private ElectionPanelController electionPanelController;
 
     public Animator transition;
 
@@ -157,6 +158,8 @@ public class District : MonoBehaviour
         {
             result = PredictElections();
         }
+
+        electionPanelController.DisplayModal(result, this);
         
         _owner = result.Side == null 
             ? null 
