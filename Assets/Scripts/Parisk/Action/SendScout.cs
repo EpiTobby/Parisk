@@ -14,7 +14,7 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "Permet de connaitre le nombre de points de contr�le d'un arrondissement. Envoyer un �claireur donne " + Convert.ToInt32(ActionCost.SendScout) + " points de contr�le � l'adversaire.";
+            return "Permet de connaitre le nombre de points de controle d'un arrondissement. Envoyer un éclaireur donne " + Convert.ToInt32(ActionCost.SendScout) + " points de controle à l'adversaire.";
         }
 
         public string Image()
