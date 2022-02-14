@@ -16,6 +16,9 @@ public class SendScoutUI : MonoBehaviour
     [SerializeField]
     private Dropdown DistrictDropdown = null;
 
+    [SerializeField]
+    private TurnPanelController _turnPanelController = null;
+
     public SendScout sendScout = null;
     
     // Start is called before the first frame update
@@ -51,6 +54,7 @@ public class SendScoutUI : MonoBehaviour
         District originDistrict = gameController.GetDistricts()[int.Parse(DistrictDropdown.options[DistrictDropdown.value].text) - 1];
         sendScout.SetupExecute(targeted);
         sendScout.Execute(active, originDistrict);
+        _turnPanelController.OnAction();
         panel.SetActive(false);
     }
 }
