@@ -3,11 +3,13 @@ namespace Parisk
     public class Election
     {
         private readonly int _turn;
+        private readonly Side _startingElectionSide;
         private Side? _fakedSide;
 
-        public Election(int turn)
+        public Election(int turn, Side startingElectionSide)
         {
             _turn = turn;
+            _startingElectionSide = startingElectionSide;
         }
 
         public int GetTurn()
@@ -23,6 +25,11 @@ namespace Parisk
         public Side? GetFakedSide()
         {
             return _fakedSide;
+        }
+
+        public Side GetStartingElectionSide()
+        {
+            return _startingElectionSide;
         }
     }
 }
