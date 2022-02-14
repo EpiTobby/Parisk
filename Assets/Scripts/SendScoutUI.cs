@@ -37,7 +37,7 @@ public class SendScoutUI : MonoBehaviour
         Player active = gameController.GetActive();
 
         List<string> options = gameController.GetDistricts()
-            .Where(district => district.GetOwner() == null || district.GetOwner().Side == active.Side)
+            .Where(district => district.GetPointController().GetPointsFor(active.Side) >= 5)
             .Select(district => district.GetNumber().ToString()).ToList();
 
         DistrictDropdown.AddOptions(options);
@@ -47,9 +47,10 @@ public class SendScoutUI : MonoBehaviour
     {
         GameController gameController = GameController.Get();
         Player active = gameController.GetActive();
-        District targeted = gameController.GetDistricts()[int.Parse(DistrictDropdown.options[DistrictDropdown.value].text)];
+        District targeted = gameController.SelectedDistrict;
+        District originDistrict = gameController.GetDistricts()[int.Parse(DistrictDropdown.options[DistrictDropdown.value].text) - 1];
         sendScout.SetupExecute(targeted);
-        sendScout.Execute(active, targeted);
+        sendScout.Execute(active, originDistrict);
         panel.SetActive(false);
     }
 }
