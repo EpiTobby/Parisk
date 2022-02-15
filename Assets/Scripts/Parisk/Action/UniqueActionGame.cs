@@ -83,7 +83,7 @@ namespace Parisk.Action
 
         public override string Image()
         {
-            return "destroy";
+            return "garde";
         }
 
         public override bool CanExecute(Player side, District district)
