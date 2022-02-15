@@ -109,7 +109,9 @@ public class DeployTroopsUI : MonoBehaviour
             Player active = gameController.GetActive();
             District selectedDistrict = gameController.SelectedDistrict;
             District targeted =  gameController.GetDistricts()[int.Parse(DistrictDropdown.options[DistrictDropdown.value].text) - 1];
-            if (deployTroops.SetupExecute(active, GetValueFromInputText(value.text), targeted))
+            if (targeted.GetNextElection() != null)
+                errorText.text = "Vous ne pouvez pas déployer de troupe si une élection est en cours.";
+            else if (deployTroops.SetupExecute(active, GetValueFromInputText(value.text), targeted))
             {
                 errorText.text = "";
                 deployTroops.Execute(active, selectedDistrict);
