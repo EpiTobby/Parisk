@@ -65,11 +65,11 @@ public class GameController : MonoBehaviour
         _actions = new IAction[]
         {
             new CreateNewspaper(),
-            new SpeakerDebate(),
-            new ElectionAction(),
             new Attack(),
             new SendScout(),
             new DeployTroops(),
+            new SpeakerDebate(),
+            new ElectionAction(),
             new PressureOnElected(),
             new RigElection(),
         };
@@ -242,7 +242,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    String GetResult()
+    Side? GetResult()
     {
         int scoreVersaillais = 0;
         int scoreCommunard = 0;
@@ -253,9 +253,9 @@ public class GameController : MonoBehaviour
         }
         if (scoreCommunard != scoreVersaillais)
         {
-            return scoreVersaillais > scoreCommunard ? "LES VERSAILLAIS GAGNENT" : "LES COMMUNARDS GAGNENT";
+            return scoreVersaillais > scoreCommunard ? Side.Versaillais : Side.Communards;
         }
-        return "ÉGALITÉ";
+        return null;
     }
 
     void EndGame()
@@ -263,7 +263,21 @@ public class GameController : MonoBehaviour
         turnNumber.text = " ";
         playerTurnText.text = " ";
         resultPanel.SetActive(true);
-        textResult.text = GetResult();
+        var winningSide = GetResult();
+        if (!winningSide.HasValue)
+        {
+            textResult.text = "ÉGALITÉ";
+        }
+        else if (winningSide! == Side.Communards)
+        {
+            textResult.color = new Color(235f / 255f, 60f / 255f, 1f / 255f);
+            textResult.text = "COMMUNARDS";
+        }
+        else
+        {
+            textResult.color = new Color(9f / 255f, 124f / 255f, 255f / 255f);
+            textResult.text = "VERSAILLAIS";
+        }
     }
 
     public Player GetPlayer(Side side)

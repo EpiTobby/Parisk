@@ -25,6 +25,9 @@ public class DeployTroopsUI : MonoBehaviour
     [SerializeField]
     private TurnPanelController _turnPanelController = null;
 
+    [SerializeField]
+    private Text maxText = null;
+    
     public DeployTroops deployTroops = null;
     
     // Start is called before the first frame update
@@ -51,6 +54,14 @@ public class DeployTroopsUI : MonoBehaviour
         }
     }
 
+    public void MaxTextSetUp()
+    {
+        GameController gameController = GameController.Get();
+        Player active = gameController.GetActive();
+        District selectedDistrict = gameController.SelectedDistrict;
+        int max = selectedDistrict.GetPointController().GetPointsFor(active.Side);
+        maxText.text = "Vous ne pouvez pas déplacer plus de " + max.ToString() + " soldats";
+    }
     public void DistrictDropdownSetUp()
     {
         DistrictDropdown.ClearOptions();
