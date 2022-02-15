@@ -45,6 +45,16 @@ public class ActionScrollView : MonoBehaviour
             button.transform.SetParent(parent.transform, false);
             button.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = action.Name();
             button.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = action.Description();
+            if (action is UniqueActionDistrict)
+            {
+                button.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().color = new Color(215f / 255f, 38f / 255f, 38f / 255f);
+                button.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().color = new Color(215f / 255f, 38f / 255f, 38f / 255f);
+            }
+            if (action is UniqueActionGame)
+            {
+                button.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().color = new Color(57f / 255f, 69f / 255f, 212f / 255f);
+                button.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().color = new Color(57f / 255f, 69f / 255f, 212f / 255f);
+            }
             button.transform.GetChild(2).gameObject.GetComponent<RawImage>().texture = Resources.Load("Images/" + action.Image()) as Texture2D;
             ActionbuttonDictionary.Add(action,button);
             y-=150;

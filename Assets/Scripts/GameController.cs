@@ -72,6 +72,10 @@ public class GameController : MonoBehaviour
             new ElectionAction(),
             new PressureOnElected(),
             new RigElection(),
+            _versaillais.UniqueActionGame,
+            _communard.UniqueActionGame,
+            new ExecutePrisoners(),
+            new DestroyBuilding()
         };
         _actionScrollView.createButtons(_actions);
         playerTurnText.text = "COMMUNARD";

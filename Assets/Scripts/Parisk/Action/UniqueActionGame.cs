@@ -17,9 +17,9 @@ namespace Parisk.Action
             throw new System.NotImplementedException();
         }
 
-        public string Image()
+        public virtual string Image()
         {
-            return "destroy";
+            throw new System.NotImplementedException();
         }
 
         public virtual bool CanExecute(Player side, District district)
@@ -47,7 +47,7 @@ namespace Parisk.Action
                    + " points aux arrondissements possédés.";
         }
 
-        public string Image()
+        public override string Image()
         {
             return "german";
         }
@@ -81,7 +81,7 @@ namespace Parisk.Action
                    + " points aux arrondissements possédés.";
         }
 
-        public string Image()
+        public override string Image()
         {
             return "destroy";
         }
