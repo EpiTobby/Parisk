@@ -26,7 +26,7 @@ namespace Parisk.Action
 
         public void Execute(Player side, District district)
         {
-            district.StartElections();
+            district.StartElections(side.Side);
             
             Logger.LogExecute("Elections", district);
         }

@@ -26,19 +26,19 @@ public class ElectionPanelController : MonoBehaviour
         {
             resultTitle.color = CommunardColor;
             resultTitle.text = "COMMUNARDS";
-            resultText.text = "ont gagné l'élection du " + district.GetNumber() + "e arrondissement.";
+            resultText.text = "ont gagnÃ© l'Ã©lection du " + district.GetNumber() + "e arrondissement.";
         }
         else if (result.Side == Side.Versaillais)
         {
             resultTitle.color = VersaillaisColor;
             resultTitle.text = "VERSAILLAIS";
-            resultText.text = "ont gagné l'élection du " + district.GetNumber() + "e arrondissement.";
+            resultText.text = "ont gagnÃ© l'Ã©lection du " + district.GetNumber() + "e arrondissement.";
         }
         else
         {
             resultTitle.color = AbsenteeismColor;
             resultTitle.text = "PERSONNE";
-            resultText.text = "n'a gagné l'élection du " + district.GetNumber() + "e arrondissement";
+            resultText.text = "n'a gagnÃ© l'Ã©lection du " + district.GetNumber() + "e arrondissement";
         }
         gameObject.SetActive(true);
         

@@ -192,6 +192,7 @@ public class GameController : MonoBehaviour
             playerTurn.color = VersaillaisColor;
         }
         _active.ExecutedActions.Clear();
+        ProcessOnGoingElections();
     }
 
     void NextTurn()
@@ -203,7 +204,6 @@ public class GameController : MonoBehaviour
         else
         {
             turnNumber.text = "Tour " + _turn;
-            ProcessOnGoingElections();
             ApplyInfluence();
             _eventController.HandleEvents(_turn);
         }
@@ -228,7 +228,10 @@ public class GameController : MonoBehaviour
     {
         foreach (var district in _districts)
         {
-            if (district.GetNextElection() != null && district.GetNextElection()!.GetTurn() == _turn)
+            Election districtElection = district.GetNextElection();
+            if ( districtElection!= null 
+                && districtElection!.GetTurn() == _turn
+                && districtElection.GetStartingElectionSide() == _active.Side)
             {
                 district.DoElections();
             }

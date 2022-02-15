@@ -8,8 +8,8 @@ public class RigElectionPanelController : MonoBehaviour
 {
     [SerializeField] private Text resultTitle;
     [SerializeField] private Text resultText;
-    private const string successText = "Vous avez réussi à truquer l'élection !";
-    private const string failureText = "Vous n'avez pas réussi à truquer l'élection.";
+    private const string successText = "Vous avez rÃ©ussi Ã  truquer l'Ã©lection !";
+    private const string failureText = "Vous n'avez pas rÃ©ussi Ã  truquer l'Ã©lection.";
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +21,12 @@ public class RigElectionPanelController : MonoBehaviour
     {
         if (success)
         {
-            resultTitle.text = "SUCCÈS";
+            resultTitle.text = "SUCCÃˆS";
             resultText.text = successText;
         }
         else
         {
-            resultTitle.text = "ÉCHEC";
+            resultTitle.text = "Ã‰CHEC";
             resultText.text = failureText;
         }
         gameObject.SetActive(true);

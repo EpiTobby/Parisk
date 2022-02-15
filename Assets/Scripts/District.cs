@@ -286,11 +286,11 @@ public class District : MonoBehaviour
 
    
 
-    public void StartElections()
+    public void StartElections(Side startingElectionSide)
     {
         if (_nextElection != null)
             throw new Exception("Elections already in progress in district " + number);
-        _nextElection = new Election(GameController.Get().GetTurn() + 1);
+        _nextElection = new Election(GameController.Get().GetTurn() + 1, startingElectionSide);
     }
 
     [CanBeNull]
