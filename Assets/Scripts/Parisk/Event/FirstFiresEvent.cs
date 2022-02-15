@@ -12,8 +12,8 @@ namespace Parisk.Event
         public string Description()
         {
             var amount = Convert.ToInt32(EventCost.DestroyBuildingOnEvent);
-            return "Destruction du bâtiment « Rue Royale », faisant gagner " + amount + " points au joueur" +
-                   "controlant l'arrondissement du bâtiment";
+            return "Destruction du bâtiment « Rue Royale », faisant perdre " + amount + " points aux " +
+                   "versaillais s'ils ne contrôlent pas le 8e arrondissement";
         }
 
         public int Turn()
