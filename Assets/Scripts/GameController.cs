@@ -65,11 +65,11 @@ public class GameController : MonoBehaviour
         _actions = new IAction[]
         {
             new CreateNewspaper(),
-            new SpeakerDebate(),
-            new ElectionAction(),
             new Attack(),
             new SendScout(),
             new DeployTroops(),
+            new SpeakerDebate(),
+            new ElectionAction(),
             new PressureOnElected(),
             new RigElection(),
         };
