@@ -29,6 +29,7 @@ public class TurnPanelController : MonoBehaviour, EventObserver
     {
         _actionCount++;
         UpdateNextTurnButton();
+        GameController.Get().UnselectDistrict();
     }
 
     private void UpdateNextTurnButton()
