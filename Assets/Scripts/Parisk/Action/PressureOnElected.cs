@@ -7,12 +7,12 @@ namespace Parisk.Action
     {
         public string Name()
         {
-            return "Pression sur les élus";
+            return "Pression sur les Ã©lus";
         }
 
         public string Description()
         {
-            return "Faire pression sur les élus et gagner " + Convert.ToInt32(ActionCost.PressureOnElected) + " points de contrôle.";
+            return "Faire pression sur les Ã©lus et gagner " + Convert.ToInt32(ActionCost.PressureOnElected) + " points de contrÃ´le.";
         }
 
         public bool CanExecute(Player side, District district)
@@ -20,10 +20,17 @@ namespace Parisk.Action
             return true;
         }
 
+        public string Image()
+        {
+            return "pressure";
+        }
+
         public void Execute(Player side, District district)
         {
             var amount = Convert.ToInt32(ActionCost.PressureOnElected);
-            district.getPointController().AddPointsTo(side.Side, amount);
+            district.AddPointsTo(side.Side, amount);
+            
+            Logger.LogExecute("Pressure on elected", district);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
@@ -7,36 +8,51 @@ using Parisk;
 using Parisk.Action;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = System.Random;
 
 public class GameController : MonoBehaviour
 {
     private int _turn = 1;
     
     [SerializeField]
-    private TextMeshProUGUI playerTurnText = null;
-    
+    private Text playerTurnText = null;
+    [SerializeField]
+    private Image playerTurn = null;
+
+    private Color VersaillaisColor = new Color(57f / 255f, 69f / 255f, 212f / 255f);
+    private Color CommunardColor = new Color(215f / 255f, 38f / 255f, 38f / 255f);
+
     [SerializeField]
     private TextMeshProUGUI turnNumber = null;
 
-    [SerializeReference] private EventController eventController = null;
+    private EventController _eventController;
 
     [SerializeField]
-    private TextMeshProUGUI textResult = null;
+    private Text textResult = null;
     private Player _versaillais = null;
     private Player _communard = null;
     private Player _active = null;
     
     [SerializeField]
     private GameObject resultPanel = null;
+
+    [SerializeField] private new GameObject light;
     
-    private ControlPointContainer _controlPointContainer;
     [CanBeNull] public District SelectedDistrict { get; set; }
     [SerializeField] private DistrictSelectionPanelController _districtSelectionPanelController;
 
     private List<District> _districts;
     
     private IAction[] _actions;
-    
+
+    [SerializeField]
+    private ActionScrollView _actionScrollView = null;
+
+    [SerializeField] private EventPanelControler eventPanelController;
+
+    private readonly List<EventObserver> _observers = new List<EventObserver>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,29 +60,57 @@ public class GameController : MonoBehaviour
         _versaillais = new Player(Side.Versaillais);
         _communard = new Player(Side.Communards);
         _active = _communard;
-        initDistrict();
+        InitDistrict();
+        _eventController = new EventController();
         _actions = new IAction[]
         {
             new CreateNewspaper(),
             new SpeakerDebate(),
             new ElectionAction(),
             new Attack(),
-            new PressureOnElected(),
             new SendScout(),
             new DeployTroops(),
+            new PressureOnElected(),
+            new RigElection(),
         };
+        _actionScrollView.createButtons(_actions);
         playerTurnText.text = "COMMUNARD";
     }
 
-    void initDistrict()
+    void InitOwnerDistrict()
+    {
+        List<int> communardDistricts = new List<int>(){10, 11, 12, 13, 18, 19, 20};
+        List<int> versaillaisDistricts = new List<int>(){1, 2, 3, 9, 15, 16};
+        
+        int random = new Random().Next(communardDistricts.Count);
+        int value = communardDistricts[random];
+        _districts[value - 1].SetOwner(_communard);
+        _districts[value - 1].GetPointController().SetInitialPoints(Side.Communards);
+        communardDistricts.RemoveAt(random);
+
+        int closest = communardDistricts.OrderBy(district => Math.Abs(value - district)).First();
+        _districts[closest - 1].SetOwner(_communard);
+        _districts[closest - 1].GetPointController().SetInitialPoints(Side.Communards);
+
+        random = new Random().Next(versaillaisDistricts.Count);
+        value = versaillaisDistricts[random];
+        _districts[value - 1].SetOwner(_versaillais);
+        _districts[value - 1].GetPointController().SetInitialPoints(Side.Versaillais);
+        versaillaisDistricts.RemoveAt(random);
+        
+        closest = versaillaisDistricts.OrderBy(district => Math.Abs(value - district)).First();
+        _districts[closest - 1].SetOwner(_versaillais);
+        _districts[closest - 1].GetPointController().SetInitialPoints(Side.Versaillais);
+    }
+
+    void InitDistrict()
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("District");
         _districts = objects.Select(obj => obj.GetComponent<District>()).ToList();
         _districts = _districts.OrderBy(district => district.GetNumber()).ToList();
-        _districts[14].SetOwner(_versaillais);
-        _districts[15].SetOwner(_versaillais);
-        _districts[17].SetOwner(_communard);
-        _districts[18].SetOwner(_communard);
+
+        InitOwnerDistrict();
+        
         List<List<int>> districtAdjLists = new List<List<int>>()
         {
             new List<int>{2,3,4,6,7,8},
@@ -104,16 +148,24 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            endActivePlayerTurn();
+            EndActivePlayerTurn();
+        }
+        if (Input.GetKeyDown("e"))
+        {
+            EndGame();
+        }
+        if (Input.GetKeyDown("a"))
+        {
+            _observers.ForEach(observer => observer.OnAction());
         }
     }
 
-    District[] getPlayerdistrict(Player player)
+    public District[] GetPlayerDistrict(Player player)
     {
         return _districts.Where(district => player.Equals(district.GetOwner())).ToArray();
     }
 
-    void applyInfluence()
+    void ApplyInfluence()
     {
         foreach (District district in _districts)
         {
@@ -123,73 +175,95 @@ public class GameController : MonoBehaviour
             foreach (District adj in district.adj)
             {
                 Debug.Log(district.GetNumber() + " influences " + adj.GetNumber());
-                adj.getPointController().AddPointsTo(district.GetOwner().Side,2);
+                adj.AddPointsTo(district.GetOwner().Side,2);
             }
         }
     }
 
-    void endActivePlayerTurn()
+    public void EndActivePlayerTurn()
     {
         if (_active.Side == Side.Versaillais)
         {
+            _active = _communard;
             playerTurnText.text = "COMMUNARD";
-            nextTurn();
+            playerTurn.color = CommunardColor;
+            NextTurn();
         }
         else
         {
             _active = _versaillais;
             playerTurnText.text = "VERSAILLAIS";
+            playerTurn.color = VersaillaisColor;
         }
+        _active.ExecutedActions.Clear();
+        ProcessOnGoingElections();
     }
-    void nextTurn()
+
+    void NextTurn()
     {
-        Debug.Log("Turn " + _turn + " ended.");
         _turn++;
+        StartCoroutine(AnimateLight());
         if (_turn >= 73)
-            endGame();
+            EndGame();
         else
         {
-            turnNumber.text = "Turn " + _turn;
-            ProcessOnGoingElections();
-            applyInfluence();
-            _active = _communard;
-            eventController.HandleEvents(_turn);
+            turnNumber.text = "Tour " + _turn;
+            ApplyInfluence();
+            _eventController.HandleEvents(_turn);
         }
+    }
+
+    private IEnumerator AnimateLight()
+    {
+        var rigidBody = light.GetComponent<Rigidbody>();
+        rigidBody.AddForce(0, 0, 2000f);
+        Debug.Log(light.transform.position.z);
+        while (light.transform.position.z < 50)
+            yield return null;
+        rigidBody.transform.Translate(0, 0, -100f, Space.World);
+        rigidBody.AddForce(0, 0, 2000f);
+        while (light.transform.position.z < -7)
+            yield return null;
+        rigidBody.velocity = new Vector3(0, 0, 0);
+        rigidBody.transform.position = new Vector3(-5.4f, 17.76f, -7.13f);
     }
 
     private void ProcessOnGoingElections()
     {
         foreach (var district in _districts)
         {
-            if (district.GetNextElection() != null && district.GetNextElection()!.GetTurn() == _turn)
+            Election districtElection = district.GetNextElection();
+            if ( districtElection!= null 
+                && districtElection!.GetTurn() == _turn
+                && districtElection.GetStartingElectionSide() == _active.Side)
             {
                 district.DoElections();
             }
         }
     }
 
-    String getResult()
+    String GetResult()
     {
         int scoreVersaillais = 0;
         int scoreCommunard = 0;
         foreach (District district in _districts)
         {
-            scoreVersaillais += district.getPointController().GetPointsFor(_versaillais.Side);
-            scoreCommunard += district.getPointController().GetPointsFor(_communard.Side);
+            scoreVersaillais += district.GetPointController().GetPointsFor(_versaillais.Side);
+            scoreCommunard += district.GetPointController().GetPointsFor(_communard.Side);
         }
         if (scoreCommunard != scoreVersaillais)
         {
-            return scoreVersaillais > scoreCommunard ? "VERSAILLAIS WINS" : "COMMUNARD WINS";
+            return scoreVersaillais > scoreCommunard ? "LES VERSAILLAIS GAGNENT" : "LES COMMUNARDS GAGNENT";
         }
-        return "IT'S A DRAW!";
+        return "ÉGALITÉ";
     }
 
-    void endGame()
+    void EndGame()
     {
         turnNumber.text = " ";
         playerTurnText.text = " ";
         resultPanel.SetActive(true);
-        textResult.text = getResult();
+        textResult.text = GetResult();
     }
 
     public Player GetPlayer(Side side)
@@ -216,9 +290,42 @@ public class GameController : MonoBehaviour
             _districtSelectionPanelController.Hide();
     }
 
+    public void UnselectDistrict()
+    {
+        SelectDistrict(null);
+    }
+
     public int GetTurn()
     {
         return _turn;
+    } 
+    
+    public Player GetActive()
+    {
+        return _active;
+    }
+
+    public void RegisterEventObserver(EventObserver eventObserver)
+    {
+        _observers.Add(eventObserver);
+    }
+
+    public void ExecuteAction(Player player, IAction action, District district)
+    {
+        action.Execute(player, district);
+        player.ExecutedActions[district] = action;
+        _observers.ForEach(observer => observer.OnAction());
+        SelectDistrict(null);
+    }
+
+    public List<District> GetDistricts()
+    {
+        return _districts;
+    }
+
+    public EventPanelControler GetEventPanelController()
+    {
+        return eventPanelController;
     }
 
     public static GameController Get()

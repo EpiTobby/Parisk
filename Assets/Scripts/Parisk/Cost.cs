@@ -12,8 +12,12 @@ namespace Parisk
         SendScout = 5,
         AttackMin = 10,
         AttackMax = 20,
+        AttackFailRate = 30,
         GermanPact = 20,
         NationalGuardReinstatement = 20,
+        RigElectionSuccessRate = 15,
+        RigElectionSuccess = 30,
+        RigElectionFailure = 15,
     }
 
     public enum EventCost

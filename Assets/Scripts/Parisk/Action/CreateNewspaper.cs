@@ -18,6 +18,11 @@ namespace Parisk.Action
                    + " points de controle par arrondissement adjacent controlé";
         }
 
+        public string Image()
+        {
+            return "newspaper";
+        }
+
         public bool CanExecute(Player side, District district)
         {
             return true;
@@ -27,8 +32,10 @@ namespace Parisk.Action
         {
             int amountControl = Convert.ToInt32(ActionCost.CreateNewsPaperControl) * district.adj.Count;
             
-            district.getPointController().AddPointsTo(side.Side, amountControl);
+            district.AddPointsTo(side.Side, amountControl);
             district.UpdateInertiaPoints(Convert.ToInt32(ActionCost.CreateNewsPaperInertia), true);
+            
+            Logger.LogExecute("Create Newspaper", district);
         }
     }
 }
