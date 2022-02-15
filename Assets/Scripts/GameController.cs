@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
     private EventController _eventController;
 
     [SerializeField]
-    private TextMeshProUGUI textResult = null;
+    private Text textResult = null;
     private Player _versaillais = null;
     private Player _communard = null;
     private Player _active = null;
