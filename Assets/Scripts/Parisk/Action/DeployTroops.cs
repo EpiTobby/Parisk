@@ -15,8 +15,7 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "Transfère des points de controle d’un arrondissement possédé vers un arrondissement non ennemi." + 
-                   " Les points perdus dans l’arrondissement de départ sont complétés à moitié par l’ennemi et à moitié par l’absenteisme.";
+            return "Transfère des points de contrôle d’un arrondissement possédé vers un arrondissement neutre.";
         }
 
         public string Image()
