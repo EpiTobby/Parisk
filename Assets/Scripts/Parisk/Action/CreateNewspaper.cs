@@ -13,10 +13,9 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "Créer un journal rapport: " 
-                   + Convert.ToInt32(ActionCost.CreateNewsPaperInertia) 
-                   + " en inertie politique " + Convert.ToInt32(ActionCost.CreateNewsPaperControl) 
-                   + " points de controle par arrondissement adjacent controlé";
+            return "+" + Convert.ToInt32(ActionCost.CreateNewsPaperInertia) 
+                       + " inertie politique. +" + Convert.ToInt32(ActionCost.CreateNewsPaperControl) 
+                       + " points de contrôle par arrondissement adjacent contrôlé";
         }
 
         public string Image()
