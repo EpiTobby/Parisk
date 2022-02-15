@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using DefaultNamespace;
 
 namespace Parisk.Action
@@ -30,7 +31,8 @@ namespace Parisk.Action
 
         public void Execute(Player side, District district)
         {
-            int amountControl = Convert.ToInt32(ActionCost.CreateNewsPaperControl) * district.adj.Count;
+            var adjCount = district.adj.Count(adj => side.Equals(adj.GetOwner()));
+            var amountControl = Convert.ToInt32(ActionCost.CreateNewsPaperControl) * adjCount;
             
             district.AddPointsTo(side.Side, amountControl);
             district.UpdateInertiaPoints(Convert.ToInt32(ActionCost.CreateNewsPaperInertia), true);
