@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
     private EventController _eventController;
 
     [SerializeField]
-    private TextMeshProUGUI textResult = null;
+    private Text textResult = null;
     private Player _versaillais = null;
     private Player _communard = null;
     private Player _active = null;
@@ -85,18 +85,22 @@ public class GameController : MonoBehaviour
         int random = new Random().Next(communardDistricts.Count);
         int value = communardDistricts[random];
         _districts[value - 1].SetOwner(_communard);
+        _districts[value - 1].GetPointController().SetInitialPoints(Side.Communards);
         communardDistricts.RemoveAt(random);
 
         int closest = communardDistricts.OrderBy(district => Math.Abs(value - district)).First();
         _districts[closest - 1].SetOwner(_communard);
-        
+        _districts[closest - 1].GetPointController().SetInitialPoints(Side.Communards);
+
         random = new Random().Next(versaillaisDistricts.Count);
         value = versaillaisDistricts[random];
         _districts[value - 1].SetOwner(_versaillais);
+        _districts[value - 1].GetPointController().SetInitialPoints(Side.Versaillais);
         versaillaisDistricts.RemoveAt(random);
         
         closest = versaillaisDistricts.OrderBy(district => Math.Abs(value - district)).First();
         _districts[closest - 1].SetOwner(_versaillais);
+        _districts[closest - 1].GetPointController().SetInitialPoints(Side.Versaillais);
     }
 
     void InitDistrict()
@@ -192,6 +196,7 @@ public class GameController : MonoBehaviour
             playerTurn.color = VersaillaisColor;
         }
         _active.ExecutedActions.Clear();
+        ProcessOnGoingElections();
     }
 
     void NextTurn()
@@ -203,7 +208,6 @@ public class GameController : MonoBehaviour
         else
         {
             turnNumber.text = "Tour " + _turn;
-            ProcessOnGoingElections();
             ApplyInfluence();
             _eventController.HandleEvents(_turn);
         }
@@ -228,7 +232,10 @@ public class GameController : MonoBehaviour
     {
         foreach (var district in _districts)
         {
-            if (district.GetNextElection() != null && district.GetNextElection()!.GetTurn() == _turn)
+            Election districtElection = district.GetNextElection();
+            if ( districtElection!= null 
+                && districtElection!.GetTurn() == _turn
+                && districtElection.GetStartingElectionSide() == _active.Side)
             {
                 district.DoElections();
             }
