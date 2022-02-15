@@ -34,12 +34,6 @@ public class District : MonoBehaviour
 
     private Election _nextElection;
 
-    private UniqueActionDistrict[] _uniqueActionDistrict =
-    {
-        new DestroyBuilding(), 
-        new ExecutePrisoners(), 
-    };
-
     private bool _alreadyDoneUniqueActionDistrict = false;
 
     private void Awake()
@@ -210,11 +204,6 @@ public class District : MonoBehaviour
     public void ExecuteUniqueActionDistrict()
     {
         _alreadyDoneUniqueActionDistrict = true;
-    }
-
-    public UniqueActionDistrict GetUniqueActionDistrict()
-    {
-        return _uniqueActionDistrict[Convert.ToInt32(_owner.Side)];
     }
 
     public void UpdateControlPointsOnEvent(int amount, bool adding)
