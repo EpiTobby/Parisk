@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using DefaultNamespace;
 
 namespace Parisk.Action
@@ -12,10 +13,9 @@ namespace Parisk.Action
 
         public string Description()
         {
-            return "Créer un journal rapport: " 
-                   + Convert.ToInt32(ActionCost.CreateNewsPaperInertia) 
-                   + " en inertie politique " + Convert.ToInt32(ActionCost.CreateNewsPaperControl) 
-                   + " points de controle par arrondissement adjacent controlé";
+            return "+" + Convert.ToInt32(ActionCost.CreateNewsPaperInertia) 
+                       + " inertie politique. +" + Convert.ToInt32(ActionCost.CreateNewsPaperControl) 
+                       + " points de contrôle par arrondissement adjacent contrôlé";
         }
 
         public string Image()
@@ -30,7 +30,8 @@ namespace Parisk.Action
 
         public void Execute(Player side, District district)
         {
-            int amountControl = Convert.ToInt32(ActionCost.CreateNewsPaperControl) * district.adj.Count;
+            var adjCount = district.adj.Count(adj => side.Equals(adj.GetOwner()));
+            var amountControl = Convert.ToInt32(ActionCost.CreateNewsPaperControl) * adjCount;
             
             district.AddPointsTo(side.Side, amountControl);
             district.UpdateInertiaPoints(Convert.ToInt32(ActionCost.CreateNewsPaperInertia), true);
