@@ -61,6 +61,7 @@ public class ActionScrollView : MonoBehaviour
                 pair.Value.GetComponent<Button>().onClick.RemoveAllListeners();
                 if (pair.Key is DeployTroops)
                 {
+                    deployTroopsUI.MaxTextSetUp();
                     deployTroopsUI.DistrictDropdownSetUp();
                     pair.Value.GetComponent<Button>().onClick.AddListener(() =>
                     {
