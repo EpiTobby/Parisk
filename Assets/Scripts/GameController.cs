@@ -83,8 +83,8 @@ public class GameController : MonoBehaviour
 
     void InitOwnerDistrict()
     {
-        List<int> communardDistricts = new List<int>(){10, 11, 12, 13, 18, 19, 20};
-        List<int> versaillaisDistricts = new List<int>(){1, 2, 3, 9, 15, 16};
+        List<int> communardDistricts = new List<int>(){18, 19, 20, 11, 12};
+        List<int> versaillaisDistricts = new List<int>(){14, 15, 16, 17};
         
         int random = new Random().Next(communardDistricts.Count);
         int value = communardDistricts[random];
